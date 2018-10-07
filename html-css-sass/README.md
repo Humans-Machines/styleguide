@@ -465,32 +465,58 @@ Finally, properties are what give the selected elements of a rule declaration th
     #nav {}
     .author {}
 
-#### Type Selectors
+#### Selectors
 
-- Avoid qualifying ID and class names with type selectors
+- Never style IDs, style type selectors only for reset purposes
+- Avoid qualifying class names with type selectors
+- Use combined selectors wisely
 - Avoiding unnecessary ancestor selectors is useful for performance reasons
 
 **Don’t**
 
-```css
-    ul#example {}
+
+    /* Don’t: Use of IDs for styling */
+    #header-nav {}
+    
+    /* Don’t: qualifying ID and class names with type selectors */
     div.error {}
-```
+    
+    /* Don’t: Use type selectors for specific styles: poor Selector Intent */
+    header ul { 
+        // styles for header navi
+    }
+
 
 **Do**
+    
+    /* Do: Use classes instead of IDs or type selectors */
+    .header__nav {
+        // styles for header navi
+    }
+    
+    /* Do: Use type selectors for resets */
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-weight: 100;
+    }
+    
+    a {
+        color: inherit;
+    }
 
-```css
-    #example {}
-    .error {}
-```
+    
 
+
+The difference in speed between an ID and a class is almost totally irrelevant. But IDs are much too specific to be used in styling CSS.
+
+https://csswizardry.com/2011/09/writing-efficient-css-selectors/
 
 # info on selectors
 
-CSS Selectors
 Perhaps somewhat surprisingly, one of the most fundamental, critical aspects of writing maintainable and scalable CSS is selectors. Their specificity, their portability, and their reusability all have a direct impact on the mileage we will get out of our CSS, and the headaches it might bring us.
 
-Selector Intent
 It is important when writing CSS that we scope our selectors correctly, and that we’re selecting the right things for the right reasons. Selector Intent is the process of deciding and defining what you want to style and how you will go about selecting it. For example, if you are wanting to style your website’s main navigation menu, a selector like this would be incredibly unwise:
 
 header ul { }
@@ -938,3 +964,4 @@ https://google.github.io/styleguide/htmlcssguide.html
 https://cssguidelin.es/
 https://spaceninja.com/2018/09/17/what-is-modular-css/
 https://github.com/airbnb/css
+http://codeguide.co/
