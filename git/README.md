@@ -4,6 +4,25 @@ These guidelines should help you and us to work together on certain projects.
 
 Some parts of these guidelines are inspired by two great articles: [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) and [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 
+## Table of contents
+
+- [Projects](#projects)
+- [Git Workflow](#git-workflow)
+ * [General](#general)
+ * [Feature](#feature)
+ * [Release](#release)
+ * [Hotfix](#hotfix)
+ * [Futher reading](#futher-reading)
+- [Git commit messages](#git-commit-messages)
+ * [1. Keep commits atomic](#1-keep-commits-atomic)
+ * [2. Limit the subject line to 50 characters](#2-limit-the-subject-line-to-50-characters)
+ * [3. Capitalize the subject line](#3-capitalize-the-subject-line)
+ * [4. Do not end the subject line with a period](#4-do-not-end-the-subject-line-with-a-period)
+ * [5. Use the imperative mood in the subject line](#5-use-the-imperative-mood-in-the-subject-line)
+ * [7. Use the body to explain what and why vs. how](#7-use-the-body-to-explain-what-and-why-vs-how)
+ * [8. Meta commits (tbd.)](#8-meta-commits--tbd-)
+ * [Further reading](#further-reading)
+
 ## Projects
 
 We use Gitlab to manage our own projects. It can be accessed via [https://git.humans.am](https://git.humans.am)
