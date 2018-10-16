@@ -185,6 +185,19 @@ In most cases, you can leave out details about how a change has been made. Code 
 
 The future maintainer that thanks you may be yourself!
 
+### 8. Meta commits (tbd.)
+Sometimes you need to commit code changes, that are not actually functional changes. This could be a version bump, updated codestyle or a typo fix. Therefore these commits must not follow the rules above. Instead, they should wrapped in braces
+
+Examples:
+* [typo]
+* [codestyle]
+* [bump version to x.y.z]
+* [docs]
+* [skip ci]
+
+**CAUTION:** Meta commits have to be atomic as well. For example, codestyle changes should never be mixed up with functional changes. Or a version bump should only change the related version file, nothing else.
+
+
 ### Further reading
 
 * [https://www.freshconsulting.com/atomic-commits/](https://www.freshconsulting.com/atomic-commits/ "Developer Tip: Keep Your Commits 'Atomic'")
