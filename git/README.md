@@ -1,6 +1,6 @@
 # Guidelines for working with GIT
 
-These guidelines should help you and us to work together on certain projects.
+These guidelines should help you and us to work together on cool projects.
 
 Some parts of these guidelines are inspired by two great articles: [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) and [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 
@@ -12,22 +12,23 @@ Some parts of these guidelines are inspired by two great articles: [How to Write
   * [Feature](#feature)
   * [Release](#release)
   * [Hotfix](#hotfix)
-  * [Futher reading](#futher-reading)
-- [Git commit messages](#git-commit-messages)
+  * [Further reading](#further-reading)
+- [Git commits and messages](#git-commits-and-messages)
   * [1. Keep commits atomic](#1-keep-commits-atomic)
-  * [2. Limit the subject line to 50 characters](#2-limit-the-subject-line-to-50-characters)
-  * [3. Capitalize the subject line](#3-capitalize-the-subject-line)
-  * [4. Do not end the subject line with a period](#4-do-not-end-the-subject-line-with-a-period)
-  * [5. Use the imperative mood in the subject line](#5-use-the-imperative-mood-in-the-subject-line)
+  * [2. Commit working code only](#2-commit-working-code-only)
+  * [3. Limit the subject line to 50 characters](#3-limit-the-subject-line-to-50-characters)
+  * [4. Capitalize the subject line](#4-capitalize-the-subject-line)
+  * [5. Do not end the subject line with a period](#5-do-not-end-the-subject-line-with-a-period)
+  * [6. Use the imperative mood in the subject line](#6-use-the-imperative-mood-in-the-subject-line)
   * [7. Use the body to explain what and why vs. how](#7-use-the-body-to-explain-what-and-why-vs-how)
   * [8. Meta commits (tbd.)](#8-meta-commits--tbd-)
-  * [Further reading](#further-reading)
+  * [Further reading](#further-reading-1)
 
 ## Projects
 
 We use Gitlab to manage our own projects. It can be accessed via [https://git.humans.am](https://git.humans.am)
 
-Repositories are grouped by clients. If you would like to create a new repository, make sure that there is an existing group for the client. If not, create the group and tell the other Humans that there is a new group for the client. Also make sure, that you assign yourself and all the poeple who are involved in this project. New projects should always have the **Visibility Level** set to **Private**.
+Repositories are grouped by clients. If you would like to create a new repository, make sure that there is an existing group for the client. If not, create the group and tell the other Humans that created the clients group. Also make sure, that you assign yourself and all poeple who are involved in this project. New projects should always have the **Visibility Level** set to **Private**.
 
 An example for a valid project path is `humans/website-prototype`.
 
