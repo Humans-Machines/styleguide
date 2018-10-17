@@ -85,14 +85,17 @@ Add dependency and include some API method with small fixes
 
 // Good
 Add composer dependency for some API
-Implement some API to country by user IP
-Fix an issue where dependency could not be loaded
+Implement some API to fetch some information
+Fix an issue where API could not be accessed
 ```
 
-### 2. Limit the subject line to 50 characters
+### 2. Commit working code only
+Only working code should find his way into the `develop` branch. If you would like to try things, based on the projects codebase, create a `feature` branch. Feel free to test things in a `feature` branch. But before merging to `develop`, the code should be working and should not cause any regressions.
+
+### 3. Limit the subject line to 50 characters
 50 characters is not a hard limit, just a rule of thumb. Keeping subject lines at this length ensures that they are readable, and forces the author to think for a moment about the most concise way to explain what’s going on.
 
-### 3. Capitalize the subject line
+### 4. Capitalize the subject line
 This is as simple as it sounds. Begin all subject lines with a capital letter.
 
 ```
@@ -103,7 +106,7 @@ accelerate to 88 miles per hour
 Accelerate to 88 miles per hour
 ```
 
-### 4. Do not end the subject line with a period
+### 5. Do not end the subject line with a period
 Trailing punctuation is unnecessary in subject lines. Besides, space is precious when you’re trying to keep them to 50 chars or less.
 
 ```
@@ -114,7 +117,7 @@ Open the pod bay doors.
 Open the pod bay doors
 ```
 
-### 5. Use the imperative mood in the subject line
+### 6. Use the imperative mood in the subject line
 Imperative mood just means “spoken or written as if giving a command or instruction”. A few examples:
 
 * Clean your room
@@ -205,7 +208,7 @@ In most cases, you can leave out details about how a change has been made. Code 
 The future maintainer that thanks you may be yourself!
 
 ### 8. Meta commits (tbd.)
-Sometimes you need to commit code changes, that are not actually functional changes. This could be a version bump, updated codestyle or a typo fix. Therefore these commits must not follow the rules above. Instead, they should wrapped in braces
+Sometimes you need to commit code changes, that are not actually functional changes. This could be a version bump, updated codestyle or a typo fix. Therefore these commits must not follow the rules above. Instead, they should be wrapped in braces.
 
 Examples:
 * [typo]
