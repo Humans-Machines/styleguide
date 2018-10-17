@@ -41,43 +41,43 @@ Projects should have a `README.md` at the root of the project. The readme file s
 ## Git Workflow
 
 ### General
-We use gitflow to manage branches in our project repository. Every project repository must at least have a `master` and a `develop` branch. `develop` must be set as default branch in Gitlab (*Settings > General > General project*).
+We use gitflow to manage branches in our projects repository. Every project repo must at least have a `master` and a `develop` branch. `develop` must be set as default branch in Gitlab (*Settings > General > General project*).
 
 ### Feature
-Single commits could be made directly to `develop` branch. Anything else, including new features or bigger changes ,must be developed inside a feature branch. Feature branches are prefixed with `feature/` and must be named using kebap-case. A valid feature name is for example `feature/my-cool-feature`.
+Single commits could be made directly to `develop` branch. Anything else, including new features or bigger changes, must be developed inside a `feature` branch. Feature branches are prefixed with `feature/` and must be named using kebap-case. A valid feature name is for example `feature/some-api-changes`.
 
 ### Release
-Before creating a release branch, make an anouncement on Skype, Slack or Whatsapp that you're planning to make a release. Others, who are involved in this project, will have the chance to also include changes in the release. We use [Semver](https://semver.org/) for versioning releases and hotfixes. Most likely a release is a minor change to the project, so the minor version number should be increased by one.
+Before creating a release branch, make an anouncement on Skype, Slack or Whatsapp that you're planning to make a release. Others, who are involved in this project, will have the chance to include their changes in the release. We use [Semver](https://semver.org/) for versioning releases and hotfixes. Most likely a release is a minor change to the project, so the minor version number should be increased by one.
 
 Example: Develop is: `1.24.3`. Release should be: `1.25.0`
 
-The new release branch, created through gitflow, must be named `release/x.y.z`. Therefore the first commit inside the branch must be the version bump. In most projects, the version is stored inside `package.json` and should be changed here. Further commits in the release branch should contain only comsetic changes. Merging features is therefore not allowed in the release branch.
-Before finishing the release the `release` branch should be compared with the `master`, in order to check and verify all the changes in the release. If the release contains changes of another contributor, talk to the person to make sure the changes won't cause any regressions.
+The new release branch, created through gitflow, must be named `release/x.y.z`. Therefore the first commit inside the branch must be the version bump. In most projects, the version is stored inside `package.json` and should be changed here. Further commits in the `release` branch should contain only comsetic changes. Merging features is therefore not allowed in the `release` branch.
+Before finishing the release the current `release` branch should be compared with the `master`, in order to check and verify all the changes in the release. If the release contains changes of another contributors, talk to the persons to make sure the changes won't cause any regressions.
 
-Dependant of the project, the release branch, in specific the tag, might be auto-deployed to the live system. If this is not the case, checkout the fresh `tag` that was created through this release.
+Dependant of the project, the release branch, in specific the tag, might be auto-deployed to a live environment. If this is not the case, checkout the fresh `tag` that was created with this release.
+
+If something is not working as intended, rollback the release to the prior tag or create a hotfix.
 
 ### Hotfix
-By default, we dont write bugs. But there might be some cases where a hotfix is necessary. In this cases, start a new hotfix with gitflow from `master` branch and only from `master` branch. Like for releases, use Semver to bump the patch verison number by one.
+By default, we dont write bugs. But there might be some cases where a hotfix might be necessary. In this cases, start a new hotfix with gitflow from `master` branch and only from `master` branch. Like for releases, use Semver to bump the patch verison number by one.
 
 Example: Master is: `1.25.0`. Hotfix should be: `1.25.1`
 
 The hotfix branch must be named `hotfix/x.y.z`. Everything else mentioned in the [Release](#release) section also applies for a `hotfix` branch.
 
-**CAUTION:** If there is an active `release` branch, make sure that the `hotfix` branch gets merged into the active `release` branch. This could be done by merging the `master` into the `hotfix` branch. There will be a conflict for the file, that contains the version number. Make sure to the version number of the `release` branch.
+**CAUTION:** If there is an active `release` branch, make sure that the `hotfix` branch gets merged into the active `release` branch. This could be done by merging the `master` into the `hotfix` branch. There will be a conflict for the file, that contains the version number. Make sure to use the version number of the `release` branch.
 
-### Futher reading
-Further information about gitflow and branching could be found here:
+### Further reading
 
 * [https://nvie.com/posts/a-successful-git-branching-model/](https://nvie.com/posts/a-successful-git-branching-model/ "A successful Git branching model")
 * [https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow "Gitflow Workflow | Atlassian Git Tutorial")
 
 
-## Git commit messages
-Great commit message help others to understand changes without reviewing all code changes of a commit. Messages like *Stuff*, *Many changes* or *[no message]* are quite the opposite. Always keep in mind that other Humans (mostly not Machines) might participate in a project. Even if you started the project on your own, there might the point when someone joins the project to assist you.
+## Git commits and messages
+Great commit message help others to understand changes without reviewing all code changes of a commit. Messages like *Stuff*, *Many changes* or *[no message]* are quite the opposite. Always keep in mind that other Humans (mostly not Machines) might participate in a project. Even if you started the project on your own, there might be a time when someone joins the project to assist you.
 
 ### 1. Keep commits atomic
-Keep changes per commit atomic in order to provide a meaningful commit message.
-
+Keep changes per commit atomic in order to provide a meaningful commit message. By keeping commits atomic, it's also quite simple to revert changes without breaking functionality.
 
 ```
 // Bad
