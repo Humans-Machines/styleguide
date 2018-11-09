@@ -4,11 +4,11 @@ inspired by Google, AirBnB and cssguidelin.es
 
 ## Separation of Concerns
 
-Separate structure from presentation from behavior.
+- Strictly structure (markup) from presentation (styling) from behavior (scripting)
+- Keep the interaction between the three to an absolute minimum
+- Choose server-side rendering above client-side rendering unless your a building a real webapp // TODO: true?
 
-Strictly keep structure (markup), presentation (styling), and behavior (scripting) apart, and try to keep the interaction between the three to an absolute minimum.
-
-That is, make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything presentational into style sheets, and everything behavioral into scripts.    
+Make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything presentational into style sheets, and everything behavioral into scripts.    
 
 ## Accessibility
 
@@ -32,9 +32,6 @@ For images whose `alt` attributes would introduce redundancy, and for images who
 
     <img src="spreadsheet.png" alt="Spreadsheet screenshot">
 
-### Server-Side Rendering
-
-// TODO: maybe part of seperation of concerns
 
 ## General Formatting Rules
 
@@ -61,21 +58,19 @@ All code has to be lowercase: This applies to HTML element names, attributes, at
 
 ## Comments
 
-Explain code as needed, where possible. 
-
-Use comments to explain code: 
-
+- Always use comments to explain non-obvious code: 
 - What does it cover?
 - What purpose does it serve?
 - Why is respective solution used or preferred?
 - Whether some CSS relies on other code elsewhere?
-- what effect changing some code will have elsewhere?
+- What effect changing some code will have elsewhere?
 
 As a rule, you should comment anything that isn’t immediately obvious from the code alone. That is to say, there is no need to tell someone that color: red; will make something red, but if you’re using overflow: hidden; to clear floats—as opposed to clipping an element’s overflow—this is probably something worth documenting.
 
-### High-level
+### Component and High-Level Comments
 
-For large comments that document entire sections or components, we use a DocBlock-esque multi-line comment which adheres to our 80 column width.
+- Use a DocBlock multi-line comment to document components
+- Describe states, permutations, conditions, and treatments
 
 **Do**
 
@@ -91,12 +86,11 @@ For large comments that document entire sections or components, we use a DocBloc
      * slightly intermingled dependency with the wrapper that lives inside it.
      */
  
-This level of detail should be the norm for all non-trivial code—descriptions of states, permutations, conditions, and treatments.
-
 ### Section Comments
 
-- Group sections by a section comment (optional).
+- Group sections by a section comment
 
+**Do**
 
     /* Header */
     .article__header {}
@@ -108,14 +102,24 @@ This level of detail should be the norm for all non-trivial code—descriptions 
     .article__gallery {}
     
 
-### Low-level
+### Declaration Comments
 
 Oftentimes we want to comment on specific declarations (i.e. lines) in a ruleset.
 
 To do this we can use a kind of reverse footnote like so:
 
-**Do**
+- Always use comments to explain non-obvious declarations
+- Either use the reverse footnote approach 
+- or insert a simple end-of-line comment
 
+**Do**
+    
+    /* Reverse footnote approach
+     *
+     * These types of comment allow us to keep all of our documentation in one place 
+     * whilst referring to the parts of the ruleset to which they belong.
+     */
+    
     /**
      * Helper-class to cut off a long line 
      * 1. Prevents line-breaks
@@ -126,26 +130,31 @@ To do this we can use a kind of reverse footnote like so:
       text-overflow: ellipsis; /* 2 */
       overflow: hidden;
     }
+    
+    /* End-of-line approach
+     *
+     * The reverse footnote approach however seems like an overkill in some cases
+     * It might eventually be even harder to read if the ruleset is very long
+     * and there are lots of comments.
+     * Therefore an evil but simple end-of-line comment will do the trick as well
+     * even if they extend our set maximum line length.
+     */
 
-These types of comment allow us to keep all of our documentation in one place whilst referring to the parts of the ruleset to which they belong.
-
-However this might seem like an overkill in some cases. It might eventually be even harder to read if the ruleset is very long and there are lots of comments.
-
-Therefore we might just want to use these evil end-of-line comments—even if they extend our set maximum line length.
-
-**Also ok**
-```
-/**
- * Helper-class to cut off a long line
- */
-.ellipsis {
-  white-space: nowrap; // Prevents line-breaks
-  text-overflow: ellipsis; // Adds an ellipses to the end of the line
-  overflow: hidden;
-}
-```
+    /**
+     * Helper-class to cut off a long line
+     */
+    .ellipsis {
+        white-space: nowrap; // Prevents line-breaks
+        text-overflow: ellipsis; // Adds an ellipses to the end of the line
+        overflow: hidden;
+    }
 
 Whatever syntax you prefer, try to stay consistent at least within the file you are editing.
+
+### HTML comments
+
+// TODO
+Twig or Smarty
 
 ## Action Items
 
@@ -185,7 +194,7 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 
 Using HTML according to its purpose is important for accessibility, reuse, and code efficiency reasons.
 
-### HTML Formatting Rules
+### Formatting Rules
 
 - Use a new line for every block, list, or table element
 - Indent every child element
