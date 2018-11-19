@@ -12,25 +12,18 @@ Make sure documents and templates contain only HTML and HTML that is solely serv
 
 ## Accessibility
 
-// TODO
+- Use semantic headings and structure
+- Ensure links have :focus state and are recognizable (underlined)
+- Use appropriate alt text for images
+- To prevent redundancy and for images whose purpose is purely decorative, use no alt text, as in `alt=""`
+- Use unobtrusive JavaScript and beware of in line scripting
+- Provide No-JS alternatives, at least in a lo-fi manner
+- Ensure that tab order for the site and especially forms follow a logical pattern
+- Add labels for all form controls
+- Make sure placeholder attributes are not being used in place of label tags
+- Group related form elements with fieldset and describe the group with legend
 
-#### Multimedia Fallback
-
-Provide alternative contents for multimedia.
-
-For multimedia, such as images, videos, animated objects via `canvas`, make sure to offer alternative access. For images that means use of meaningful alternative text (`alt`) and for video and audio transcripts and captions, if available.
-
-Providing alternative contents is important for accessibility reasons: A blind user has few cues to tell what an image is about without `@alt`, and other users may have no way of understanding what video or audio contents are about either.
-
-For images whose `alt` attributes would introduce redundancy, and for images whose purpose is purely decorative, use no alternative text, as in `alt=""`.
-
-**Don’t**
- 
-    <img src="spreadsheet.png">
-
-**Do**
-
-    <img src="spreadsheet.png" alt="Spreadsheet screenshot">
+// TODO: finish Accessibility
 
 
 ## General Formatting Rules
@@ -730,11 +723,12 @@ Mixins should be used to DRY up your code, add clarity, or abstract complexity--
 
 ## Sources and further reading
 
-https://google.github.io/styleguide/htmlcssguide.html
-https://cssguidelin.es/
-https://spaceninja.com/2018/09/17/what-is-modular-css/
-https://github.com/airbnb/css
-http://codeguide.co/
-https://dev.to/maxwell_dev/the-web-accessibility-introduction-i-wish-i-had-4ope
-https://csswizardry.com/2011/09/writing-efficient-css-selectors/
-https://github.com/necolas/idiomatic-css
+- https://google.github.io/styleguide/htmlcssguide.html
+- https://cssguidelin.es/
+- https://spaceninja.com/2018/09/17/what-is-modular-css/
+- https://github.com/airbnb/css
+- http://codeguide.co/
+- https://dev.to/maxwell_dev/the-web-accessibility-introduction-i-wish-i-had-4ope
+- https://a11yproject.com/checklist
+- https://csswizardry.com/2011/09/writing-efficient-css-selectors/
+- https://github.com/necolas/idiomatic-css
