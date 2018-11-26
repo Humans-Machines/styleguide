@@ -8,13 +8,16 @@ inspired by Google, AirBnB and cssguidelin.es
 - Keep the interaction between the three to an absolute minimum
 - Choose server-side rendering above client-side rendering unless your a building a real webapp // TODO: true?
 
-Make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything presentational into style sheets, and everything behavioral into scripts.    
+Make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything presentational into style sheets, and everything behavioral into scripts.
+
+Whenever possible, we prefer to write HTML and CSS over JavaScript. In general, HTML and CSS are more prolific and accessible to more people of all different experience levels. HTML and CSS are also faster in your browser than JavaScript, and your browser generally provides a great deal of functionality for you.    
 
 ## Accessibility
 
 - Use semantic headings and structure 
 - Order DOM elements logically
 - Use elements for what they have been created for. For example, use heading elements for headings, `p` elements for paragraphs, `a` elements for anchors, etc.
+- Make content readable and provide predictable functionality
 - Ensure links have :focus state and are recognizable (underlined)
 - Use appropriate alt text for images
 - To prevent redundancy and for images whose purpose is purely decorative, use no alt text, as in `alt=""`
@@ -23,7 +26,6 @@ Make sure documents and templates contain only HTML and HTML that is solely serv
 - Ensure that tab order for the site and especially forms follow a logical pattern
 - Add labels for all form controls
 - Make sure placeholder attributes are not being used in place of label tags
-- Group related form elements with fieldset and describe the group with legend
 - Avoid Assumptions
 
 Accessibility affects all users, not just those with stereotypical disabilities. Accepting this means realizing accessibility is about building for stress cases, such as:
@@ -262,13 +264,14 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 
 ### Selectors
 
-- Never style IDs, style type selectors only for reset purposes.
-- Avoid qualifying class names with type selectors
+- Never style IDs
+- Style type selectors for reset purposes only
+- Avoid qualifying class names with type selectors. Put the class name at the lowest possible level
 - Use combined selectors wisely
 - Select what you want explicitly, rather than relying on circumstance or coincidence
 - Write selectors for reusability
 - Do not nest selectors unnecessarily
-- Do not qualify selectors unnecessarily, as this will impact the number of different elements you can apply styles to.
+- Do not qualify selectors unnecessarily, as this will impact the number of different elements you can apply styles to
 - Keep selectors as short as possible, in order to keep specificity down and performance up
 - Think about selector performance
 
@@ -346,7 +349,7 @@ Append a contact (username or mailing list) in parentheses as with the format `T
         // styles for header navi
     }
     
-    /* Do: Use specific, reusable classes */
+    /* Do: Use specific, reusable classes. Put the class name at the lowest possible level */
     /* .promo a -> */ .btn--promo { 
         // styles for promo button
     }
@@ -362,6 +365,104 @@ Append a contact (username or mailing list) in parentheses as with the format `T
     a {
         color: inherit;
     }
+    
+    
+### Modular CSS
+
+- Create reusable components for common visual or behavioural patterns
+- Abstract the structure of an object from the skin that is being applied
+- Don’t style objects based on their context. An object should look the same no matter where you put it
+- Use BEM to style `blocks` containing `elements` to be altered with `modifiers`
+- Write names in lower case
+- Separate words within names by hyphens `-`
+- Delimit elements by double underscores `__`
+- Delimit modifiers by double hyphens `--`
+- Use the same naming convention for grandchildren. So no `.block-name__child__grand-child`-craziness
+- Use utility classes for common visual or behavioural micro patterns
+- Use `has-` or `is-` prefix for the state
+
+Blocks are logically and functionally independent components of a web page. They are nestable and should be capable of being contained inside another block without breaking anything. Elements are the constituent parts of a block that can’t be used outside of it. Modifiers define the appearance and behavior of a block. 
+
+Utility classes are a powerful ally in combatting CSS bloat and poor page performance. A utility class is typically a single, immutable property-value pairing expressed as a class. Their primary appeal is speed of use while writing HTML and limiting the amount of custom CSS you have to write.
+
+
+**Don’t**
+         
+    <!--    
+     * No one but the person who wrote the following code knows what it does
+     *
+     * How are the classes box and profile related to each other?
+     * How are the classes profile and avatar related to each other?
+     * Are they related at all? Should you be using pro-user alongside bio?
+     * Will the classes image and profile live in the same part of the CSS?
+     * Can you use avatar anywhere else? 
+     -->
+     
+    <div class="box profile pro-user">
+        <img class="avatar image" />
+        <p class="bio">...</p>
+    </div>
+    
+    
+    /* Don’t: Use not-reusable class names */
+    .header--desktop {        
+        @media screen and (max-width: 599px) {
+            display: none;
+        }
+    }
+    
+    /* Don’t: Be unspecific with state classes */
+    .activated {
+        display: block;
+    }
+  
+
+**Do**
+        
+    <!--    
+     * Going for a object-oriented BEM approach makes the following code self-documenting 
+     *
+     * We can see which classes are and are not related to each other, and how
+     * We know what classes we can’t use outside of the scope of this component.
+     * Also, we know which classes we are free to reuse elsewhere.
+     -->
+     
+    <div class="l-box m-profile m-profile--is-pro-user">
+        <img class="m-avatar m-profile__image" />
+        <p class="m-profile__bio">...</p>
+    </div>
+    
+    
+    /* Do: Use utility classes for common micro patterns */
+    .hidden-on-mobile {
+        @media screen and (max-width: 599px) {
+            display: none;
+        }
+    }
+    
+    /* Do: Prefix state clases to tell what is going on */
+    .is-activated {
+        display: block;
+    }
+
+
+Modular CSS simplifies code and facilitates refactoring. It produces self-documenting and reusable code that doesn’t influence outside its scope. It is predictable, maintainable, and performant.
+
+### Nesting
+
+- 
+
+As a rule, if a selector will work without being nested then do not nest it. The only exception that BEM allows for this rule is styling elements based on the state of a block or its modifier. For example, you might have .btn__text and then .btn--orange .btn__text to override the text color of a button when a modifier is applied. // TODO
+
+### Mobile first // TODO
+
+#### Read from Bootstrap
+Responsive
+Bootstrap’s responsive styles are built to be responsive, an approach that’s often referred to as mobile-first. We use this term in our docs and largely agree with it, but at times it can be too broad. While not every component must be entirely responsive in Bootstrap, this responsive approach is about reducing CSS overrides by pushing you to add styles as the viewport becomes larger.
+
+Across Bootstrap, you’ll see this most clearly in our media queries. In most cases, we use min-width queries that begin to apply at a specific breakpoint and carry up through the higher breakpoints. For example, a .d-none applies from min-width: 0 to infinity. On the other hand, a .d-md-none applies from the medium breakpoint and up.
+
+At times we’ll use max-width when a component’s inherent complexity requires it. At times, these overrides are functionally and mentally clearer to implement and support than rewriting core functionality from our components. We strive to limit this approach, but will use it from time to time.
 
 ### Relative Units
 
@@ -733,3 +834,4 @@ Mixins should be used to DRY up your code, add clarity, or abstract complexity--
 - https://a11yproject.com/checklist
 - https://csswizardry.com/2011/09/writing-efficient-css-selectors/
 - https://github.com/necolas/idiomatic-css
+- https://getbootstrap.com/docs/
