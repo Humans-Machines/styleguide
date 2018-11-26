@@ -344,7 +344,10 @@ Append a contact (username or mailing list) in parentheses as with the format `T
         // styles for header navi
     }
 
-    /* Do: Avoid nesting if possible */
+    /* Do: Avoid nesting if possible 
+     *
+     * If a selector will work without being nested then do not nest it.
+     * The only exception is styling elements based on the state of a block or its modifier
     /* .header__nav .header__nav-link -> */ .header__nav-link {
         // styles for header navi
     }
@@ -440,29 +443,24 @@ Utility classes are a powerful ally in combatting CSS bloat and poor page perfor
         }
     }
     
-    /* Do: Prefix state clases to tell what is going on */
+    /* Do: Prefix state classes to tell what is going on */
     .is-activated {
         display: block;
     }
 
 
-Modular CSS simplifies code and facilitates refactoring. It produces self-documenting and reusable code that doesn’t influence outside its scope. It is predictable, maintainable, and performant.
+Modular CSS simplifies code and facilitates refactoring. It produces self-documenting and reusable code that doesn’t influence outside its scope. It is predictable, maintainable, and performant. 
 
-### Nesting
 
-- 
+### Responsiveness / Mobile first
 
-As a rule, if a selector will work without being nested then do not nest it. The only exception that BEM allows for this rule is styling elements based on the state of a block or its modifier. For example, you might have .btn__text and then .btn--orange .btn__text to override the text color of a button when a modifier is applied. // TODO
+- Make sure every component is entirely responsive 
+- Default your CSS for less capable devices
+- Style components for the smallest viewport first (Mobile first)
+- Overwrite styles to adapt to larger viewports via media queries
+- Don’t use media queries for the default view (smallest viewport) unless these styles are just an enhancement and overwriting for larger viewports will lead to extensive effort
 
-### Mobile first // TODO
-
-#### Read from Bootstrap
-Responsive
-Bootstrap’s responsive styles are built to be responsive, an approach that’s often referred to as mobile-first. We use this term in our docs and largely agree with it, but at times it can be too broad. While not every component must be entirely responsive in Bootstrap, this responsive approach is about reducing CSS overrides by pushing you to add styles as the viewport becomes larger.
-
-Across Bootstrap, you’ll see this most clearly in our media queries. In most cases, we use min-width queries that begin to apply at a specific breakpoint and carry up through the higher breakpoints. For example, a .d-none applies from min-width: 0 to infinity. On the other hand, a .d-md-none applies from the medium breakpoint and up.
-
-At times we’ll use max-width when a component’s inherent complexity requires it. At times, these overrides are functionally and mentally clearer to implement and support than rewriting core functionality from our components. We strive to limit this approach, but will use it from time to time.
+Styling the most likely simpler component structure on mobile devices first will lead to less and simplified code and fewer overwrites. Leaving out everything within media queries the code can be parsed much faster by mobile devices—and devices with few capabilities such as e-book readers will see a simple default view.
 
 ### Relative Units
 
@@ -484,9 +482,9 @@ At times we’ll use max-width when a component’s inherent complexity requires
     /* Don’t: Add unnessary font-sizes on parents
      * 
      * This declaration destoys the layout sizing approach for all children
-     .main-wrapper {
+    .main-wrapper {
         font-size: 1.6rem;
-     }
+    }
 
     /* Don’t: Mix rem and em declarations within the same element
      * 
@@ -548,6 +546,84 @@ At times we’ll use max-width when a component’s inherent complexity requires
 
 - Avoid user agent detection as well as CSS “hacks”—try a different approach first
 - If you need to use hacks anyways, make sure to comment extensively
+
+### Selector Order
+
+- Again: Do not nest selectors unnecessarily
+- Add self-declarations first
+- Add pseudo-classes next
+- Add modifier and state declarations next
+- Add responsive styles for every selector
+
+**Don’t**
+
+    /* Don’t: Nest selectors unnecessarily */
+    .header__nav {        
+        .header__nav-link {
+            // styles for links inside header navi
+            
+            .header__nav-link--last {
+                // styles for last link inside header navi
+            }
+        }
+        
+        /* Don’t: Ignore order */
+        width: 100%
+        
+        &:hover {
+            // hover styles
+        }
+    }
+    
+    /* Don’t: Group responsive styles into seperate blocks */
+    @media screen and (min-width: 600px) {
+        .header__nav {
+            // styles for desktop header navi
+            
+            .header__nav-link {
+                // styles for desktop links inside header navi
+            }
+        }
+    }
+    
+**Do**
+
+    .header__nav {
+        width: 100%
+        
+        &:hover {
+            // hover styles 
+        }
+        
+        &:before {
+            // pseudo styles
+        }      
+        
+        .has-nav-shown &,
+        &.is-active {
+            // state related styles
+        }
+        
+        /* Maybe do: Nest modifier for better readability */
+        &.header__nav--small {
+            // styles for modified header
+        }  
+        
+        /* Do: Add responsive styles for every selector */
+        @media screen and (min-width: 600px) {
+            // styles for desktop header navi
+        }
+    }
+        
+    .header__nav-link {
+        // styles for links inside header navi
+        
+        @media screen and (min-width: 600px) {
+            // styles for desktop links inside header navi
+        }
+    }
+    
+As it comes to responsiveness we usually are dealing with a main `mobile` and a `decent` breakpoint. The `decent` breakpoint covers every viewport larger than 599 pixel. While the default styles will define the mobile view, the decent styles will be applied with the first media query block. To distinguish between different `decent` viewports such as hudge phones, tablets and very big screen or portrait viewports as well, more precise sets of media queries will be added afterwards.
 
 ### Declaration Order
 
@@ -727,7 +803,7 @@ At times we’ll use max-width when a component’s inherent complexity requires
 
 - Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have (or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable to bind your JS onto specific classes.
 - Create JavaScript-specific classes to bind to, prefixed with `.js-`
-- Don’t use data-Attributes for this purpuse
+- Don’t use data-Attributes for this purpose
 
 **Do**
 
@@ -759,7 +835,7 @@ A common practice is to use data-* attributes as JS hooks, but this is incorrect
    
 
 
-## Sass
+## Sass // TODO
 
 ### Syntax
 
@@ -835,3 +911,4 @@ Mixins should be used to DRY up your code, add clarity, or abstract complexity--
 - https://csswizardry.com/2011/09/writing-efficient-css-selectors/
 - https://github.com/necolas/idiomatic-css
 - https://getbootstrap.com/docs/
+- https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/
