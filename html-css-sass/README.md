@@ -12,7 +12,9 @@ Make sure documents and templates contain only HTML and HTML that is solely serv
 
 ## Accessibility
 
-- Use semantic headings and structure
+- Use semantic headings and structure 
+- Order DOM elements logically
+- Use elements for what they have been created for. For example, use heading elements for headings, `p` elements for paragraphs, `a` elements for anchors, etc.
 - Ensure links have :focus state and are recognizable (underlined)
 - Use appropriate alt text for images
 - To prevent redundancy and for images whose purpose is purely decorative, use no alt text, as in `alt=""`
@@ -22,8 +24,19 @@ Make sure documents and templates contain only HTML and HTML that is solely serv
 - Add labels for all form controls
 - Make sure placeholder attributes are not being used in place of label tags
 - Group related form elements with fieldset and describe the group with legend
+- Avoid Assumptions
 
-// TODO: finish Accessibility
+Accessibility affects all users, not just those with stereotypical disabilities. Accepting this means realizing accessibility is about building for stress cases, such as:
+ 
+- Old age
+- Chronic medical conditions like arthritis
+- Being outside with a heavy sun glare
+- Cognitive impairment from medication or lack of sleep
+- Needing to use a site with different devices
+- Shaky WiFi that affects asset loading
+- Running from the thing that escaped your floorboards
+
+Think about it!
 
 
 ## General Formatting Rules
@@ -179,13 +192,6 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 - Although fine with HTML, do not close void elements, i.e. write `<br>`, not `<br />`.
 - Use valid HTML code unless that is not possible
 - Use tools such as the [W3C HTML validator](https://validator.w3.org/nu/) to test
-    
-### Semantics
-
-- Use HTML according to its purpose
-- Use elements for what they have been created for. For example, use heading elements for headings, `p` elements for paragraphs, `a` elements for anchors, etc.
-
-Using HTML according to its purpose is important for accessibility, reuse, and code efficiency reasons.
 
 ### Formatting Rules
 
@@ -217,11 +223,10 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
 
 ## CSS
 
-### CSS Style Rules
+### ID and Class Naming
 
-#### ID and Class Naming
-
-- Prefer dashes over camelCasing in class names and make use of [BEM](#bem)
+- Prefer dashes over camelCasing in class names 
+- Make use of BEM
 - Use meaningful or generic ID and class names
 - Use ID and class names that are as short as possible but as long as necessary
 
@@ -255,7 +260,7 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
     #nav {}
     .author {}
 
-#### Selectors
+### Selectors
 
 - Never style IDs, style type selectors only for reset purposes.
 - Avoid qualifying class names with type selectors
@@ -358,7 +363,7 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
         color: inherit;
     }
 
-#### Relative Units
+### Relative Units
 
 - Avoid pixels, they are ignorant
 - Use relative units like `rem` and `em` instead
@@ -437,17 +442,13 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
         border-width: 1px;
     } 
  
-   
-    
 
-#### Hacks
+### Hacks
 
 - Avoid user agent detection as well as CSS “hacks”—try a different approach first
 - If you need to use hacks anyways, make sure to comment extensively
 
-### CSS Formatting Rules
-
-#### Declaration Order
+### Declaration Order
 
 - Group declarations by type
 - Use empty line to group
@@ -498,7 +499,7 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
         transition: opacity 0.3s linear;
     }  
 
-#### Declaration Style
+### Declaration Style
 
 - Use a semicolon after every declaration
 - Use a space after a property name’s colon
@@ -597,7 +598,7 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
     }
 
 
-#### Meaningful Whitespace
+### Meaningful Whitespace
 
 - Make use of whitespace between rulesets to structure code (optional)
 - But four blank lines before new sections
@@ -633,7 +634,7 @@ Using HTML according to its purpose is important for accessibility, reuse, and c
     
 A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to store data, not be bound to.
 
-#### CSS Quotation Marks
+### CSS Quotation Marks
 
 - Use single (`''`) quotation marks for attribute selectors and property values.
 - Do not use quotation marks in URI values (`url()`).
