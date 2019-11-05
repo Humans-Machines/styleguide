@@ -1,6 +1,6 @@
 # Humans & Machines HTML/CSS/SASS Style Guide
 
-inspired by Google, AirBnB and cssguidelin.es
+**Work-in-progress** // inspired by Google, AirBnB and cssguidelin.es
 
 ## Separation of Concerns
 
@@ -696,9 +696,9 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
      * We know what classes we can’t use outside of the scope of this component.
      * Also, we know which classes we are free to reuse elsewhere.
      -->     
-    <div class="l-box m-profile m-profile--is-pro-user">
-        <img class="m-avatar m-profile__image" />
-        <p class="m-profile__bio">...</p>
+    <div class="box profile profile--pro-user">
+        <img class="avatar profile__image" />
+        <p class="profile__bio">...</p>
     </div>
     
     /* Do: Use utility classes for common micro patterns */
@@ -858,12 +858,6 @@ A common practice is to use data-* attributes as JS hooks, but this is incorrect
      */
     $font-type: 'sans-serif';
     
-    /* Don’t: Display leading zeros before a decimal value */
-    .foo {
-        padding: 2.0em;
-        opacity: .5;
-    }
-    
     /* Don’t: Add unit to 0 value */
     $length: 0em;
     
@@ -897,12 +891,6 @@ A common practice is to use data-* attributes as JS hooks, but this is incorrect
     /* Do: Skip quoting on some specific values
     $font-type: sans-serif;
     
-    /* Do: Never display trailing zeros */
-    .foo {
-        padding: 2em;
-        opacity: 0.5;
-    }
-    
     /* Do: Use 0 values without units */
     $length: 0;
     
@@ -924,36 +912,6 @@ A common practice is to use data-* attributes as JS hooks, but this is incorrect
 - Avoid `@extend`
 
 Extending is invisible. Extending doesn’t necessarily help file weight, contrary to the saying. Extending doesn’t work across media queries. Extending is not flexible. Mixins have absolutely no drawback.
-
-
-
-# airBNB
-
-
-
-### Variables
-
-Prefer dash-cased variable names (e.g. `$my-variable`) over camelCased or snake_cased variable names. It is acceptable to prefix variable names that are intended to be used only within the same file with an underscore (e.g. `$_my-variable`).
-
-### Mixins
-
-Mixins should be used to DRY up your code, add clarity, or abstract complexity--in much the same way as well-named functions. Mixins that accept no arguments can be useful for this, but note that if you are not compressing your payload (e.g. gzip), this may contribute to unnecessary code duplication in the resulting styles.
-
-### Extend directive
-
-`@extend` should be avoided because it has unintuitive and potentially dangerous behavior, especially when used with nested selectors. Even extending top-level placeholder selectors can cause problems if the order of selectors ends up changing later (e.g. if they are in other files and the order the files are loaded shifts). Gzipping should handle most of the savings you would have gained by using `@extend`, and you can DRY up your stylesheets nicely with mixins.
-
-
-# Architecture
-Break Into As Many Small Files As Makes Sense
-There is no penalty to splitting into many small files. Do it as much as feels good to the project. I know I find it easier to jump to small specific files and navigate through them than fewer/larger ones.
-
-I'd probably do this right in the global.scss, rather than have global @import a _header.scss file which has its own sub-imports. All that sub-importing could get out of hand.
-
-Globbing might help if there starts to be too many to list.
-
-#Partials are named _partial.scss
-This is a common naming convention that indicates this file isn't meant to be compiled by itself. It likely has dependencies that would make it impossible to compile by itself. Personally I like dashes in the "actual" filename though, like _dropdown-menu.scss.
 
 
 ## Sources and further reading
