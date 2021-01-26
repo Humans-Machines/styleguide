@@ -1,0 +1,16 @@
+/*------------------------------------*\
+  #LOGO
+\*------------------------------------*/
+
+$logo-height:   30px;
+
+.c-logo {}
+
+  .c-logo__fill {
+    fill: $color-logo;
+
+    .c-page-head & {
+      fill: currentcolor;
+    }
+
+  }

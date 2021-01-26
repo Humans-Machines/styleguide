@@ -1,0 +1,15 @@
+/*------------------------------------*\
+  #PAGE
+\*------------------------------------*/
+
+.c-page {
+
+  &.has-fixed-page-head {
+
+    @include mq($from: medium) {
+      padding-top: $logo-height + $global-spacing-unit-large;
+    }
+
+  }
+
+}

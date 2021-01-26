@@ -1,0 +1,218 @@
+/*------------------------------------*\
+  #MAIN
+\*------------------------------------*/
+
+/**
+ *
+ * This CSS setup heavily inspired by ITCSS (Inversed Triangle CSS by Harry Roberts/csswizardry)
+ * and CUBE CSS by Andy Bell and spices it up with a heavy dose of atomic CSS
+ *
+ * The inversed triangle from ITCSS shows how styles represented by selectors are ordered in the resulting CSS:
+ * from generic styles to explicit ones, from low-specificity selectors to more specific ones
+ * and from far reaching to localized ones: - Settings, Tools, Generic, Elements, Objects, Components, Utilities
+ *
+ * CUBE CSS (Composition, Utility, Block, Exception) is a methodology oriented towards simplicity and consistency.
+ * Instead of going utility-first like atomic CSS libraries such as Tailwind, CUBE CSS tries to unleash the
+ * power of the cascade by the use of global style axioms.
+ *
+ * Although an utility-first approach seems to go against the idea of the cascade, the use of atomic CSS classes
+ * provides a lot of benefits:
+ * - Fewer declaration duplicates
+ * - No specificity issues
+ * - No need for class and component naming
+ * - Very predictable
+ * - Reduced risk of regressions
+ *
+ *
+ * KEY GOALS
+ * - Keep things maintainable and predictable
+ * - Think ahead of time and ensure scalability
+ * - Keep specificity low at all times
+ * - Utilise the power of CSS and the cascade
+ *
+ * GUIDELINES
+ * - Think progressive enhancement
+ * - Go mobile first
+ * - DYI: Don’t repeat yourself (and keep the codebase tight)
+ * - Unleash the power of Custom Properties at all times
+ * - Use Resets, styled Elements, and Objects to layout
+ *   the design system and composition
+ * - Use Utilities heavily for everything which is not tackled
+ *   by Elements and Objects
+ * - Use Components as a last resort for things
+ *   which can’t be (easily) done with Objects and Utilities
+ * - Use Components for more complex and contextual styles
+ *   that deviate from the common, global system
+ * - Use BEM for Component naming
+ * - Rather use Utility-Classes as simple component modifications
+ *   than to introduce a BEM-modifier
+ *
+ * REFERENCES
+ * ITCSS: https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+ * CUBE CSS: https://piccalil.li/blog/cube-css
+ *
+ *
+ *
+ *
+ * CONTENTS
+ *
+ * SETTINGS
+ * Define the ground: Design tokens, sizes, other vars
+ * No CSS output here
+ * Config...............Configuration and environment settings.
+ * Global...............Globally-available variables and settings/config.
+ * Colors...............Manage our color palette in isolation.
+ *
+ * TOOLS
+ * Globally used mixins and functions
+ * No CSS output here
+ * Functions............Some simple helper functions.
+ * Mixins...............Globally available mixins.
+ * Aliases..............Some shorter aliases onto longer variables.
+ * Sass MQ..............Other people can handle RWD better than we can.
+ *
+ * GENERIC
+ * Global resets and normalize styles, box-sizing definition, etc.
+ * First layer of the triangle that generates CSS
+ * Box-sizing...........Better default `box-sizing`.
+ * Normalize.css........A level playing field.
+ * Reset................A pared back reset to remove margins.
+ * Shared...............Sensibly and tersely share global commonalities.
+ *
+ * VENDOR
+ * Includes of vendor styles for third party components
+ * If needed
+ *
+ * ELEMENTS
+ * Styling for bare HTML elements (like H1, A, header, footer, …)
+ * Redefine browser presets to the projects needs and pursued design system
+ * Page.................Page-level styles (HTML element).
+ * Headings.............Heading styles.
+ * Links................Hyperlink styles.
+ * Lists................Default list styles.
+ * Images...............Base image styles.
+ * Quotes...............Styling for blockquotes, etc.
+ *
+ * OBJECTS
+ * Class-based selectors which define composition and undecorated design patterns.
+ * An object (CUBE CSS Methodology: Utility) does one job and does that job well.
+ * Wrappers.............Wrappers and page constraints.
+ * Layout...............Generic layout module.
+ * Headline.............Simple object for structuring heading pairs.
+ * Media................The media object.
+ * List-bare............Lists with no bullets or indents.
+ * List-inline..........Simple abstraction for setting lists out in a line.
+ * Crop.................A container for cropping image and media content.
+ *
+ * COMPONENTS
+ * Specific UI components which are to complex to be defined by atomic CSS utilities
+ * Uses BEM for naming
+ * Logo.................Make our logo a reusable component.
+ * Page.................Full page wrapper.
+ * Page-head............Page header styles.
+ * Page-foot............Page footer styles.
+ * Nav primary..........The site’s main nav.
+ * Nav secondary........Secondary nav styles.
+ * Nav tertiary.........Horizontally scrolling nav.
+ * Masthead.............Site’s main masthead.
+ * Sub-content..........Secondary/supporting content.
+ * Panel................Simple panelled boxout.
+ * Score................Score lozenge for place ratings.
+ * Buttons..............Button styles.
+ * Avatar...............General avatar styles.
+ * Testimonial..........Quote styles.
+ * Calendar.............Simple static calendar component.
+ * Headline.............Basic heading style for generic headlines.
+ * Promo................Promotional box styling.
+ * Pagination...........Responsive pagination component.
+ *
+ * SCOPES
+ * Styling for bare HTML elements in a scoped context
+ * Eg. for Markdown output from CMS
+ * Prose................Set up a new styling context for long-format text.
+ *
+ * UTILITIES
+ * Atomic CSS utilities
+ * Included last to also ba able to serve as component modifiers
+ * Headings.............Reassigning our heading styles to helper classes.
+ * Widths...............Simple width helper classes.
+ * Healthcheck..........Visual health-check tool.
+ * Debug................Highlight potentially troublesome code.
+ * Shame.css............Short-term hacks and quick-fixes.
+ *
+ *
+ * DEVELOPMENT
+ * Debuging and Development components and styles
+ *
+ */
+
+
+// SETTINGS
+@import "settings/settings.config";
+@import "settings/settings.global";
+@import "settings/settings.colors";
+
+// TOOLS
+@import "tools/tools.functions";
+@import "tools/tools.mixins";
+@import "tools/tools.typography";
+@import "tools/tools.aliases";
+@import "tools/config.mq";
+
+// GENERIC
+@import "generic/generic.box-sizing";
+@import "generic/generic.normalize";
+@import "generic/generic.reset";
+@import "generic/generic.shared";
+
+// VENDOR
+
+// ELEMENTS
+@import "elements/elements.page";
+@import "elements/elements.headings";
+@import "elements/elements.links";
+@import "elements/elements.lists";
+@import "elements/elements.images";
+@import "elements/elements.quotes";
+
+// OBJECTS
+@import "objects/objects.wrappers";
+@import "objects/objects.layout";
+@import "objects/objects.headline";
+@import "objects/objects.media";
+@import "objects/objects.list-bare";
+@import "objects/objects.list-inline";
+@import "objects/objects.crop";
+
+// COMPONENTS
+@import "components/components.logo";
+@import "components/components.page";
+@import "components/components.page-head";
+@import "components/components.page-foot";
+@import "components/components.nav-primary";
+@import "components/components.nav-secondary";
+@import "components/components.nav-tertiary";
+@import "components/components.masthead";
+@import "components/components.sub-content";
+@import "components/components.panel";
+@import "components/components.score";
+@import "components/components.buttons";
+@import "components/components.avatar";
+@import "components/components.testimonials";
+@import "components/components.calendar";
+@import "components/components.headline";
+@import "components/config.promo";
+@import "components/components.promo";
+@import "components/components.pagination";
+
+// SCOPES
+@import "scopes/scopes.prose";
+
+// UTILITIES
+@import "utilities/utilities.headings";
+@import "utilities/utilities.widths";
+@import "utilities/utilities.healthcheck";
+@import "utilities/utilities.debug";
+@import "utilities/utilities.shame";
+
+// DEVELOPMENT

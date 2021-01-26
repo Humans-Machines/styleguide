@@ -1,0 +1,40 @@
+/*------------------------------------*\
+  #LAYOUT
+\*------------------------------------*/
+
+.o-layout {
+  margin:  0;
+  padding: 0;
+  list-style: none;
+  margin-left: -$global-spacing-unit;
+  font-size: 0;
+}
+
+  .o-layout__item {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    padding-left: $global-spacing-unit;
+    @include font-size($global-font-size)
+  }
+
+.o-layout--rev {
+  direction: rtl;
+
+  > .o-layout__item {
+    direction: ltr;
+  }
+
+}
+
+.o-layout--middle {
+  > .o-layout__item {
+    vertical-align: middle;
+  }
+}
+
+.o-layout--bottom {
+  > .o-layout__item {
+    vertical-align: bottom;
+  }
+}

@@ -1,0 +1,10 @@
+/*------------------------------------*\
+  #LISTS
+\*------------------------------------*/
+
+/**
+ * Visually offset definition titles from their definitions.
+ */
+dt {
+  @include font-weight(bold);
+}
