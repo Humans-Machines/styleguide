@@ -81,19 +81,4 @@
 
 
 
-// Simple truncation mixin to cut off text using an ellipsis after a certain
-// width.
-//
-// .simple-usage {
-//   @include truncate();
-// }
-//
-// .detailed-usage {
-//   @include truncate(<value>);
-// }
-@mixin truncate($width: 100%) {
-  max-width: $width;
-  white-space:nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+

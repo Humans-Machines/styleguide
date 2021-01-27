@@ -7,7 +7,6 @@
  */
 
 q {
-  font-style: italic;
   quotes: "‘" "’";
 
   &:before {
@@ -24,7 +23,7 @@ blockquote {
   quotes: "“" "”";
 
   p {
-    text-indent: -0.42em;
+    // text-indent: -0.42em; // ???
 
     &:before {
       content: open-quote;
@@ -40,9 +39,6 @@ blockquote {
       &:after {
           content: close-quote;
       }
-
     }
-
   }
-
 }

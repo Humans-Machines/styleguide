@@ -13,7 +13,7 @@
  *
  * CUBE CSS (Composition, Utility, Block, Exception) is a methodology oriented towards simplicity and consistency.
  * Instead of going utility-first like atomic CSS libraries such as Tailwind, CUBE CSS tries to unleash the
- * power of the cascade by the use of global style axioms.
+ * power of the cascade by the use of global style axioms and layout primitives.
  *
  * Although an utility-first approach seems to go against the idea of the cascade, the use of atomic CSS classes
  * provides a lot of benefits:
@@ -148,71 +148,70 @@
 
 
 // SETTINGS
-@import "settings/settings.config";
-@import "settings/settings.global";
-@import "settings/settings.colors";
+// @import "settings/settings.config"; // TODO: You are we going to implement design tokens
+// @import "settings/settings.global";
+// @import "settings/settings.colors"; // TODO: How are we handling colors?
 
 // TOOLS
 @import "tools/tools.functions";
 @import "tools/tools.mixins";
-@import "tools/tools.typography";
-@import "tools/tools.aliases";
-@import "tools/config.mq";
+// @import "tools/tools.typography"; // TODO: Rebuild
+// @import "tools/tools.aliases"; // TODO: Decide if neccessary
+// @import "tools/config.mq"; // TODO: Probably move to settings
 
 // GENERIC
 @import "generic/generic.box-sizing";
 @import "generic/generic.normalize";
 @import "generic/generic.reset";
-@import "generic/generic.shared";
+
 
 // VENDOR
 
 // ELEMENTS
-@import "elements/elements.page";
-@import "elements/elements.headings";
+@import "elements/elements.root"; // Defining custom properties
+// @import "elements/elements.page"; // Base font-size scaling // TODO: Streamline
+// @import "elements/elements.headings"; // TODO: Streamline
 @import "elements/elements.links";
-@import "elements/elements.lists";
-@import "elements/elements.images";
 @import "elements/elements.quotes";
 
 // OBJECTS
-@import "objects/objects.wrappers";
-@import "objects/objects.layout";
-@import "objects/objects.headline";
-@import "objects/objects.media";
-@import "objects/objects.list-bare";
-@import "objects/objects.list-inline";
-@import "objects/objects.crop";
+// @import "objects/objects.wrappers";
+// @import "objects/objects.layout";
+// @import "objects/objects.headline";
+// @import "objects/objects.media";
+// @import "objects/objects.list-bare";
+// @import "objects/objects.list-inline";
+// @import "objects/objects.crop";
 
 // COMPONENTS
-@import "components/components.logo";
-@import "components/components.page";
-@import "components/components.page-head";
-@import "components/components.page-foot";
-@import "components/components.nav-primary";
-@import "components/components.nav-secondary";
-@import "components/components.nav-tertiary";
-@import "components/components.masthead";
-@import "components/components.sub-content";
-@import "components/components.panel";
-@import "components/components.score";
-@import "components/components.buttons";
-@import "components/components.avatar";
-@import "components/components.testimonials";
-@import "components/components.calendar";
-@import "components/components.headline";
-@import "components/config.promo";
-@import "components/components.promo";
-@import "components/components.pagination";
+// @import "components/components.logo";
+// @import "components/components.page";
+// @import "components/components.page-head";
+// @import "components/components.page-foot";
+// @import "components/components.nav-primary";
+// @import "components/components.nav-secondary";
+// @import "components/components.nav-tertiary";
+// @import "components/components.masthead";
+// @import "components/components.sub-content";
+// @import "components/components.panel";
+// @import "components/components.score";
+// @import "components/components.buttons";
+// @import "components/components.avatar";
+// @import "components/components.testimonials";
+// @import "components/components.calendar";
+// @import "components/components.headline";
+// @import "comp// onents/config.promo";
+// @import "components/components.promo";
+// @import "components/components.pagination";
 
 // SCOPES
-@import "scopes/scopes.prose";
+// @import "scopes/scopes.prose";
 
 // UTILITIES
-@import "utilities/utilities.headings";
-@import "utilities/utilities.widths";
-@import "utilities/utilities.healthcheck";
-@import "utilities/utilities.debug";
-@import "utilities/utilities.shame";
+// @import "utilities/utilities.headings";
+// @import "utilities/utilities.widths";
+// @import "utilities/utilities.healthcheck";
+// @import "utilities/utilities.debug";
+// @import "utilities/utilities.shame";
 
 // DEVELOPMENT
