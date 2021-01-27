@@ -5,6 +5,7 @@
 /**
  * A modern reset that sits on top of Normalize.css.
  * Inspired by https://github.com/hankchizljaw/modern-css-reset
+ * and Tailwind preflight
  */
 
 /* Remove default margin */
@@ -49,7 +50,6 @@ html:focus-within {
 /* Set core body defaults */
 body {
   min-height: 100vh;
-  text-rendering: optimizeSpeed;
 }
 
 /* A elements that don't have a class get default styles */
@@ -59,9 +59,16 @@ a:not([class]) {
 
 /* Make images easier to work with */
 img,
-picture {
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
   max-width: 100%;
   display: block;
+  vertical-align: middle;
 }
 
 /* Inherit fonts for inputs and buttons */
@@ -70,6 +77,24 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+/* Remove border styles */
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+}
+
+/* Buttons have a default state */
+button:focus {
+  outline: 1px dotted;
+
+  @supports (outline: 5px auto -webkit-focus-ring-color) {
+    outline: 5px auto -webkit-focus-ring-color;
+  }
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */
