@@ -1,0 +1,14 @@
+///*----------------------------------*\
+//  #Z-INDEX
+//\*----------------------------------*/
+
+// Setting up a gobal CSS Map to handle z-index throughout all elements in
+
+// Usage:
+// z-index: map-get($z-index, main-content);
+
+// z-indexing
+$z-index: (
+    some-z: 1,
+    // main-content: 100,
+);
