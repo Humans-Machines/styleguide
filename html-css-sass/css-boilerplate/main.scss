@@ -148,7 +148,7 @@
 
 
 // SETTINGS
-// @import "settings/settings.config"; // TODO: You are we going to implement design tokens
+// @import "settings/settings.config"; // TODO: How are we going to implement design tokens
 // @import "settings/settings.global";
 // @import "settings/settings.colors"; // TODO: How are we handling colors?
 @import "settings/settings.z-index";
@@ -165,12 +165,13 @@
 @import "generic/generic.normalize";
 @import "generic/generic.reset";
 
-
 // VENDOR
+// Add vendor css here if needed
+// Try to include only low specificity styles
 
 // ELEMENTS
 @import "elements/elements.root"; // Defining custom properties
-// @import "elements/elements.page"; // Base font-size scaling // TODO: Streamline
+@import "elements/elements.page"; // TODO: Add default body styles, like color etc
 // @import "elements/elements.headings"; // TODO: Streamline
 @import "elements/elements.links";
 @import "elements/elements.quotes";
