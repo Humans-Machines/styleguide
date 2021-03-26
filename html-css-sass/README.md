@@ -6,29 +6,39 @@
 
 - Strictly structure (markup) from presentation (styling) from behavior (scripting)
 - Keep the interaction between the three to an absolute minimum
-- Choose server-side rendering above client-side rendering unless your a building a real webapp // TODO: true?
+- Choose server-side rendering above client-side rendering unless your a building a real webapp
 
-Make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything presentational into style sheets, and everything behavioral into scripts.
+Make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything 
+presentational into style sheets, and everything behavioral into scripts. There might be execptions from this rule 
+(eg. think Atomic CSS).
 
-Whenever possible, we prefer to write HTML and CSS over JavaScript. In general, HTML and CSS are more prolific and accessible to more people of all different experience levels. HTML and CSS are also faster in your browser than JavaScript, and your browser generally provides a great deal of functionality for you.    
+Whenever possible, we prefer to write HTML and CSS over JavaScript. In general, HTML and CSS are more prolific and 
+accessible to more people of all different experience levels. HTML and CSS are also faster in your browser than 
+JavaScript, and your browser generally provides a great deal of functionality for you.    
 
 ## Accessibility
 
 - Use semantic headings and structure 
 - Order DOM elements logically
-- Use elements for what they have been created for. For example, use heading elements for headings, `p` elements for paragraphs, `a` elements for anchors, etc.
+- Use elements for what they have been created for. For example, use heading elements for headings, `p` elements for 
+paragraphs, `a` elements for anchors, etc.
 - Make content readable and provide predictable functionality
-- Ensure links have :focus state and are recognizable (underlined)
+- Ensure links have `:focus` or `:focus-visible` states and are recognizable (eg. underlined)
 - Use appropriate alt text for images
 - To prevent redundancy and for images whose purpose is purely decorative, use no alt text, as in `alt=""`
 - Use unobtrusive JavaScript and beware of in line scripting
 - Provide No-JS alternatives, at least in a lo-fi manner
+- Ensure that content will be displayed even if JavaScript fails or takes a while to be parsed
 - Ensure that tab order for the site and especially forms follow a logical pattern
 - Add labels for all form controls
 - Make sure placeholder attributes are not being used in place of label tags
+- Make sure to hide soley decorative elements from screen-reader
+- Hide duplicate responsive content from screen-readers (eg. hide a desktop menu if there is a mobile menu as well)
+- Make heavy and wise use of aria-attributes
 - Avoid Assumptions
 
-Accessibility affects all users, not just those with stereotypical disabilities. Accepting this means realizing accessibility is about building for stress cases, such as:
+Accessibility affects all users, not just those with stereotypical disabilities. Accepting this means realizing 
+accessibility is about building for stress cases, such as:
  
 - Old age
 - Chronic medical conditions like arthritis
@@ -62,18 +72,24 @@ Think about it!
     
     color: #e5e5e5;
 
-All code has to be lowercase: This applies to HTML element names, attributes, attribute values (unless `text/CDATA`), CSS selectors, properties, and property values (with the exception of strings).
+All code has to be lowercase: This applies to HTML element names, attributes, attribute values (unless `text/CDATA`), 
+CSS selectors, properties, and property values (with the exception of strings).
 
 ## Comments
 
-- Always use comments to explain non-obvious code: 
+You are not alone in this. At least it is you and your future you. So please help yourself and other, and 
+always use comments to explain non-obvious code:
+
 - What does it cover?
 - What purpose does it serve?
 - Why is respective solution used or preferred?
 - Whether some CSS relies on other code elsewhere?
 - What effect changing some code will have elsewhere?
 
-As a rule, you should comment anything that isn’t immediately obvious from the code alone. That is to say, there is no need to tell someone that color: red; will make something red, but if you’re using overflow: hidden; to clear floats—as opposed to clipping an element’s overflow—this is probably something worth documenting.
+As a rule, you should comment anything that isn’t immediately obvious from the code alone. 
+That is to say, there is no need to tell someone that `color: red;` will make something red, 
+but if you’re using `overflow: hidden; to clear floats—as opposed to clipping an element’s 
+overflow—this is probably something worth documenting.
 
 ### Component and High-Level Comments
 
@@ -96,7 +112,8 @@ As a rule, you should comment anything that isn’t immediately obvious from the
  
 ### Section Comments
 
-- Group sections by a section comment
+You might want to group sections by a section comment. 
+But this is not mandatory if the class names speak for themselves.
 
 **Do**
 
@@ -112,13 +129,11 @@ As a rule, you should comment anything that isn’t immediately obvious from the
 
 ### Declaration Comments
 
-Oftentimes we want to comment on specific declarations (i.e. lines) in a ruleset.
+Oftentimes we want to comment on specific declarations (i.e. lines) in a ruleset. 
+To do this we can:
 
-To do this we can use a kind of reverse footnote like so:
-
-- Always use comments to explain non-obvious declarations
-- Either use the reverse footnote approach 
-- or insert a simple end-of-line comment
+- use a kind of reverse footnote (streber style)
+- insert a simple end-of-line comment
 
 **Do**
     
@@ -161,18 +176,19 @@ Whatever syntax you prefer, try to stay consistent at least within the file you 
 
 ### HTML comments
 
-// TODO
-Twig or Smarty
+Ìf you are using template languages such as Twig or Smarty use comments to explain non-obvious code as well. 
+The commenting style might differ with specific language and project. Again, whatever syntax you prefer, 
+try to stay consistent within a codebase.
 
 ## Action Items
 
 Mark todos and action items with `TODO` and append action as in `TODO: action item`.
 
-Append a contact (username or mailing list) in parentheses as with the format `TODO(contact)`.
+Append a contact (username or mailing list) in parentheses as with the format `TODO @contact`.
 
 **Do**
 ```
-{# TODO(john.doe): revisit centering #}
+{# TODO @jonny: revisit centering #}
 <center>Test</center>
 
 <!-- TODO: remove optional tags -->
@@ -221,9 +237,257 @@ Append a contact (username or mailing list) in parentheses as with the format `T
       <li>Larry</li>
       <li>Curly</li>
     </ul>
-    
 
-## CSS and SASS
+## CSS Methodology
+
+Our approach of writing CSS is heavily inspired by [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) (Inversed Triangle CSS by Harry Roberts/csswizardry)
+and [CUBE CSS](https://piccalil.li/blog/cube-css) by Andy Bell and we spice it up with a heavy dose of atomic CSS 
+(eg. with [tailwindcss](https://tailwindcss.com/)).
+
+> The inversed triangle from ITCSS shows how styles represented by selectors are ordered in the resulting CSS:
+from generic styles to explicit ones, from low-specificity selectors to more specific ones
+and from far reaching to localized ones.
+
+
+    Inversed Triangle
+    
+      *************     Settings
+       ***********      Tools
+        *********       Generic
+         *******        Elements
+          *****         Objects
+           ***          Components
+            *           Utilities
+
+
+> CUBE CSS (Composition, Utility, Block, Exception) is a methodology oriented towards simplicity and consistency.
+Instead of going utility-first like atomic CSS libraries such as Tailwind, CUBE CSS tries to unleash the
+power of the cascade by the use of global style axioms and layout primitives.
+
+Although an utility-first approach seems to go against the idea of the cascade, the use of atomic CSS classes
+provides a lot of benefits:
+
+- Fewer declaration duplicates
+- No specificity issues
+- No need for class and component naming
+- Very predictable
+- Reduced risk of regressions
+
+As a result the methodology we created integrates a loose version of ITCSS with the mindset of CUBE CSS and heavy 
+usage of utility classes. Our key goals are:
+
+- Keep things maintainable and predictable
+- Think ahead of time and ensure scalability
+- Keep specificity low at all times
+- Utilise the power of CSS and the cascade
+
+### CSS Structure
+
+    .
+    ├── SETTINGS
+    │   │ Define the ground: Design tokens, sizes, other vars
+    │   │ No CSS output here
+    │   │  
+    │   ├── Config...............Configuration and environment settings
+    │   ├── Tokens...............Global design tokens such as colors, size scale settings and text styles
+    │   ├── Breakpoints..........Breakpoint definitions
+    │   ├── UI...................UI Specific settings for custom properties
+    │   ├── Z-Index..............Handle z-index throughout relevant ui-elements
+    │   └── Vars.................Static SASS vars for use in components, objects and utilities
+    │ 
+    │ 
+    ├── TOOLS
+    │   │ Globally used mixins and functions
+    │   │ No CSS output here
+    │   │
+    │   ├── Functions............Some simple helper functions
+    │   ├── Mixins...............Globally available mixins
+    │   └── Animations...........Define animations
+    │ 
+    │ 
+    ├── GENERIC
+    │   │ Global resets and normalize styles, box-sizing definition, etc
+    │   │ First layer of the triangle that generates CSS
+    │   │
+    │   ├── Box-sizing...........Better default `box-sizing`
+    │   ├── Normalize.css........Default normalize styles
+    │   ├── Reset................Modern reset
+    │   └── Measure..............Prevent extensive line-length with a style axiom
+    │
+    │ 
+    ├── VENDOR
+    │   Includes of vendor styles for third party components
+    │   Try to include only low specificity styles
+    │ 
+    │ 
+    ├── ELEMENTS
+    │   │ Styling for bare HTML elements (like H1, A, header, footer, …)
+    │   │ Redefine browser presets to the projects needs and pursued design system
+    │   │
+    │   ├── Fontface.............@font-face declarations
+    │   ├── Root.................Custom Properties
+    │   ├── Page.................Page-level styles (HTML element).
+    │   ├── Headings.............Heading styles.
+    │   ├── Links................Hyperlink styles.
+    │   └── Quotes...............Styling for blockquotes, etc.
+    │ 
+    │ 
+    ├── OBJECTS
+    │   Class-based selectors which define composition and undecorated design patterns.
+    │   An object (CUBE CSS Methodology: Utility) does one job and does that job well.
+    │ 
+    │ 
+    ├── COMPONENTS
+    │   Specific UI components which are to complex to be defined by atomic CSS utilities
+    │   Uses BEM for naming
+    │ 
+    │ 
+    ├── SCOPES
+    │   Styling for bare HTML elements in a scoped context
+    │   Eg. for Markdown output from CMS
+    │ 
+    │ 
+    ├── UTILITIES
+    │   Atomic CSS utilities
+    │   Included last to also be able to serve as component modifiers
+    │ 
+    │ 
+    ├── HELPERS
+    │   Helper classes for JavaScript calculation
+    │   Eg. for determining the scrollbar width
+    │ 
+    │ 
+    └── DEVELOPMENT
+        Debugging and Development components and styles
+        Eg. for showing a layout grid
+
+
+### CSS Methodology Guidelines
+
+- Think progressive enhancement
+- Go mobile first
+- DYI: Don’t repeat yourself (and keep the codebase tight)
+- Unleash the power of `Custom Properties` at all times
+- Use `Resets`, styled `Elements`, and Objects to layout
+  the design system and composition
+- Use Objects for common behavioural patterns
+- Use `Utilities` heavily for everything which is not tackled
+  by `Resets`, `Elements` and `Objects`
+- Use `Components` as a last resort for things
+  which can’t be (easily) done with `Objects` and `Utilities`
+- Use `Components` for more complex and contextual styles
+  that deviate from the common, global system
+- Use `BEM` for `Components` to style `blocks` containing `elements` to be altered with `modifiers`
+
+### Utility Classes
+
+Utility classes are a powerful ally in combatting CSS bloat and poor page performance. A utility class is typically a
+single, immutable property-value pairing expressed as a class. Their primary appeal is speed of use while writing HTML
+and limiting the amount of custom CSS you have to write.
+
+Depending on the project utility classes might be created by hand, with SASS mixins or by the use of frameworks
+such as tailwindcss. As you create your own classes make sure to stick to the naming convention of tailwindcss.
+
+TODO: Extend
+
+### Objects
+  
+An `Object` does one job and does that job well. An `Object`, more often than not, will only have a few CSS 
+properties defined, while a `Component` deals with more complex setups. However the borders between a `Component` 
+and an `Object` are blurred. So stop overthinking, whether the piece of code you are about to create is a 
+`Component` or an `Object`.
+
+### Components and BEM
+
+- Create reusable components for more complex common visual or behavioural patterns
+- Abstract the structure of an object from the skin that is being applied
+- Don’t style objects based on their context. An object should look the same no matter where you put it
+- Write names in lower case
+- Separate words within names by hyphens `-`
+- Delimit elements by double underscores `__`
+- Delimit modifiers by double hyphens `--`
+- Use the same naming convention for grandchildren. So no `.block-name__child__grand-child`-craziness
+- Rather use utility classes as simple component modifications
+  than to introduce a BEM-modifier
+- Use `has-` or `is-` prefix for the state
+
+**Don’t**
+
+    <!--    
+     * No one but the person who wrote the following code knows what it does
+     *
+     * How are the classes box and profile related to each other?
+     * How are the classes profile and avatar related to each other?
+     * Are they related at all? Should you be using pro-user alongside bio?
+     * Will the classes image and profile live in the same part of the CSS?
+     * Can you use avatar anywhere else? 
+     -->     
+    <div class="box profile pro-user">
+        <img class="avatar image" />
+        <p class="bio">...</p>
+    </div>
+    
+    /* Don’t: Use not-reusable class names */
+    .header--desktop {        
+        @media screen and (max-width: 599px) {
+            display: none;
+        }
+    }
+    
+    /* Don’t: Be unspecific with state classes */
+    .activated {
+        display: block;
+    }
+
+**Do**
+
+    <!--    
+     * Going for a object-oriented BEM approach makes the following code self-documenting 
+     *
+     * We can see which classes are and are not related to each other, and how
+     * We know what classes we can’t use outside of the scope of this component.
+     * Also, we know which classes we are free to reuse elsewhere.
+     -->     
+    <div class="box profile profile--pro-user">
+        <img class="avatar profile__image" />
+        <p class="profile__bio">...</p>
+    </div>
+    
+    /* Do: Use utility classes for common micro patterns */
+    .lg:hidden {
+        @media screen and (min-width: 599px) {
+            display: none;
+        }
+    }
+    
+    /* Do: Prefix state classes to tell what is going on */
+    .is-activated {
+        display: block;
+    }
+
+`Components` respectively `Blocks` are logically and functionally independent components of a web page. They are nestable and should 
+be capable of being contained inside another block without breaking anything. `Elements` are the constituent parts of a 
+block that can’t be used outside of it. `Modifiers` define the appearance and behavior of a block.
+
+### Responsiveness / Mobile first
+
+- Make sure everything is entirely responsive
+- Default your CSS for less capable devices
+- Style components for the smallest viewport first (mobile first)
+- Overwrite styles to adapt to larger viewports via media queries
+- Don’t use media queries for the default view (smallest viewport) unless these styles are just an enhancement and
+  overwriting for larger viewports will lead to extensive effort
+
+Styling the most likely simpler component structure on mobile devices first will lead to less and simplified code and
+fewer overwrites. Leaving out everything within media queries the code can be parsed much faster by mobile devices—and
+devices with few capabilities such as e-book readers will see a simple default view.
+
+## Writing CSS
+
+### SASS File Naming
+
+SASS files should be prefixed by its layer, eg. `_settings.z-index.scss`. This will lead to more clarity
+while handling files (there also might be a `_utilities.z-index.scss`).
 
 ### Formating Rules
 
@@ -328,7 +592,8 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 
 - Use single (`''`) quotation marks for attribute selectors and property values.
 - Do not use quotation marks in URI values (`url()`).
-- Exception: If you do need to use the `@charset` rule, use double quotation marks—[single quotation marks are not permitted](https://www.w3.org/TR/CSS21/syndata.html#charset).
+- Exception: If you do need to use the `@charset` rule, use double quotation 
+  marks—[single quotation marks are not permitted](https://www.w3.org/TR/CSS21/syndata.html#charset).
 
 **Don’t**
 
@@ -398,10 +663,14 @@ Append a contact (username or mailing list) in parentheses as with the format `T
         transition: opacity 0.3s linear;
     }  
     
-Sticking to this proposal of declaration sorting is not mandatory. Have a look at the specific codebase. If nobody does it, feel free to order randomly as well. Or have a linter to the rescue.   
+Sticking to this proposal of declaration sorting is not mandatory and might feel to be overkill. 
+Have a look at the specific codebase. If nobody does it, feel free to order randomly as well. 
+Or have a linter to the rescue.   
     
 ### Selector Order and Nesting
 
+- **Do not nest selectors unnecessarily**
+- **Do not nest selectors unnecessarily**
 - **Do not nest selectors unnecessarily**
 - Add self-declarations first
 - Add pseudo-classes next
@@ -434,7 +703,7 @@ Sticking to this proposal of declaration sorting is not mandatory. Have a look a
     }
     
     /* Don’t: Group responsive styles into seperate blocks */
-    @include respond-to(desktop) {
+    @include respond-to(lg) {
         .header__nav {
             // styles for desktop header navi
             
@@ -475,21 +744,21 @@ Sticking to this proposal of declaration sorting is not mandatory. Have a look a
             // state related styles
         }
         
-        /* Do: Nest modifier for better readability */
-        &.header__nav--small {
-            // styles for modified header
-        }  
-        
         /* Do: Add responsive styles for every selector */
-        @include respond-to(desktop)  {
+        @include respond-to(lg)  {
             // styles for desktop header navi
         }
     }
         
+    /* Do: Prevent modifier nesting for low specificity */
+    &.header__nav--small {
+        // styles for modified header
+    }  
+        
     .header__nav-link {
         // styles for links inside header navi
         
-        @include respond-to(desktop)  {
+        @include respond-to(lg)  {
             // styles for desktop links inside header navi
         }
     }
@@ -499,7 +768,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 ### Meaningful Whitespace
 
 - Make use of whitespace between rulesets to structure code (optional)
-- But four blank lines before new sections
+- Put four blank lines before new sections (or three? Just be consistent)
 
 **Do**
 
@@ -526,10 +795,9 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 - Avoid qualifying class names with type selectors. Put the class name at the lowest possible level
 - Use combined selectors wisely
 - Select what you want explicitly, rather than relying on circumstance or coincidence
-- Write selectors for reusability
+- Write selectors for re-usability
 - Do not qualify selectors unnecessarily, as this will impact the number of different elements you can apply styles to
 - Keep selectors as short as possible, in order to keep specificity down and performance up
-- Think about selector performance
 
 **Don’t**
 
@@ -564,18 +832,6 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
         // styles for promo button
     } 
     
-    /* Don’t: Forget about selector performance */
-     *
-     * What this does is looks at every single element on the page (that’s every single one) 
-     * and then looks to see if any of those live in the .header__nav-link parent.
-     * This is a very un-performant selector as the key selector is a very expensive one.
-     * The effect on smaller sides is pretty minimal
-     * but if we are about to build the next ebay you might want to think about this
-     */
-    .header__nav-link > * {
-        // styles for <button> and <a> inside parent
-    }
-    
     /* Don’t: Overcomplicate your code 
      * 
      * If your code looks like this you might want to think about adding a class to your HTML 
@@ -593,7 +849,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
     }
     
     /* Do: Use specific, reusable classes. Put the class name at the lowest possible level */
-    /* .promo a -> */ .btn--promo { 
+    .btn--promo { 
         // styles for promo button
     }
     
@@ -643,100 +899,13 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
     
     /* Do: short, readable */
     #nav {}
-    .author {}   
-    
-### Modular CSS and BEM
-
-- Create reusable components for common visual or behavioural patterns
-- Abstract the structure of an object from the skin that is being applied
-- Don’t style objects based on their context. An object should look the same no matter where you put it
-- Use BEM to style `blocks` containing `elements` to be altered with `modifiers`
-- Write names in lower case
-- Separate words within names by hyphens `-`
-- Delimit elements by double underscores `__`
-- Delimit modifiers by double hyphens `--`
-- Use the same naming convention for grandchildren. So no `.block-name__child__grand-child`-craziness
-- Use utility classes for common visual or behavioural micro patterns
-- Use `has-` or `is-` prefix for the state
-
-**Don’t**
-         
-    <!--    
-     * No one but the person who wrote the following code knows what it does
-     *
-     * How are the classes box and profile related to each other?
-     * How are the classes profile and avatar related to each other?
-     * Are they related at all? Should you be using pro-user alongside bio?
-     * Will the classes image and profile live in the same part of the CSS?
-     * Can you use avatar anywhere else? 
-     -->     
-    <div class="box profile pro-user">
-        <img class="avatar image" />
-        <p class="bio">...</p>
-    </div>
-    
-    /* Don’t: Use not-reusable class names */
-    .header--desktop {        
-        @media screen and (max-width: 599px) {
-            display: none;
-        }
-    }
-    
-    /* Don’t: Be unspecific with state classes */
-    .activated {
-        display: block;
-    }
-
-**Do**
-        
-    <!--    
-     * Going for a object-oriented BEM approach makes the following code self-documenting 
-     *
-     * We can see which classes are and are not related to each other, and how
-     * We know what classes we can’t use outside of the scope of this component.
-     * Also, we know which classes we are free to reuse elsewhere.
-     -->     
-    <div class="box profile profile--pro-user">
-        <img class="avatar profile__image" />
-        <p class="profile__bio">...</p>
-    </div>
-    
-    /* Do: Use utility classes for common micro patterns */
-    .hidden-on-mobile {
-        @media screen and (max-width: 599px) {
-            display: none;
-        }
-    }
-    
-    /* Do: Prefix state classes to tell what is going on */
-    .is-activated {
-        display: block;
-    }
-
-Blocks are logically and functionally independent components of a web page. They are nestable and should be capable of being contained inside another block without breaking anything. Elements are the constituent parts of a block that can’t be used outside of it. Modifiers define the appearance and behavior of a block. 
-
-Utility classes are a powerful ally in combatting CSS bloat and poor page performance. A utility class is typically a single, immutable property-value pairing expressed as a class. Their primary appeal is speed of use while writing HTML and limiting the amount of custom CSS you have to write.
-
-Modular CSS simplifies code and facilitates refactoring. It produces self-documenting and reusable code that doesn’t influence outside its scope. It is predictable, maintainable, and performant. 
-
-### Responsiveness / Mobile first
-
-- Make sure every component is entirely responsive 
-- Default your CSS for less capable devices
-- Style components for the smallest viewport first (Mobile first)
-- Overwrite styles to adapt to larger viewports via media queries
-- Don’t use media queries for the default view (smallest viewport) unless these styles are just an enhancement and overwriting for larger viewports will lead to extensive effort
-
-Styling the most likely simpler component structure on mobile devices first will lead to less and simplified code and fewer overwrites. Leaving out everything within media queries the code can be parsed much faster by mobile devices—and devices with few capabilities such as e-book readers will see a simple default view.
+    .author {}
 
 ### Relative Units
 
 - Avoid pixels, they are ignorant
 - Use relative units like `rem` and `em` instead
-- Use `rem` for font-sizes to be resized via the `Html` root font-size 
-- Use `em` for layout element size declaration to be resized via the `Body` font-size
-- Avoid font-size declarations on parents
-- Avoid throwing layout sizes on elements with font-size declarations 
+- Use `rem` for font and layout sizes to be resized via the `Html` root font-size
 
 **Don’t**
     
@@ -745,83 +914,32 @@ Styling the most likely simpler component structure on mobile devices first will
         font-size: 18px;
         width: 300px;
     }
-    
-    /* Don’t: Add unnessary font-sizes on parents
-     * 
-     * This declaration destoys the layout sizing approach for all children
-     */
-    .main-wrapper {
-        font-size: 1.6rem;
-    }
-
-    /* Don’t: Mix rem and em declarations within the same element
-     * 
-     * Here the width is relative to the elements own font-size 
-     * instead of the font-size of the body.
-     * The layout sizing via the body-font-size is thrown off.
-     */
-    .headline {
-        font-size: 1.8rem;
-        width: 20em;
-    }
 
 **Do**
     
-    /* We usually set a base font-size to both the html and the body element
-     * in order to split layout-scaling from font-size-scaling.
-     * These root font-sizes are scaled based on the viewport width (vw)
-     * via a crazy sass-mixin and streamlined across all breakpoints.
-     * This approach makes the streamlining of font on layout sizes 
-     + for all viewport sizes very easily
-     *
-     * What you see here is just a much simplified example
-     * without viepwort-based resizing
-     */
-    html {
-        font-size: 16px;
-    }
-    
-    body {
-        font-size: 12px;
-    }
-    
-    /* Layout elements should be sized based on the body-font-size via the em unit */
-    .box {
-        width: 20em;
-    }
-    
-    /* Font-sizes are responding to the html-font-size via the rem unit */
-    .box__headline {
+    /* Do: Use relative units */
+    .headline {
         font-size: 1.8rem;
+        max-width: 48ch;
+        width: 80%;
+        margin-top: 1rem;
     }
-    
-    /* The use of viewport units also a way to set up layout elements */ 
-    .main-wrapper {
-        width: 80vw;
-        margin: 0 auto;
-    }
-    
-    .hero {
-        height: 18em;
-        min-height: 80vh;
-    }
-
-    /* Due to render-issues on half pixels the use of pixels might be ok */
-    .btn--underline {
-        border-width: 1px;
-    } 
     
 ### JavaScript hooks
 
-- Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have (or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable to bind your JS onto specific classes.
+- Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
+  (or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
+  to bind your JS onto specific classes.
 - Create JavaScript-specific classes to bind to, prefixed with `.js-`
 - Don’t use data-Attributes for this purpose
 
 **Do**
 
-    <button class="btn btn-primary js-request-to-book">Request to Book</button>
+    <button class="btn btn-primary | js-request-to-book">Request to Book</button>
     
-A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to store data, not be bound to.
+A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, 
+are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to 
+store data, not be bound to.
  
 ### Hacks
 
@@ -904,18 +1022,22 @@ A common practice is to use data-* attributes as JS hooks, but this is incorrect
 
 - Initiate variables the value is repeated at least twice and the value is likely to be updated
 - Use dash-cased variable names (e.g. `$my-variable`)
-- Store all variables in the `_var.scss`
-- Prefix variables with `_` (e.g. `$_my-variable`), if you want to put it inside a component file and only use it there
+- Store all variables in the `_settingss.vars.scss`
+- Prefix variables with `_` (e.g. `$_my-variable`), if you want to put it inside a component 
+  file and only use it there
 
 ### Extend
 
 - Avoid `@extend`
 
-Extending is invisible. Extending doesn’t necessarily help file weight, contrary to the saying. Extending doesn’t work across media queries. Extending is not flexible. Mixins have absolutely no drawback.
+Extending is invisible. Extending doesn’t necessarily help file weight, contrary to the saying. 
+Extending doesn’t work across media queries. Extending is not flexible. Mixins have absolutely no drawback.
 
 
 ## Sources and further reading
 
+- https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+- https://piccalil.li/blog/cube-css
 - https://google.github.io/styleguide/htmlcssguide.html
 - https://cssguidelin.es/
 - https://spaceninja.com/2018/09/17/what-is-modular-css/
@@ -928,3 +1050,5 @@ Extending is invisible. Extending doesn’t necessarily help file weight, contra
 - https://getbootstrap.com/docs/
 - https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/
 - https://www.sitepoint.com/avoid-sass-extend/
+- https://www.algolia.com/blog/engineering/redesigning-our-docs-part-4-building-a-scalable-css-architecture/
+- https://adamwathan.me/css-utility-classes-and-separation-of-concerns/
