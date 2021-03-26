@@ -1,0 +1,34 @@
+/*------------------------------------*\
+  #COLOR
+\*------------------------------------*/
+
+// Adding color utility classes
+// Naming convention based on tailwind
+//
+// Basic classes
+// .bg-default, .p-secondary, etc
+//
+// Optional Responsive classes
+// .md:bg-default, .lg:p-secondary, etc
+
+// Adding bespoke utility classes
+//
+// @mixin token-utilities(
+//      $class-name,
+//      $properties,
+//      $prefixes: md lg,
+//      $token-set: $size-scale)
+// @include token-utilities('text', color, false, $text-colors);
+@include token-utilities('bg', background-color, false, $bg-colors);
+
+// Add theme color class for dinamic theme colors
+.text-theme {
+    color: var(--theme-color);
+}
+
+.bg-theme {
+    background-color: var(--theme-color);
+}
+
+
+

@@ -1,0 +1,91 @@
+/*------------------------------------*\
+  #PROSE
+\*------------------------------------*/
+
+.prose {
+    h1,
+    h2,
+    h3,
+    h4 {
+        @include text-style('400');
+        @include text-style('medium');
+
+        & + p,
+        & + ul,
+        & + ol {
+            --flow-space: #{map-get($size-scale, "25")};
+        }
+    }
+
+    h1,
+    h2 {
+       --flow-space: #{map-get($size-scale, "700")};
+    }
+
+    h3,
+    h4 {
+        --flow-space: #{map-get($size-scale, "500")};
+    }
+
+    p {
+        a {
+            @include underline-link();
+            @include color-link();
+        }
+    }
+
+    dd {
+        a {
+            @include color-link();
+        }
+    }
+
+    em {
+        @include text-style('medium');
+    }
+
+    strong {
+        font-family: inherit;
+        font-feature-settings: normal;
+        @include text-style('medium');
+    }
+
+    li {
+        max-width: var(--measure);
+    }
+
+    $_li-indent: map-get($size-scale, "600");
+
+    li {
+        padding-left: $_li-indent;
+
+        &:before {
+            content: '•';
+            width: $_li-indent;
+            display: inline-block;
+            margin-left: $_li-indent * -1;
+            float: left;
+            text-align: center;
+        }
+    }
+}
+
+.prose--list {
+    ul > * + * {
+        margin-top: var(--flow-space);
+        --flow-space: #{map-get($size-scale, "50")};
+    }
+
+    $_li-indent: map-get($size-scale, "400");
+
+    li {
+        padding-left: $_li-indent;
+        --measure: 42ch;
+
+        &:before {
+            width: $_li-indent;
+            margin-left: $_li-indent * -1;
+            text-align: left;
+        }
+    }
+}

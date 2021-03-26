@@ -1,0 +1,38 @@
+/*------------------------------------*\
+  #TEXT
+\*------------------------------------*/
+
+// Adding text utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+$text-props: (
+    'text-align': (
+        'text-left': left,
+        //  'text-center': center,
+        'text-right': right,
+        //  'text-justify': justify,
+    ),
+    'text-transform': (
+        'uppercase': uppercase,
+        // 'lowercase': lowercase,
+        // 'capitalize': capitalize,
+        // 'normal-case': none,
+    ),
+
+) !default;
+
+// Creating classes
+@include utility-classes($text-props, md);
+
+// Custom classes
+.text-bubble {
+    @include bubble();
+}
+
+

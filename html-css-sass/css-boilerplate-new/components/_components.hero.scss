@@ -1,0 +1,16 @@
+/*------------------------------------*\
+  #HERO
+\*------------------------------------*/
+
+.hero {
+    max-width: 100%;
+    z-index: map-get($z-index, hero);
+    position: relative;
+    overflow: hidden; // Cut of long words
+
+    // colorize bubbles
+    em,
+    strong {
+        color: var(--theme-color);
+    }
+}

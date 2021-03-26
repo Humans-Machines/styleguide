@@ -1,0 +1,37 @@
+/*------------------------------------*\
+  #FLEX
+\*------------------------------------*/
+
+// Adding flex utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+$flex-props: (
+    'flex-direction': (
+        'flex-row': row,
+        'flex-row-reverse': row-reverse,
+        'flex-col': column,
+        'flex-col-reverse': column-reverse,
+    ),
+    'flex-wrap': (
+        'flex-wrap': wrap,
+        // 'flex-wrap-reverse': wrap-reverse,
+        // 'flex-nowrap': nowrap,
+    ),
+    'flex': (
+        // 'flex-1': 1 1 0%,
+        'flex-auto': 1 1 auto,
+        // 'flex-initial': 0 1 auto,
+        // 'flex-none': none,
+    ),
+) !default;
+
+// Creating classes
+@include utility-classes($flex-props, md);
+
+

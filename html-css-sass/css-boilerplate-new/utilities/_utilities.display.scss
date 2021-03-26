@@ -1,0 +1,28 @@
+/*------------------------------------*\
+  #DISPLAY
+\*------------------------------------*/
+
+// Adding display utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+$display-props: (
+    'display': (
+        'block': block,
+        'inline-block': inline-block,
+        'inline': inline,
+        'flex': flex,
+        'grid': grid,
+        'hidden': none,
+    ),
+) !default;
+
+// Creating classes
+@include utility-classes($display-props, md sm-only);
+
+

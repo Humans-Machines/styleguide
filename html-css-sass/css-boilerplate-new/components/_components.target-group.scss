@@ -1,0 +1,49 @@
+/*------------------------------------*\
+  #Target Group
+\*------------------------------------*/
+
+.target-group__title {
+    @include color-link('a.target-group');
+}
+
+.target-group__text {
+    width: 100%;
+}
+
+.target-group__hint {
+    // Add arrow and hover effect
+    @include arrow-link(true, 'a', true, false, true);
+
+    .no-touch &,
+    .is-touch & {
+        &:after {
+            @include text-style('600');
+            transform: scale(0.6);
+            transform-origin: right bottom;
+        }
+    }
+
+    /* Variation for simpler hover
+
+    // @include arrow-link(false, 'a', true);
+    @include hover('a') {
+        &:after {
+            opacity: 1;
+            color: var(--theme-color);
+        }
+    }
+
+    .no-touch &,
+    .is-touch & {
+        &:after {
+            // opacity: 0.3;
+            // transition: color $trans-time--xs $trans-func--ease-out,
+            //             opacity $trans-time--xs $trans-func--ease-out;
+            @include text-style('600');
+            transform: scale(0.6);
+            transform-origin: right bottom;
+        }
+    }
+
+    */
+}

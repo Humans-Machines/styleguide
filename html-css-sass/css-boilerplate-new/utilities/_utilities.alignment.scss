@@ -1,0 +1,42 @@
+/*------------------------------------*\
+  #ALIGNMENT
+\*------------------------------------*/
+
+// Adding flex utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+$align-props: (
+    'align-items': (
+        'items-start': flex-start,
+        'items-end': flex-end,
+        'items-center': center,
+        // 'items-baseline': baseline,
+        // 'items-stretch': stretch,
+    ),
+    'justify-content': (
+        // 'justify-start': flex-start,
+        'justify-end': flex-end,
+        // 'justify-center': center,
+        'justify-between': space-between,
+        // 'justify-around': space-around,
+        // 'justify-evenly': space-evenly,
+    ),
+    'align-self': (
+        // 'self-auto': auto,
+        // 'self-start': flex-start,
+        'self-end': flex-end,
+        // 'self-center': center,
+        // 'self-stretch': stretch,
+    ),
+) !default;
+
+// Creating classes
+@include utility-classes($align-props, md);
+
+

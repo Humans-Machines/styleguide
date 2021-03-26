@@ -1,0 +1,66 @@
+/*------------------------------------*\
+  #LINK
+\*------------------------------------*/
+
+.arrow-link {
+    @include arrow-link();
+}
+
+.arrow-link-stack {
+    // arrow link with a content all wrapped in spans
+    a {
+        > span:last-child {
+            @include arrow-link();
+        }
+    }
+}
+
+.arrow-link-hover {
+    @include arrow-link(true);
+}
+
+.arrow-link-stack-hover {
+    // arrow link with a content all wrapped in spans
+    a {
+        > span:last-child {
+            @include arrow-link(true);
+        }
+
+        // include hover manually
+        // because arrow-link mixin will not work with nested elements
+        @include hover() {
+            span:last-child:after {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+}
+
+.arrow-link-list-hover {
+    // arrow link with a content all wrapped in spans
+    // preview of arrow here
+    a {
+        > span:last-child {
+            @include arrow-link(true, '', false, false, true);
+        }
+
+        // include hover manually
+        // because arrow-link mixin will not work with nested elements
+        @include hover() {
+            span:last-child:after {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+}
+
+.color-link {
+    @include color-link();
+}
+
+.text-link {
+    @include underline-link();
+    @include color-link();
+}

@@ -1,0 +1,38 @@
+/*------------------------------------*\
+  #FOOTER
+\*------------------------------------*/
+
+.footer {
+    z-index: map-get($z-index, footer);
+    position: relative;
+}
+
+// Place an element further up
+// to indicate footer is coming in
+// via intersect observer
+.footer__view-indicator {
+    position: absolute;
+    top: -50vh;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+
+.footer__logo {
+    transition: opacity $trans-time--xs $trans-func--ease-out 0.1s,
+                transform $trans-time--xs $trans-func--ease-out 0.1s;
+
+    // Hide footer logo before fully in view
+    .intersection-observer & {
+        &:not(.intersect-inview) {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+            transition: opacity $trans-time--xs $trans-func--ease-out,
+                        transform $trans-time--xs $trans-func--ease-out;
+        }
+    }
+}

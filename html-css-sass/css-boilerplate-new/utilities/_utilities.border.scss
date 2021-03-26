@@ -1,0 +1,29 @@
+/*------------------------------------*\
+  #BORDER
+\*------------------------------------*/
+
+// Adding border utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+$border-props: (
+    'border-top-width': (
+        'border-t-1': 1px,
+    ),
+    'border-bottom-width': (
+        'border-b-1': 1px,
+    ),
+    'border-color': (
+        'border-default': var(--border-default),
+    ),
+) !default;
+
+// Creating classes
+@include utility-classes($border-props);
+
+

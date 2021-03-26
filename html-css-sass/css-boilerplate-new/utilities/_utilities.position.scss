@@ -1,0 +1,36 @@
+/*------------------------------------*\
+  #POSITION
+\*------------------------------------*/
+
+// Adding display utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+$position-props: (
+    'position': (
+        // 'static': static,
+        // 'fixed': fixed,
+        // 'absolute': absolute,
+        'relative': relative,
+        'sticky': sticky,
+    ),
+    'top': (
+        'top-0': 0px,
+        'top-700': var(--size-700),
+        'top-body': var(--body-py),
+    ),
+    'bottom': (
+        // 'bottom-0': 0px,
+        'bottom-body': var(--body-py),
+    ),
+) !default;
+
+// Creating classes
+@include utility-classes($position-props, md);
+
+

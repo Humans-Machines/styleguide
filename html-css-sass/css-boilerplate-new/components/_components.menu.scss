@@ -1,0 +1,104 @@
+/*------------------------------------*\
+  #MENU
+\*------------------------------------*/
+
+$_trans-time-menu: 0.25s;
+
+// Hide body overflow
+@include hide-body-overflow(has-menu);
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: map-get($z-index, menu);
+
+    &[aria-hidden="true"] {
+        visibility: hidden;
+        transition: visibility 0s linear $_trans-time-menu;
+    }
+}
+
+.menu__backdrop {
+    @include cover-box();
+    background: var(--bg-yellow);
+    opacity: var(--backdrop-o);
+    transition: opacity $_trans-time-menu $trans-func--default;
+    cursor: pointer;
+
+    [aria-hidden="true"] & {
+        opacity: 0;
+    }
+}
+
+.menu__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: opacity $_trans-time-menu $trans-func--default,
+                transform $_trans-time-menu $trans-func--modal;
+    width: 90%;
+    min-height: 24rem;
+    max-height: 100vh;
+    border-bottom-left-radius: var(--border-radius-s);
+    transform-origin: right top;
+    padding: var(--body-py) var(--body-px);
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+    // Fix scrollbar jumps
+    .has-menu & {
+        padding: var(--body-py) calc(var(--body-px) + var(--scrollbar-width)) var(--body-py) var(--body-px);
+    }
+
+    nav {
+        overflow: hidden;
+
+        li {
+            overflow: hidden;
+            @include transition-delay(0.06s, 0.05s, 10, false, 'a');
+        }
+
+        a {
+            display: inline-block;
+            transform: translate3d(0, 0, 0);
+            transition: opacity $trans-time--m $trans-func--ease-in-out,
+                        transform $trans-time--m $trans-func--ease-out;
+        }
+
+    }
+
+    // Initial hidden state
+    [aria-hidden="true"] & {
+        opacity: 0;
+        transition: opacity $trans-time--xs $trans-func--default,
+                    transform $trans-time--l $trans-func--modal;
+        transform: scale(0.5);
+
+        // nav li,
+        nav a {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+            transition: opacity 0s $trans-func--ease-in-out $_trans-time-menu,
+                        transform 0s $trans-func--ease-out $_trans-time-menu !important;
+        }
+    }
+
+    @include respond-to(sm-only) {
+        nav a {
+            @include arrow-link(true);
+        }
+    }
+
+    @include respond-to(md) {
+        width: 38rem;
+
+        nav a {
+            @include arrow-link(true, '', false, true);
+        }
+    }
+}
