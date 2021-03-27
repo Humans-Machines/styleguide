@@ -1,6 +1,52 @@
-# Humans & Machines HTML/CSS/SASS Style Guide
+# Guidelines for writing Html and CSS
 
 **Work-in-progress** // inspired by Google, AirBnB and cssguidelin.es
+
+These guidelines should help you and us to work together on sweet projects.
+
+Most parts of these guidelines are heavily inspired by Google and AirBnB coding guidelines, the work of 
+[Harry Roberts](https://csswizardry.com/) such as [cssguidelin.es](https://cssguidelin.es/) and 
+[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), as well as the mindset of
+Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [TailwindCSS](https://tailwindcss.com/) creator  
+[Adam Watham](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/).
+
+## Table of contents
+
+- [Separation of Concerns](#separation-of-concerns)
+- [Accessibility](#accessibility)
+- [General Formatting Rules](#general-formatting-rules)
+- [Comments](#comments)
+  * [Component and High-Level Comments](#component-and-high-Level-comments)
+  * [Section Comments](#section-comments)
+  * [Declaration Comments](#declaration-comments)
+  * [HTML comments](#html-comments)
+- [Action Items](#action-items)
+- [HTML](#html)
+  * [Document Type and Validity](#document-type-and-validity)
+  * [HTML Formatting Rules](#html-formatting-rules)
+- [CSS Methodology](#css-methodology)
+  * [Key Goals](#key-goals)
+  * [CSS Structure](#css-structure)
+- [CSS Codestyle](#css-codestyle)
+  * [Formating Rules](#formating-rules)
+  * [CSS Quotation Marks](#css-quotation-marks)
+  * [Declaration Order](#declaration-order)
+  * [Selector Order and Nesting](#selector-order-and-nesting)
+  * [Meaningful Whitespace](#meaningful-whitespace)
+  * [Selectors](#selectors)
+  * [ID and Class Naming](#id-and-class-naming)
+  * [Relative Units](#relative-units)
+  * [JavaScript Hooks](#javascript-hooks)
+  * [Hacks](#hacks)
+- [Preprocessors/SASS](#preprocessors-sass)
+  * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
+  * [File Naming](#file-naming)
+  * [Variables](#variables)
+  * [Extend](#extend)
+- [PurgeCSS](#purgecss)
+  
+
+
 
 ## Separation of Concerns
 
@@ -18,6 +64,21 @@ JavaScript, and your browser generally provides a great deal of functionality fo
 
 ## Accessibility
 
+Accessibility affects all users, not just those with stereotypical disabilities. Accepting this means realizing
+accessibility is about building for stress cases, such as:
+
+- Old age
+- Chronic medical conditions like arthritis
+- Being outside with a heavy sun glare
+- Cognitive impairment from medication or lack of sleep
+- Needing to use a site with different devices
+- Shaky WiFi that affects asset loading
+- Running from the thing that escaped your floorboards
+
+> Think about it!
+ 
+Therefore we advocate the creation of highly accessible products:
+
 - Use semantic headings and structure 
 - Order DOM elements logically
 - Use elements for what they have been created for. For example, use heading elements for headings, `p` elements for 
@@ -25,6 +86,7 @@ paragraphs, `a` elements for anchors, etc.
 - Make content readable and provide predictable functionality
 - Ensure links have `:focus` or `:focus-visible` states and are recognizable (eg. underlined)
 - Use appropriate alt text for images
+- Let screen reader user and keybooard user skip to main content 
 - To prevent redundancy and for images whose purpose is purely decorative, use no alt text, as in `alt=""`
 - Use unobtrusive JavaScript and beware of in line scripting
 - Provide No-JS alternatives, at least in a lo-fi manner
@@ -36,19 +98,6 @@ paragraphs, `a` elements for anchors, etc.
 - Hide duplicate responsive content from screen-readers (eg. hide a desktop menu if there is a mobile menu as well)
 - Make heavy and wise use of aria-attributes
 - Avoid Assumptions
-
-Accessibility affects all users, not just those with stereotypical disabilities. Accepting this means realizing 
-accessibility is about building for stress cases, such as:
- 
-- Old age
-- Chronic medical conditions like arthritis
-- Being outside with a heavy sun glare
-- Cognitive impairment from medication or lack of sleep
-- Needing to use a site with different devices
-- Shaky WiFi that affects asset loading
-- Running from the thing that escaped your floorboards
-
-Think about it!
 
 
 ## General Formatting Rules
@@ -211,7 +260,7 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 - Use valid HTML code unless that is not possible
 - Use tools such as the [W3C HTML validator](https://validator.w3.org/nu/) to test
 
-### Formatting Rules
+### HTML Formatting Rules
 
 - Use a new line for every block, list, or table element
 - Indent every child element
@@ -242,7 +291,7 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 
 Our approach of writing CSS is heavily inspired by [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) (Inversed Triangle CSS by Harry Roberts/csswizardry)
 and [CUBE CSS](https://piccalil.li/blog/cube-css) by Andy Bell and we spice it up with a heavy dose of atomic CSS 
-(eg. with [tailwindcss](https://tailwindcss.com/)).
+(eg. with [TailwindCSS](https://tailwindcss.com/)).
 
 > The inversed triangle from ITCSS shows how styles represented by selectors are ordered in the resulting CSS:
 from generic styles to explicit ones, from low-specificity selectors to more specific ones
@@ -274,7 +323,9 @@ provides a lot of benefits:
 - Reduced risk of regressions
 
 As a result the methodology we created integrates a loose version of ITCSS with the mindset of CUBE CSS and heavy 
-usage of utility classes. Our key goals are:
+usage of utility classes. 
+
+### Key Goals
 
 - Keep things maintainable and predictable
 - Think ahead of time and ensure scalability
@@ -386,13 +437,13 @@ single, immutable property-value pairing expressed as a class. Their primary app
 and limiting the amount of custom CSS you have to write.
 
 Depending on the project utility classes might be created by hand, with SASS mixins or by the use of frameworks
-such as tailwindcss. As you create your own classes make sure to stick to the naming convention of tailwindcss.
+such as TailwindCSS. As you create your own classes make sure to stick to the naming convention of TailwindCSS.
 
 TODO: Extend
 
 ### Objects
   
-An `Object` does one job and does that job well. An `Object`, more often than not, will only have a few CSS 
+An `Object` does one job and does that job well (Single Responsibility Principle). An `Object`, more often than not, will only have a few CSS 
 properties defined, while a `Component` deals with more complex setups. However the borders between a `Component` 
 and an `Object` are blurred. So stop overthinking, whether the piece of code you are about to create is a 
 `Component` or an `Object`.
@@ -482,12 +533,7 @@ Styling the most likely simpler component structure on mobile devices first will
 fewer overwrites. Leaving out everything within media queries the code can be parsed much faster by mobile devices—and
 devices with few capabilities such as e-book readers will see a simple default view.
 
-## Writing CSS
-
-### SASS File Naming
-
-SASS files should be prefixed by its layer, eg. `_settings.z-index.scss`. This will lead to more clarity
-while handling files (there also might be a `_utilities.z-index.scss`).
+## CSS Codestyle
 
 ### Formating Rules
 
@@ -925,7 +971,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
         margin-top: 1rem;
     }
     
-### JavaScript hooks
+### JavaScript Hooks
 
 - Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
   (or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
@@ -945,6 +991,8 @@ store data, not be bound to.
 
 - Avoid user agent detection as well as CSS “hacks”—try a different approach first
 - If you need to use hacks anyways, make sure to comment extensively
+
+## Preprocessors/SASS
 
 ### SASS Syntax and Formatting
 
@@ -1017,6 +1065,10 @@ store data, not be bound to.
         width: (100% / 3);
     }
 
+### File Naming
+
+SASS files should be prefixed by its layer, eg. `_settings.z-index.scss`. This will lead to more clarity
+while handling files (there also might be a `_utilities.z-index.scss`).
 
 ### Variables
 
@@ -1032,6 +1084,16 @@ store data, not be bound to.
 
 Extending is invisible. Extending doesn’t necessarily help file weight, contrary to the saying. 
 Extending doesn’t work across media queries. Extending is not flexible. Mixins have absolutely no drawback.
+
+## PurgeCSS
+
+If you are using a CSS framework such as TailwindCSS make sure to use PurgeCSS for production builds 
+(the `purge`-option is already included in Tailwind). PurgeCSS removes unused selectors from your CSS, 
+resulting in much smaller CSS files.
+
+If you are using `purge` take good care to write purgeable HTML. That means that it is important to avoid 
+dynamically creating class strings in your templates with string concatenation, otherwise PurgeCSS won't know to 
+preserve those classes.
 
 
 ## Sources and further reading
