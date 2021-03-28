@@ -1,13 +1,14 @@
-# Guidelines for writing Html and CSS
-
-**Work-in-progress** // inspired by Google, AirBnB and cssguidelin.es
+# Guidelines for writing HTML and CSS
 
 These guidelines should help you and us to work together on sweet projects.
 
-Most parts of these guidelines are heavily inspired by Google and AirBnB coding guidelines, the work of 
-[Harry Roberts](https://csswizardry.com/) such as [cssguidelin.es](https://cssguidelin.es/) and 
-[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), as well as the mindset of
-Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [TailwindCSS](https://tailwindcss.com/) creator  
+> Every line of code should appear to be written by a single person, no matter the number of contributors.
+
+Most parts of these guidelines are heavily inspired by the work of [Harry Roberts](https://csswizardry.com/) 
+([cssguidelin.es](https://cssguidelin.es/), 
+[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)), 
+the [Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html), as well as the mindset of
+Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](https://tailwindcss.com/) creator 
 [Adam Watham](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/).
 
 ## Table of contents
@@ -24,9 +25,18 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [TailwindCSS](http
 - [HTML](#html)
   * [Document Type and Validity](#document-type-and-validity)
   * [HTML Formatting Rules](#html-formatting-rules)
+  * [Reducing Markup](#reducing-markup)
+  * [JavaScript Generated Markup](#javascript-generated-markup)
 - [CSS Methodology](#css-methodology)
   * [Key Goals](#key-goals)
+  * [Guidelines](#guidelines)
   * [CSS Structure](#css-structure)
+  * [Utility Classes](#utility-classes)
+  * [Objects](#objects)
+  * [Components and BEM](#components-and-bem)
+  * [Responsiveness / Mobile first](#responsiveness-mobile-first)
+  * [Design tokens](#design-tokens)
+  * [Class Grouping](#class-grouping)
 - [CSS Codestyle](#css-codestyle)
   * [Formating Rules](#formating-rules)
   * [CSS Quotation Marks](#css-quotation-marks)
@@ -36,6 +46,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [TailwindCSS](http
   * [Selectors](#selectors)
   * [ID and Class Naming](#id-and-class-naming)
   * [Relative Units](#relative-units)
+  * [Breakpoints](#breakpoints)
   * [JavaScript Hooks](#javascript-hooks)
   * [Hacks](#hacks)
 - [Preprocessors/SASS](#preprocessors-sass)
@@ -75,7 +86,7 @@ accessibility is about building for stress cases, such as:
 - Shaky WiFi that affects asset loading
 - Running from the thing that escaped your floorboards
 
-> Think about it!
+> 💡 Think about it!
  
 Therefore we advocate the creation of highly accessible products:
 
@@ -94,10 +105,13 @@ paragraphs, `a` elements for anchors, etc.
 - Ensure that tab order for the site and especially forms follow a logical pattern
 - Add labels for all form controls
 - Make sure placeholder attributes are not being used in place of label tags
+- Prevent transitions and animations for users which prefer reduced motion
 - Make sure to hide soley decorative elements from screen-reader
 - Hide duplicate responsive content from screen-readers (eg. hide a desktop menu if there is a mobile menu as well)
 - Make heavy and wise use of aria-attributes
 - Avoid Assumptions
+
+TODO: Add further reading (alt text, modern reset)
 
 
 ## General Formatting Rules
@@ -266,6 +280,7 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 - Indent every child element
 - Seperate sections with empty lines
 - Use double (`""`) rather than single quotation marks (`''`) around attribute values.
+- Break long lines if it significantly improves readability (optional)
 
 **Don’t**
     
@@ -286,6 +301,32 @@ Append a contact (username or mailing list) in parentheses as with the format `T
       <li>Larry</li>
       <li>Curly</li>
     </ul>
+
+    <md-progress-circular md-mode="indeterminate"
+                          class="md-accent"
+                          ng-show="ctrl.loading"
+                          md-diameter="35">
+    </md-progress-circular>
+
+### Reducing Markup
+
+Whenever possible, avoid superfluous parent elements when writing HTML.
+
+### JavaScript Generated Markup
+
+Writing markup in a JavaScript file makes the content harder to find, harder to edit, and less performant. 
+Avoid it whenever possible.
+
+**Don’t**
+
+    <span class="avatar">
+      <img src="...">
+    </span>
+
+**Do**
+
+    <img class="avatar" src="...">
+
 
 ## CSS Methodology
 
@@ -331,6 +372,35 @@ usage of utility classes.
 - Think ahead of time and ensure scalability
 - Keep specificity low at all times
 - Utilise the power of CSS and the cascade
+
+### Guidelines
+
+- Think progressive enhancement
+- Go mobile first
+- DYI: Don’t repeat yourself (and keep the codebase tight)
+- Unleash the power of `Custom Properties` at all times
+
+In the spirit of the `Inversed Triangle` we group all selectors into layers:
+from generic styles to explicit ones, from low-specificity selectors to more specific ones.
+
+    Main Selector layers  
+
+     *******        HTML Elements
+      *****         Objects
+       ***          Components
+        *           Utilities
+
+- Use styled `HTML Elements`, and `Objects` to layout
+  the design system and composition
+- Use `Objects` for common behavioural patterns
+- Use `Utilities` heavily for everything which is not tackled
+  by `HTML Elements` and `Objects`
+- Use `Utilities` to modify styles declared
+  by `HTML Elements`, `Objects`, and `Components`
+- Use `Components` as a last resort for things
+  which can’t be (easily) done with `Objects` and `Utilities`
+- Use `Components` for more complex and contextual styles
+  that deviate from the common, global system
 
 ### CSS Structure
 
@@ -413,23 +483,6 @@ usage of utility classes.
         Eg. for showing a layout grid
 
 
-### CSS Methodology Guidelines
-
-- Think progressive enhancement
-- Go mobile first
-- DYI: Don’t repeat yourself (and keep the codebase tight)
-- Unleash the power of `Custom Properties` at all times
-- Use `Resets`, styled `Elements`, and Objects to layout
-  the design system and composition
-- Use Objects for common behavioural patterns
-- Use `Utilities` heavily for everything which is not tackled
-  by `Resets`, `Elements` and `Objects`
-- Use `Components` as a last resort for things
-  which can’t be (easily) done with `Objects` and `Utilities`
-- Use `Components` for more complex and contextual styles
-  that deviate from the common, global system
-- Use `BEM` for `Components` to style `blocks` containing `elements` to be altered with `modifiers`
-
 ### Utility Classes
 
 Utility classes are a powerful ally in combatting CSS bloat and poor page performance. A utility class is typically a
@@ -439,21 +492,37 @@ and limiting the amount of custom CSS you have to write.
 Depending on the project utility classes might be created by hand, with SASS mixins or by the use of frameworks
 such as TailwindCSS. As you create your own classes make sure to stick to the naming convention of TailwindCSS.
 
-TODO: Extend
+Utility classes should always be used for:
+
+- font and typographic styles
+- font and background colors
+- box-shadows
+- element spacing
+- screen-reader visibility
+
+Utility classes could also be used for:
+
+- paddings and margins
+- display and position
+- width and height
+- simple flex-box and grid declarations
+- simple transitions and animations 
+- simple hover, active, and focus styles
+- and much more …
+
 
 ### Objects
   
-An `Object` does one job and does that job well (Single Responsibility Principle). An `Object`, more often than not, will only have a few CSS 
-properties defined, while a `Component` deals with more complex setups. However the borders between a `Component` 
-and an `Object` are blurred. So stop overthinking, whether the piece of code you are about to create is a 
-`Component` or an `Object`.
+An `Object` does one job and does that job well (Single Responsibility Principle). An `Object`, more often than not, 
+will only have a few CSS properties defined, while a `Component` deals with more complex setups. 
+However the borders between a `Component` and an `Object` are blurred. So stop overthinking, whether the piece of code 
+you are about to create is a `Component` or an `Object`.
 
 ### Components and BEM
 
 - Create reusable components for more complex common visual or behavioural patterns
-- Abstract the structure of an object from the skin that is being applied
 - Don’t style objects based on their context. An object should look the same no matter where you put it
-- Write names in lower case
+- Use `BEM` to style `blocks` containing `elements` to be altered with `modifiers`  
 - Separate words within names by hyphens `-`
 - Delimit elements by double underscores `__`
 - Delimit modifiers by double hyphens `--`
@@ -516,9 +585,10 @@ and an `Object` are blurred. So stop overthinking, whether the piece of code you
         display: block;
     }
 
-`Components` respectively `Blocks` are logically and functionally independent components of a web page. They are nestable and should 
-be capable of being contained inside another block without breaking anything. `Elements` are the constituent parts of a 
-block that can’t be used outside of it. `Modifiers` define the appearance and behavior of a block.
+`Components` respectively `Blocks` are logically and functionally independent components of a web page. 
+They are nestable and should be capable of being contained inside another block without breaking anything. 
+`Elements` are the constituent parts of a block that can’t be used outside of it. 
+`Modifiers` define the appearance and behavior of a block.
 
 ### Responsiveness / Mobile first
 
@@ -532,6 +602,14 @@ block that can’t be used outside of it. `Modifiers` define the appearance and 
 Styling the most likely simpler component structure on mobile devices first will lead to less and simplified code and
 fewer overwrites. Leaving out everything within media queries the code can be parsed much faster by mobile devices—and
 devices with few capabilities such as e-book readers will see a simple default view.
+
+### Design tokens
+
+TODO: Add https://piccalil.li/blog/cube-css
+
+### Class Grouping
+
+TODO: Add https://cssguidelin.es/#html / https://piccalil.li/blog/cube-css#heading-grouping
 
 ## CSS Codestyle
 
@@ -970,6 +1048,11 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
         width: 80%;
         margin-top: 1rem;
     }
+
+
+### Breakpoints
+
+TODO: Add
     
 ### JavaScript Hooks
 
@@ -1098,19 +1181,32 @@ preserve those classes.
 
 ## Sources and further reading
 
-- https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
-- https://piccalil.li/blog/cube-css
-- https://google.github.io/styleguide/htmlcssguide.html
-- https://cssguidelin.es/
-- https://spaceninja.com/2018/09/17/what-is-modular-css/
-- https://github.com/airbnb/css
-- http://codeguide.co/
-- https://dev.to/maxwell_dev/the-web-accessibility-introduction-i-wish-i-had-4ope
-- https://a11yproject.com/checklist
-- https://csswizardry.com/2011/09/writing-efficient-css-selectors/
-- https://github.com/necolas/idiomatic-css
-- https://getbootstrap.com/docs/
-- https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/
-- https://www.sitepoint.com/avoid-sass-extend/
-- https://www.algolia.com/blog/engineering/redesigning-our-docs-part-4-building-a-scalable-css-architecture/
-- https://adamwathan.me/css-utility-classes-and-separation-of-concerns/
+### Styleguides
+
+- [cssguidelin.es](https://cssguidelin.es/)
+- [codeguide.co](http://codeguide.co/))
+- [Google](https://google.github.io/styleguide/htmlcssguide.html)
+- [Idiomatic CSS](https://github.com/necolas/idiomatic-css)
+- [Airbnb](https://github.com/airbnb/css)
+
+### Methodologies
+
+- [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)
+- [CUBE CSS](https://piccalil.li/blog/cube-css)
+- [Modular CSS](https://spaceninja.com/2018/09/17/what-is-modular-css/)
+
+### Accessibility
+
+- [The Web Accessibility Introduction I Wish I Had](https://dev.to/maxwell_dev/the-web-accessibility-introduction-i-wish-i-had-4ope)
+- [The A11Y Project Checklist](https://a11yproject.com/checklist)
+- [Mobile, Small, Portrait, Slow, Interlace, Monochrome, Coarse, Non-Hover, First](https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/)
+
+### Utility first
+
+- [Building a Scalable CSS Architecture](https://www.algolia.com/blog/engineering/redesigning-our-docs-part-4-building-a-scalable-css-architecture/)
+- [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
+- [Why Tailwind Isn't for Me](https://dev.to/jaredcwhite/why-tailwind-isn-t-for-me-5c90)
+
+### Slow Web
+
+- [The Cost of Javascript Frameworks](The Cost of Javascript Frameworks)
