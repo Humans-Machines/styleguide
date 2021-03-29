@@ -1362,6 +1362,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
   favor in default font size set by user
   
 
+
     // _settings.breakpoints.scss
 
     // breakpoint definitions
