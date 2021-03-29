@@ -35,7 +35,8 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Objects](#objects)
   * [Components and BEM](#components-and-bem)
   * [Responsiveness / Mobile first](#responsiveness--mobile-first)
-  * [Design tokens](#design-tokens)
+  * [Design Tokens](#design-tokens)
+  * [Global Values](#global-values)
   * [Class Grouping](#class-grouping)
   * [Componentless Modules](#componentless-modules)
 - [CSS Codestyle](#css-codestyle)
@@ -517,6 +518,35 @@ will only have a few CSS properties defined, while a `Component` deals with more
 However the borders between a `Component` and an `Object` are blurred. So stop overthinking, whether the piece of code 
 you are about to create is a `Component` or an `Object`.
 
+    // _objects.cluster.scss
+
+    /**
+    * Provide a flex container in order to display items side by side
+    *
+    * Can be used for elements with varying width
+    * or adjusted widths via the .width utility class
+    *
+    * 1. Use --column-gap as default for cluster
+    * 2. Settles the outer gap margin of inner elements
+    * 3. Lets the cluster be multiline
+    * 4. Centers each row. Change alignment with flex utility class
+    * 5. Defines a gap for children
+    */
+    
+    .cluster {
+      --cluster-gap: var(--column-gap, 1rem); // [1]
+      margin-left: calc(var(--cluster-gap) * 0.5 * -1); // [2]
+      margin-right: calc(var(--cluster-gap) * 0.5 * -1); // [2]
+      display: flex;
+      flex-wrap: wrap; // [3]
+      align-items: center; // [4]
+    }
+    
+    .cluster > * {
+      margin-left: calc(var(--cluster-gap) * 0.5); // [5]
+      margin-right: calc(var(--cluster-gap) * 0.5); // [5]
+    }
+
 ### Components and BEM
 
 - Create reusable components for more complex common visual or behavioural patterns
@@ -602,7 +632,7 @@ Styling the most likely simpler component structure on mobile devices first will
 fewer overwrites. Leaving out everything within media queries the code can be parsed much faster by mobile devices—and
 devices with few capabilities such as e-book readers will see a simple default view.
 
-### Design tokens
+### Design Tokens
 
 > “Design Tokens are the visual atoms of the design system – specifically, 
 > they are named entities that store visual design attributes. 
@@ -789,6 +819,67 @@ Simply specify them in the Tailwind configuration file:
         }
       }
     }
+
+### Global Values
+
+There also is a need to define project-level values other than `Design Tokens`. Values that need to be open for 
+(responsive) modifications (eg. layout settings) should be available as `Custom Properties`. They are stored inside
+the settings layer as `CSS maps` and added to the `root` via a `SASS mixin`:
+
+
+    // _settings.ui.scss
+    
+    // Project-level settings for ui
+    $ui-props: (
+      // default values
+      'default': (
+          // Default definition for .page-grid
+          'grid-rows': 16,
+          'column-gap': 0.5rem,
+  
+          ... 
+      ),
+  
+      // breakpoint md values
+      'md': (
+          // Default definition for .page-grid
+          'column-gap': 0.707rem,
+  
+          ...
+      ),
+    );
+  
+    // _elements.root.scss      
+    :root {
+      // Add custom properties for ui definitions
+      @include create-custom-properties($ui-props, true);
+    }
+
+Some values such as transitions timings and easings or default box ratios only need to be available 
+within the preprocess. They may be stored as static [`SASS variables`](#variables):
+
+
+    // _settings.vars.sass
+    
+    // TRANSITIONS
+    // Transition timing
+    $trans-time--xs: 0.125s;
+    $trans-time--s: 0.25s;
+    $trans-time--m: 0.5s;
+    $trans-time--l: 1s;
+    
+    // Transition easing
+    $trans-func--default: cubic-bezier(.1,.6,.4,1);
+    $trans-func--ease-in-out: cubic-bezier(.55,.08,0,1);
+    $trans-func--ease-out: cubic-bezier(0,.23,.07,1)
+    
+    // ASPECT RATIO    
+    $landscape-ratio: (3 / 4 * 100%); // 4:3
+    $wide-ratio: (1 / 2 * 100%); // 2:1
+    $portrait-ratio: (3 / 2 * 100%); // 2:3
+    $cube-ratio: 100%;
+
+
 
 ### Class Grouping
 
@@ -1432,7 +1523,7 @@ while handling files (there also might be a `_utilities.z-index.scss`).
 
 - Initiate variables the value is repeated at least twice and the value is likely to be updated
 - Use dash-cased variable names (e.g. `$my-variable`)
-- Store all variables in the `_settingss.vars.scss`
+- Store all variables in the `_settings.vars.scss`
 - Prefix variables with `_` (e.g. `$_my-variable`), if you want to put it inside a component 
   file and only use it there
 
