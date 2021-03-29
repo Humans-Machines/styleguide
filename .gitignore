@@ -1,0 +1,76 @@
+/.idea
+.DS_Store
+/.vscode
+
+# Vendor files
+node_modules
+vendor
+
+# Custom config parts
+config/build/custom.js
+config/license.key
+
+# Yii specific ignores
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+
+# Craft3 specific ignores
+.env
+storage
+web/cpresources
+web/media
+web/pdf-assets
+web/product-downloads
+
+# Ignore translations since translations are generated through plugin
+# translations
+# !source/**/translations
+# !modules/**/translations
+
+# Keep CSS/JS vendor
+!source/js/vendor
+!source/sass/vendor
+
+# Dynamically compiled files
+web/assets/bundle/*.*
+web/assets/bundle/**/*.css
+web/assets/bundle/**/*.js
+web/assets/bundle/**/*.map
+web/assets/bundle/**/*.woff
+web/assets/bundle/**/*.woff2
+web/assets/bundle/**/*.svg
+web/assets/bundle/**/*.br
+web/assets/bundle/**/*.gz
+web/assets/bundle/**/*.json
+
+# Favicon related files
+web/assets/favicon
+web/browserconfig.xml
+web/favicon.ico
+web/site.webmanifest
+
+# Cache files
+cache/*
+**/__pycache__
+
+# Lint results
+eslint-result.html
+stylelint-result.txt
+
+# Log files
+npm-debug.log
+
+# GraphQL Settings
+.graphqlconfig
+schema.graphql
+
+# Testing stuff
+cypress/screenshots
+
+# Gitkeep should always be added
+!.gitkeep
+
+yarn.lock
