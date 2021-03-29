@@ -1359,12 +1359,13 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 - Style components for the smallest viewport first ([mobile first](#responsiveness-mobile-first))
 - Use min width media queries to progressive enhance your layout for bigger screens
 - Use [`em` values](https://zellwk.com/blog/media-query-units/) to define media queries. `em` based media queriess 
-  favor in default font size set by user
+  favor in default font size set by user  
   
 
 
-    // _settings.breakpoints.scss
 
+    // _settings.breakpoints.scss
+    
     // breakpoint definitions
     $breakpoints: (
       // default breakpoints are treated as min width screen media queries
@@ -1382,7 +1383,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
         'print': 'print',
       ),
     );
-
+    
     // respond-to mixin
     @mixin respond-to($breakpoint) {
       @each $type in map-keys($breakpoints) {
@@ -1390,7 +1391,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
       
         @if map-has-key($breakpoint-group, $breakpoint) {
           $value: map-get($breakpoint-group, $breakpoint);
-
+    
           @if $type == default {
             // default breakpoints are treated as min width screen media queries
             @media screen and (min-width: $value) {
@@ -1405,7 +1406,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
         }
       }
     }
-
+    
     // usage
     .box {
       width: 100%;
