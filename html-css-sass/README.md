@@ -34,9 +34,10 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Utility Classes](#utility-classes)
   * [Objects](#objects)
   * [Components and BEM](#components-and-bem)
-  * [Responsiveness / Mobile first](#responsiveness-mobile-first)
+  * [Responsiveness / Mobile first](#responsiveness--mobile-first)
   * [Design tokens](#design-tokens)
   * [Class Grouping](#class-grouping)
+  * [Componentless Modules](#componentless-modules)
 - [CSS Codestyle](#css-codestyle)
   * [Formating Rules](#formating-rules)
   * [CSS Quotation Marks](#css-quotation-marks)
@@ -110,8 +111,6 @@ paragraphs, `a` elements for anchors, etc.
 - Hide duplicate responsive content from screen-readers (eg. hide a desktop menu if there is a mobile menu as well)
 - Make heavy and wise use of aria-attributes
 - Avoid Assumptions
-
-TODO: Add further reading (alt text, modern reset)
 
 
 ## General Formatting Rules
@@ -605,11 +604,223 @@ devices with few capabilities such as e-book readers will see a simple default v
 
 ### Design tokens
 
-TODO: Add https://piccalil.li/blog/cube-css
+> “Design Tokens are the visual atoms of the design system – specifically, 
+> they are named entities that store visual design attributes. 
+> We use them in place of hard–coded values in order to maintain a scalable and consistent visual system.”
+
+*[Jina Anne](https://twitter.com/jina)*
+
+In order to build up a solid and scalable design system we implement a single source of truth for abstracted
+values such as colors, spacing values and typographic text styles. These values could either be defined outside 
+of our context (in a database or even a JSON file) or with simple CSS maps in our CSS settings layer.
+
+    // _settings.tokens.scss
+    // Global design tokens
+
+    // SIZE SCALE
+    //
+    // We use a modular scale that powers all the utilities that
+    // it is relevant for (text styles/font-size, margin, padding).
+    // All items are calculated off these tokens.
+    //
+    // OUR APPROACH
+    // Instead of going into complicated SASS Mixins or Calc operations
+    // we use this tool to get the values for a chosen type of scale:
+    // https://type-scale.com/
+    //
+    // NAMING CONVENTION
+    // Naming is taken from font weight where a weight of 400 is considered normal
+    //
+    // SPECIFIC PROJECT SETTINGS
+    // Every project has a specific size scale
+    
+    $size-scale: (
+      '25': 0.1rem,
+      '50': 0.25rem,
+      '100': 0.5rem,
+      '200': 0.64rem,
+      '300': 0.8rem,
+      '400': 1rem,
+      '500': 1.333rem,
+      '600': 1.777rem,
+      '700': 2.4rem,
+      '800': 3.9rem,
+      '900': 5.6rem,
+      '1000': 7.8rem,
+      '1100': 11.2rem,
+    );
+    
+    // COLORS
+    // Set up a colour palette which allows us
+    // to theme the entire project from one location.
+
+    // Text colors
+    $text-colors: (
+      'default': #000,
+      'highlight': #ff854d,
+    );
+    
+    // Background colors
+    $bg-colors: (
+      'default': #f8f7f2,
+      'grey': #edece7,
+    );
+
+    // Border colors
+    $border-colors: (
+      'default': rgba(0, 0, 0, 0.15),
+    );
+    
+    // Border colors
+    $border-radius: (
+      's': 0.1rem,
+      'm': 0.2rem,
+      'l': 0.5rem,
+    );
+
+    // Box shadow
+    $shadows: (
+      'modal': 0 0 6rem rgba(0, 0, 0, 0.15),
+      'box': 0 0 4rem rgba(0, 0, 0, 0.1),
+    );
+
+    // TEXT STYLES
+    //
+    // Text styles will be created as utility classes with the 
+    // text-style CSS mixin
+    //
+    // .usage {
+    //   @include text-style(100);
+    // }
+    //
+    // If key in $text-styles map matches size from $size-scale
+    // font-size is automatically set to this value
+    
+    $text-styles: (
+      // Default Text Style
+      'default': (
+          font-weight: 400,
+          line-height: 1.2;
+          font-family: "'PXR Repro', Arial, 'Helvetica Neue', sans-serif;",
+          letter-spacing: 0;
+      ),
+  
+      // Small Text
+      '300': (
+        line-height: 1.235,
+        letter-spacing: 0.015em,
+      ),
+  
+      // Body Text Size
+      '400': (
+        line-height: 1.2,
+      ),
+  
+      // Text M
+      '500': (
+        font-weight: 300,
+        line-height: '1.147',
+      ),
+  
+      // Text L
+      '600': (
+        font-weight: 300,
+        line-height: '1.104',
+      ),
+  
+      // Medium
+      'medium': (
+        font-weight: 500,
+      ),
+    );
+
+One dimensional token values such as colors and sizes should be made available to the frontend 
+by adding them as `Custom Properties` to the `root`. These values can then be used within `Components`, 
+`Objects` and `Utilities`. They have a very low specificity and therefore can easily be 
+overwritten for (responsive) modifications.  
+    
+    // _settings.tokens.scss
+    $size-scale: (
+      '25': 0.1rem,
+      '50': 0.25rem,
+      '100': 0.5rem,
+      '200': 0.64rem,
+      '300': 0.8rem,
+      '400': 1rem,
+      '500': 1.333rem,
+      '600': 1.777rem,
+      '700': 2.4rem,
+      '800': 3.9rem,
+      '900': 5.6rem,
+      '1000': 7.8rem,
+      '1100': 11.2rem,
+    );
+
+    // _tool.mixins.scss
+    @mixin create-custom-properties($map, $prefix: '') {
+      @each $prop, $value in $map {
+      --#{$prefix}#{$prop}: #{$value};
+      }
+    }
+  
+    // _elements.root.scss
+    :root {
+      // Add custom properties for colors
+      @include create-custom-properties($size-scale, 'size-');
+
+      // Creates these properties from design tokens setting
+      --size-25: 0.1rem;
+      --size-50: 0.25rem;
+      --size-100: 0.5rem;
+      ...
+    }
+
+If our project uses TailwindCSS we can use these global values for our Tailwind classes as well. 
+Simply specify them in the Tailwind configuration file:
+
+    // tailwind.config.js
+    module.exports = {
+      theme: {
+        spacing: {
+          '25': 'var(--size-25)',
+          '50': 'var(--size-50)',
+          '100': 'var(--size-100)',
+          ...
+        }
+      }
+    }
 
 ### Class Grouping
 
-TODO: Add https://cssguidelin.es/#html / https://piccalil.li/blog/cube-css#heading-grouping
+By the use of atomic utility classes, objects and components side by side there might be a lot of classes 
+defined for a single element. Therefore we recomment grouping things with pipes, like so:
+
+    <article class="card | flow | bg-base color-secondary">
+      <h2 class="text-500 | sticky top-0 | js-is-sticky">
+        Card Headline
+      <h2>
+      ...
+    </article>
+
+- Do not add pipes for empty groups
+- Use the following order:
+  - `Components`
+  - `Objects`
+  - `Utilities`
+  - `JS-Hooks`
+
+### Componentless Modules
+
+There will be simple modules which can be layed out with `Utilities` and `Objects` alone. Finding these modules
+within the codebase by inspecting the frontend inside the browser is painful. Adding a component class with no styles
+attached seems like bad practise. We recommend adding a `data` attribute, like so:
+
+    <div class="flow | flex flex-col" data-ui-name="text-box">
+      ...
+    </div>
+
+In order to stay consistent we add these `data` attributes to `Components` with dedicated classes as well. 
+The naming attributes may be stripped for production.
 
 ## CSS Codestyle
 
@@ -1052,7 +1263,71 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 
 ### Breakpoints
 
-TODO: Add
+- Think about clever responsive solutions before reaching out for media queries 
+  (look into [math functions](https://caniuse.com/css-math-functions), grid and flex-box)
+- Style components for the smallest viewport first ([mobile first](#responsiveness-mobile-first))
+- Use min width media queries to progressive enhance your layout for bigger screens
+- Use [`em` values](https://zellwk.com/blog/media-query-units/) to define media queries. `em` based media queriess 
+  favor in default font size set by user
+  
+
+    // _settings.breakpoints.scss
+
+    // breakpoint definitions
+    $breakpoints: (
+      // default breakpoints are treated as min width screen media queries
+      default: (
+        'md': 37.5em, // 16px * 37.5em: 600px
+        'lg': 64em, // 16px * 64em: 1024px
+      ),
+      
+      // custom breakpoints output the raw definition
+      custom: (
+        'portrait': 'screen and (orientation: portrait)',
+        'landscape': 'screen and (orientation: landscape)',
+        'wide': 'screen and (min-aspect-ratio: 16/9)',
+        'tower': 'screen and (max-aspect-ratio: 2/3)',
+        'print': 'print',
+      ),
+    );
+
+    // respond-to mixin
+    @mixin respond-to($breakpoint) {
+      @each $type in map-keys($breakpoints) {
+        $breakpoint-group: map-get($breakpoints, $type);
+      
+        @if map-has-key($breakpoint-group, $breakpoint) {
+          $value: map-get($breakpoint-group, $breakpoint);
+
+          @if $type == default {
+            // default breakpoints are treated as min width screen media queries
+            @media screen and (min-width: $value) {
+                @content;
+            }
+          } @else {
+            // custom breakpoints output the raw definition
+            @media #{$value} {
+                @content;
+            }
+          }
+        }
+      }
+    }
+
+    // usage
+    .box {
+      width: 100%;
+      
+      respond-to(md) {
+        width: 50%;
+      }
+      
+      respond-to(lg) {
+        width: 33%;
+      }
+    }
+    
+
     
 ### JavaScript Hooks
 
@@ -1073,7 +1348,7 @@ store data, not be bound to.
 ### Hacks
 
 - Avoid user agent detection as well as CSS “hacks”—try a different approach first
-- If you need to use hacks anyways, make sure to comment extensively
+- If you need to use hacks anyways, make sure to [comment](#comments) extensively
 
 ## Preprocessors/SASS
 
@@ -1210,3 +1485,7 @@ preserve those classes.
 ### Slow Web
 
 - [The Cost of Javascript Frameworks](The Cost of Javascript Frameworks)
+
+### Best Practices
+- [It’s time we say goodbye to pixel units](https://uxdesign.cc/say-goodbye-to-pixels-cb720fbaf250)
+- [PX, EM or REM Media Queries?](https://zellwk.com/blog/media-query-units/)
