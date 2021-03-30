@@ -383,8 +383,8 @@ as scary as people often make it out to be.
 So for setting up the groundworks, implementing the overall composition and laying out recurring design
 patterns we would rather go for a smarter, cascade-driven way than adding lots of classes to every HTML element.
 
-We also think that for more complex scenarios (eg. modals) or recurring building blocks (think cards or buttons) good old 
-`CSS Components` *(CUBE CSS terminology: Block)* should still be the way to go.
+We also think that for more complex scenarios (eg. modals) or recurring building blocks (think cards or buttons) 
+good old `CSS Components` *(CUBE CSS terminology: Block)* should still be the way to go.
 
 ### Guidelines
 
@@ -411,7 +411,7 @@ from generic styles to explicit ones, from low-specificity selectors to more spe
 - Use `Utilities` to modify styles declared
   by `HTML Elements`, `Objects`, and `Components`
 - Use `Components` as a last resort for things
-  which can’t be (easily) done with `Objects` and `Utilities`
+  which can’t be *(easily)* done with `Objects` and `Utilities`
 - Use `Components` for more complex and contextual styles
   that deviate from the common, global system
 
@@ -647,9 +647,9 @@ devices with few capabilities such as e-book readers will see a simple default v
 
 ### Design Tokens
 
-> “Design Tokens are the visual atoms of the design system – specifically, 
+> Design Tokens are the visual atoms of the design system – specifically, 
 > they are named entities that store visual design attributes. 
-> We use them in place of hard–coded values in order to maintain a scalable and consistent visual system.”
+> We use them in place of hard–coded values in order to maintain a scalable and consistent visual system.
 
 *[Jina Anne](https://twitter.com/jina)*
 
@@ -802,7 +802,7 @@ overwritten for (responsive) modifications.
     // _tool.mixins.scss
     @mixin create-custom-properties($map, $prefix: '') {
       @each $prop, $value in $map {
-      --#{$prefix}#{$prop}: #{$value};
+        --#{$prefix}#{$prop}: #{$value};
       }
     }
   
@@ -837,7 +837,7 @@ Simply specify them in the Tailwind configuration file:
 
 There also is a need to define project-level values other than `Design Tokens`. Values that need to be open for 
 (responsive) modifications (eg. layout settings) should be available as `Custom Properties`. They are stored inside
-the settings layer as `CSS maps` and added to the `root` via a `SASS mixin`:
+the settings layer as `CSS maps` and added to the `:root` via a `SASS mixin`:
 
 
     // _settings.ui.scss
@@ -896,7 +896,7 @@ within the preprocess. They may be stored as static [`SASS variables`](#variable
 
 ### Class Grouping
 
-By the use of atomic utility classes, objects and components side by side there might be a lot of classes 
+By the use of `Utilitìes`, `Objects` and `Components` side by side there might be a lot of classes 
 defined for a single element. Therefore we recomment grouping things with pipes, like so:
 
     <article class="card | flow | bg-base color-secondary">
@@ -916,8 +916,8 @@ defined for a single element. Therefore we recomment grouping things with pipes,
 ### Componentless Modules
 
 There will be simple modules which can be layed out with `Utilities` and `Objects` alone. Finding these modules
-within the codebase by inspecting the frontend inside the browser is painful. Adding a component class with no styles
-attached seems like bad practise. We recommend adding a `data` attribute, like so:
+within the codebase by inspecting the frontend inside the browser is painful – but adding a component class with 
+no styles attached to overcome this issue seems like bad practise. We recommend adding a `data` attribute, like so:
 
     <div class="flow | flex flex-col" data-ui-name="text-box">
       ...
@@ -1344,7 +1344,7 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 
 - Avoid pixels, they are ignorant
 - Use relative units like `rem` and `em` instead
-- Use `rem` for font and layout sizes to be resized via the `Html` root font-size
+- Use `rem` for font and layout sizes to be resized via the `Html` root font-size  
 
 **Don’t**
     
@@ -1372,10 +1372,9 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 - Style components for the smallest viewport first ([mobile first](#responsiveness-mobile-first))
 - Use min width media queries to progressive enhance your layout for bigger screens
 - Use [`em` values](https://zellwk.com/blog/media-query-units/) to define media queries. `em` based media queriess 
-  favor in default font size set by user  
+  favor in default font size set by user
   
-
-
+**Do**
 
     // _settings.breakpoints.scss
     
@@ -1437,9 +1436,10 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
     
 ### JavaScript Hooks
 
-- Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
-  (or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
-  to bind your JS onto specific classes.
+Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
+(or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
+to bind your JS onto specific classes.
+
 - Create JavaScript-specific classes to bind to, prefixed with `.js-`
 - Don’t use data-Attributes for this purpose
 
@@ -1551,9 +1551,9 @@ Extending doesn’t work across media queries. Extending is not flexible. Mixins
 
 ## PurgeCSS
 
-If you are using a CSS framework such as TailwindCSS make sure to use PurgeCSS for production builds 
-(the `purge`-option is already included in Tailwind). PurgeCSS removes unused selectors from your CSS, 
-resulting in much smaller CSS files.
+If you are using a CSS framework such as TailwindCSS make sure to use [PurgeCSS](https://purgecss.com/) 
+for production builds (the `purge`-option is already included in Tailwind). PurgeCSS removes unused selectors 
+from your CSS, resulting in much smaller CSS files.
 
 If you are using `purge` take good care to write purgeable HTML. That means that it is important to avoid 
 dynamically creating class strings in your templates with string concatenation, otherwise PurgeCSS won't know to 
