@@ -568,6 +568,7 @@ you are about to create is a `Component` or an `Object`.
 - Rather use utility classes as simple component modifications
   than to introduce a BEM-modifier
 - Use `has-` or `is-` prefix for the state
+- Do not use Tailwind’s `@apply` to create components
 
 **Don’t**
 
