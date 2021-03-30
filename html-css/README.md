@@ -151,8 +151,8 @@ always use comments to explain non-obvious code:
 
 As a rule, you should comment anything that isn’t immediately obvious from the code alone. 
 That is to say, there is no need to tell someone that `color: red;` will make something red, 
-but if you’re using `overflow: hidden; to clear floats—as opposed to clipping an element’s 
-overflow—this is probably something worth documenting.
+but if you’re using `overflow: hidden;` to clear floats – as opposed to clipping an element’s 
+overflow – this is probably something worth documenting.
 
 ### Component and High-Level Comments
 
@@ -175,8 +175,7 @@ overflow—this is probably something worth documenting.
  
 ### Section Comments
 
-You might want to group sections by a section comment. 
-But this is not mandatory if the class names speak for themselves.
+- Group sections by a section comment (optional if the class names speak for themselves)
 
 **Do**
 
@@ -245,25 +244,24 @@ try to stay consistent within a codebase.
 
 ## Action Items
 
-Mark todos and action items with `TODO` and append action as in `TODO: action item`.
-
-Append a contact (username or mailing list) in parentheses as with the format `TODO @contact`.
+- Mark todos and action items with `TODO` and append action as in `TODO: action item`.
+- Append a contact (username or mailing list) in parentheses as with the format `TODO @contact`.
 
 **Do**
-```
-{# TODO @jonny: revisit centering #}
-<center>Test</center>
 
-<!-- TODO: remove optional tags -->
-<ul>
-  <li>Apples</li>
-  <li>Oranges</li>
-</ul>
+    {# TODO @jonny: revisit centering #}
+    <center>Test</center>
+    
+    <!-- TODO: remove optional tags -->
+    <ul>
+      <li>Apples</li>
+      <li>Oranges</li>
+    </ul>
+    
+    .box--flex {
+        display: flex // TODO: implement fallback for older brwosers
+    }
 
-.box--flex {
-    display: flex // TODO: implement fallback for older brwosers
-}
-```
 
 ## HTML
 
@@ -310,7 +308,7 @@ Append a contact (username or mailing list) in parentheses as with the format `T
 
 ### Reducing Markup
 
-Whenever possible, avoid superfluous parent elements when writing HTML.
+- Vvoid superfluous parent elements when writing HTML whenever possible
 
 ### JavaScript Generated Markup
 
@@ -327,17 +325,28 @@ Avoid it whenever possible.
 
     <img class="avatar" src="...">
 
+This of course is ok if you are going down the JS framework road.
+
 
 ## CSS Methodology
+
+### Key Goals
+
+- Keep things maintainable and predictable
+- Think ahead of time and ensure scalability
+- Keep specificity low at all times
+- Utilise the power of CSS and the cascade
+
+### Approach
 
 Our approach of writing CSS is heavily inspired by [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) (Inversed Triangle CSS by Harry Roberts/csswizardry)
 and [CUBE CSS](https://piccalil.li/blog/cube-css) by Andy Bell and we spice it up with a heavy dose of atomic CSS 
 (eg. with [TailwindCSS](https://tailwindcss.com/)).
 
-> The inversed triangle from ITCSS shows how styles represented by selectors are ordered in the resulting CSS:
+> The inversed triangle from [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) shows 
+> how styles represented by selectors are ordered in the resulting CSS:
 from generic styles to explicit ones, from low-specificity selectors to more specific ones
 and from far reaching to localized ones.
-
 
     Inversed Triangle
     
@@ -349,13 +358,10 @@ and from far reaching to localized ones.
            ***          Components
             *           Utilities
 
+The idea of the `Inversed Triangle` gives us a good underlying structure of how to set up our CSS layers. 
+It is a great guideline of where new code needs to live – and it is the best weapon against specificity wars.
 
-> CUBE CSS (Composition, Utility, Block, Exception) is a methodology oriented towards simplicity and consistency.
-Instead of going utility-first like atomic CSS libraries such as Tailwind, CUBE CSS tries to unleash the
-power of the cascade by the use of global style axioms and layout primitives.
-
-Although an utility-first approach seems to go against the idea of the cascade, the use of atomic CSS classes
-provides a lot of benefits:
+We also see a lot of potential in an utility-first approach using atomic CSS classes:
 
 - Fewer declaration duplicates
 - No specificity issues
@@ -363,20 +369,27 @@ provides a lot of benefits:
 - Very predictable
 - Reduced risk of regressions
 
-As a result the methodology we created integrates a loose version of ITCSS with the mindset of CUBE CSS and heavy 
-usage of utility classes. 
+The benefits with an extensive use of utility classes are obvious. However there are times – especially in 
+heavily art directed projects – where a utility-only approach seems to fall short. So for our way of writing code 
+Andy Bell’s mindset with [CUBE CSS](https://piccalil.li/blog/cube-css) comes into play:
 
-### Key Goals
+> CUBE CSS (Composition, Utility, Block, Exception) is a methodology oriented 
+> towards simplicity and consistency. Instead of going utility-first like atomic CSS libraries such as Tailwind, 
+> CUBE CSS tries to unleash the power of the cascade by the use of global style axioms and layout primitives.
+ 
+> The Cascade is itself *magnificent*, because it enables us to write very little CSS and really isn’t
+as scary as people often make it out to be.
 
-- Keep things maintainable and predictable
-- Think ahead of time and ensure scalability
-- Keep specificity low at all times
-- Utilise the power of CSS and the cascade
+So for setting up the groundworks, implementing the overall composition and laying out recurring design
+patterns we would rather go for a smarter, cascade-driven way than adding lots of classes to every HTML element.
+
+We also think that for more complex scenarios (eg. modals) or recurring building blocks (think cards or buttons) good old 
+`CSS Components` *(CUBE CSS terminology: Block)* should still be the way to go.
 
 ### Guidelines
 
 - Think progressive enhancement
-- Go mobile first
+- Go [mobile first](#responsiveness--mobile-first)
 - DYI: Don’t repeat yourself (and keep the codebase tight)
 - Unleash the power of `Custom Properties` at all times
 
