@@ -308,12 +308,7 @@ try to stay consistent within a codebase.
 
 ### Reducing Markup
 
-- Vvoid superfluous parent elements when writing HTML whenever possible
-
-### JavaScript Generated Markup
-
-Writing markup in a JavaScript file makes the content harder to find, harder to edit, and less performant. 
-Avoid it whenever possible.
+- Avoid superfluous parent elements when writing HTML whenever possible
 
 **Don’t**
 
@@ -325,8 +320,10 @@ Avoid it whenever possible.
 
     <img class="avatar" src="...">
 
-This of course is ok if you are going down the JS framework road.
+### JavaScript Generated Markup
 
+Writing markup in a JavaScript file makes the content harder to find, harder to edit, and less performant. 
+Avoid it whenever possible (Nevermind if you are going down the JS framework road).
 
 ## CSS Methodology
 
@@ -343,8 +340,7 @@ Our approach of writing CSS is heavily inspired by [ITCSS](https://www.xfive.co/
 and [CUBE CSS](https://piccalil.li/blog/cube-css) by Andy Bell and we spice it up with a heavy dose of atomic CSS 
 (eg. with [TailwindCSS](https://tailwindcss.com/)).
 
-> The inversed triangle from [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) shows 
-> how styles represented by selectors are ordered in the resulting CSS:
+> The inversed triangle from ITCSS shows how styles represented by selectors are ordered in the resulting CSS:
 from generic styles to explicit ones, from low-specificity selectors to more specific ones
 and from far reaching to localized ones.
 
@@ -1590,7 +1586,7 @@ preserve those classes.
 
 ### Slow Web
 
-- [The Cost of Javascript Frameworks](The Cost of Javascript Frameworks)
+- [The Cost of Javascript Frameworks](https://timkadlec.com/remembers/2020-04-21-the-cost-of-javascript-frameworks/)
 
 ### Best Practices
 - [It’s time we say goodbye to pixel units](https://uxdesign.cc/say-goodbye-to-pixels-cb720fbaf250)
