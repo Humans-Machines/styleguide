@@ -57,7 +57,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Variables](#variables)
   * [Extend](#extend)
 - [PurgeCSS](#purgecss)
-  
+- [Sources and further reading](#sources-and-further-reading)
 
 
 
