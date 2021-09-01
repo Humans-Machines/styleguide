@@ -43,13 +43,17 @@ ol {
 }
 
 /* Set core root defaults */
+html {
+  height: 100%;
+}
+
 html:focus-within {
   scroll-behavior: smooth;
 }
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 /* A elements that don't have a class get default styles */
