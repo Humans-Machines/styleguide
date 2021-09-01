@@ -1,0 +1,61 @@
+/*------------------------------------*\
+  #LOGO
+\*------------------------------------*/
+
+.logo {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: map-get($z-index, logo);
+    transition: opacity $trans-time--xs $trans-func--ease-out,
+                transform $trans-time--xs $trans-func--ease-out;
+
+    .has-footer & {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.9);
+    }
+
+    // custom focus style
+    &:focus-visible {
+        box-shadow: none;
+        color: var(--theme-color);
+        transform: scale(1.2);
+        transform-origin: right bottom;
+    }
+
+    &:before {
+        content: '';
+        height: 10rem;
+        transform: rotate(-15deg) translate3d(20%, 0, 0);
+        transform-origin: bottom right;
+        position: absolute;
+        bottom: -1px;
+        right: 0;
+        width: 120vw;
+        pointer-events: none;
+        transition: opacity $trans-time--l $trans-func--default;
+
+        $_default: map-get($bg-colors, default);
+
+        background-image: linear-gradient(rgba($_default,0),
+                rgba($_default,.1) 25%,
+                rgba($_default,.3) 50%,
+                rgba($_default,.7) 75%,
+                $_default);
+
+        .page--values & {
+            $_beige: map-get($bg-colors, 'beige');
+
+            background-image: linear-gradient(rgba($_beige,0),
+                    rgba($_beige,.1) 25%,
+                    rgba($_beige,.3) 50%,
+                    rgba($_beige,.7) 75%,
+                    $_beige);
+        }
+
+        .has-highlighted-section & {
+            opacity: 0;
+        }
+    }
+}

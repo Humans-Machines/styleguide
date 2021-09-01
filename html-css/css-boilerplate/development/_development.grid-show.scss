@@ -1,0 +1,130 @@
+/* stylelint-disable */
+$_background--grid: #1dff00;
+
+.grid-toggle {
+    display: none;
+}
+
+.is-development {
+    .grid-toggle {
+        display: block;
+        position: fixed;
+        bottom: 6rem;
+        right: 0;
+        z-index: map-get($z-index, grid-toggle);
+
+        input {
+            @include hide;
+        }
+
+        label {
+            display: inline-block;
+            width: 1.6rem;
+            height: 1.6rem;
+            background: $_background--grid;
+            border-radius: 100%;
+            cursor: help;
+            margin: 1.6rem;
+            text-indent: -200vw; // have text inside label to pass lighthouse test
+        }
+
+        input:checked + label {
+            transform: scale(0.7);
+
+            &:after {
+                @include pseudo();
+                top: 0;
+                left: 0;
+                width: 1.6rem;
+                height: 1.6rem;
+                border-radius: 100%;
+                border: 2px solid $_background--grid;
+                transform: scale(2);
+            }
+        }
+
+        .touch & {
+            cursor: pointer;
+        }
+
+        .no-touch & {
+            &:active + .grid-overlay,
+            &:focus + .grid-overlay,
+            &:hover + .grid-overlay {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    // Grid overlay
+    .grid-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: map-get($z-index, grid-overlay);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity $trans-time--s $trans-func--default;
+
+        .container {
+            height: 100%;
+        }
+    }
+
+    .grid-overlay-container {
+        display: none;
+        height: 100%;
+
+        div {
+            background-color: rgba(magenta, 0.1);
+            border-left: solid 1px rgba(magenta, 0.4);
+            border-right: solid 1px rgba(magenta, 0.4);
+            height: 100%;
+        }
+    }
+
+    .grid--sm {
+        @include respond-to(sm-only) {
+            display: grid;
+        }
+    }
+
+    .grid--md {
+        @include respond-to(md-only) {
+            display: grid;
+        }
+    }
+
+    .grid--lg {
+        @include respond-to(lg) {
+            display: grid;
+        }
+    }
+
+    // body margin
+    .body-margin {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: map-get($z-index, grid-overlay);
+        outline: 1px solid $_background--grid;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity $trans-time--s $trans-func--default;
+        margin: var(--body-py) var(--body-px);
+    }
+
+    // Make grid visible
+    &.is-grid-visible {
+        .grid-overlay,
+        .body-margin {
+            opacity: 1;
+        }
+    }
+}
+
+/* stylelint-enable */

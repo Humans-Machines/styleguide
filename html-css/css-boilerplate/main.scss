@@ -1,0 +1,217 @@
+/*------------------------------------*\
+  #MAIN
+\*------------------------------------*/
+
+/**
+ *
+ * This CSS setup heavily inspired by ITCSS (Inversed Triangle CSS by Harry Roberts/csswizardry)
+ * and CUBE CSS by Andy Bell and spices it up with a heavy dose of atomic CSS
+ *
+ * The inversed triangle from ITCSS shows how styles represented by selectors are ordered in the resulting CSS:
+ * from generic styles to explicit ones, from low-specificity selectors to more specific ones
+ * and from far reaching to localized ones:
+ *
+ *    *************     Settings
+ *     ***********      Tools
+ *      *********       Generic
+ *       *******        Elements
+ *        *****         Objects
+ *         ***          Components
+ *          *           Utilities
+ *
+ * CUBE CSS (Composition, Utility, Block, Exception) is a methodology oriented towards simplicity and consistency.
+ * Instead of going utility-first like atomic CSS libraries such as Tailwind, CUBE CSS tries to unleash the
+ * power of the cascade by the use of global style axioms and layout primitives.
+ *
+ * Although an utility-first approach seems to go against the idea of the cascade, the use of atomic CSS classes
+ * provides a lot of benefits:
+ * - Fewer declaration duplicates
+ * - No specificity issues
+ * - No need for class and component naming
+ * - Very predictable
+ * - Reduced risk of regressions
+ *
+ *
+ * KEY GOALS
+ * - Keep things maintainable and predictable
+ * - Think ahead of time and ensure scalability
+ * - Keep specificity low at all times
+ * - Utilise the power of CSS and the cascade
+ *
+ * GUIDELINES
+ * - Think progressive enhancement
+ * - Go mobile first
+ * - DYI: Don’t repeat yourself (and keep the codebase tight)
+ * - Unleash the power of Custom Properties at all times
+ * - Use Resets, styled Elements, and Objects to layout
+ *   the design system and composition
+ * - Use Utilities heavily for everything which is not tackled
+ *   by Elements and Objects
+ * - Use Components as a last resort for things
+ *   which can’t be (easily) done with Objects and Utilities
+ * - Use Components for more complex and contextual styles
+ *   that deviate from the common, global system
+ * - Use BEM for Component naming
+ * - Rather use Utility-Classes as simple component modifications
+ *   than to introduce a BEM-modifier
+ *
+ * REFERENCES
+ * ITCSS: https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+ * CUBE CSS: https://piccalil.li/blog/cube-css
+ *
+ *
+ *
+ *
+ * CONTENTS
+ *
+ * SETTINGS
+ * Define the ground: Design tokens, sizes, other vars
+ * No CSS output here
+ * Config...............Configuration and environment settings.
+ * Tokens...............Global design tokens such as colors, size scale settings and text styles
+ * Breakpoints..........Breakpoint definitions
+ * UI...................UI Specific settings for custom properties
+ * Transitions..........Timings and bezier curves for transitions
+ * Z-Index..............Handle z-index throughout relevant ui-elements
+ * Vars.................Static SASS vars for use in components, objects and utilities
+ *
+ * TOOLS
+ * Globally used mixins and functions
+ * No CSS output here
+ * Functions............Some simple helper functions
+ * Mixins...............Globally available mixins
+ * Animations...........Define animations
+ *
+ * GENERIC
+ * Global resets and normalize styles, box-sizing definition, etc
+ * First layer of the triangle that generates CSS
+ * Box-sizing...........Better default `box-sizing`
+ * Normalize.css........Default normalize styles
+ * Reset................Modern reset
+ * Measure..............Prevent extensive line-length with a style axiom
+ *
+ * VENDOR
+ * Includes of vendor styles for third party components
+ * Try to include only low specificity styles
+ * Add if needed
+ *
+ * ELEMENTS
+ * Styling for bare HTML elements (like H1, A, header, footer, …)
+ * Redefine browser presets to the projects needs and pursued design system
+ * Fontface.............@font-face declarations
+ * Root.................Custom Properties
+ * Page.................Page-level styles (HTML element).
+ * Headings.............Heading styles.
+ * Links................Hyperlink styles.
+ * Quotes...............Styling for blockquotes, etc.
+ *
+ * OBJECTS
+ * Class-based selectors which define composition and undecorated design patterns.
+ * An object (CUBE CSS Methodology: Utility) does one job and does that job well.
+ *
+ * COMPONENTS
+ * Specific UI components which are to complex to be defined by atomic CSS utilities
+ * Uses BEM for naming
+ *
+ * SCOPES
+ * Styling for bare HTML elements in a scoped context
+ * Eg. for Markdown output from CMS
+ *
+ * UTILITIES
+ * Atomic CSS utilities
+ * Included last to also ba able to serve as component modifiers
+ *
+ *
+ * DEVELOPMENT
+ * Debugging and Development components and styles
+ *
+ */
+
+
+// SETTINGS
+@import "settings/settings.tokens";
+@import "settings/settings.breakpoints";
+@import "settings/settings.ui";
+@import "settings/settings.z-index";
+@import "settings/settings.vars";
+
+// TOOLS
+@import "tools/tools.functions";
+@import "tools/tools.mixins";
+@import "tools/tools.animations";
+
+// GENERIC
+@import "generic/generic.box-sizing";
+@import "generic/generic.normalize";
+@import "generic/generic.reset";
+@import "generic/generic.measure";
+
+// VENDOR
+@import "vendor/vendor.flickity";
+
+// ELEMENTS
+@import "elements/elements.fontface";
+@import "elements/elements.root";
+@import "elements/elements.page";
+@import "elements/elements.typography";
+@import "elements/elements.links";
+@import "elements/elements.quotes";
+
+// OBJECTS
+@import "objects/objects.container";
+@import "objects/objects.page-grid";
+@import "objects/objects.cluster";
+@import "objects/objects.flow";
+@import "objects/objects.media-box";
+@import "objects/objects.link";
+@import "objects/objects.icons";
+@import "objects/objects.text-stack";
+@import "objects/objects.range-slider";
+
+// COMPONENTS
+@import "components/components.ajax-container";
+@import "components/components.buttons";
+@import "components/components.logo";
+@import "components/components.breadcrumb";
+@import "components/components.navicon";
+@import "components/components.menu";
+@import "components/components.hero";
+@import "components/components.carousel";
+@import "components/components.modal";
+@import "components/components.values";
+@import "components/components.video";
+@import "components/components.teaser";
+@import "components/components.target-group";
+@import "components/components.highlight-section";
+@import "components/components.section-title";
+@import "components/components.footer";
+@import "components/components.startoff-animation";
+
+// SCOPES
+@import "scopes/scopes.prose";
+
+// UTILITIES
+@import "utilities/utilities.padding";
+@import "utilities/utilities.margin";
+@import "utilities/utilities.color";
+@import "utilities/utilities.text-style";
+@import "utilities/utilities.accessibility";
+@import "utilities/utilities.display";
+@import "utilities/utilities.position";
+@import "utilities/utilities.flex";
+@import "utilities/utilities.grid";
+@import "utilities/utilities.alignment";
+@import "utilities/utilities.width";
+@import "utilities/utilities.z-index";
+@import "utilities/utilities.height";
+@import "utilities/utilities.transform";
+@import "utilities/utilities.shadow";
+@import "utilities/utilities.text";
+@import "utilities/utilities.border";
+@import "utilities/utilities.transitions";
+
+// Helper
+@import "helper/helper.scrollbar-measure";
+
+// DEVELOPMENT
+@import "development/development.grid-show";

@@ -1,0 +1,131 @@
+/*------------------------------------*\
+  #TRANSITIONS
+\*------------------------------------*/
+
+// Custom transitions for this project
+
+// transition a list
+//
+// animate children as list entered by 50%
+// .trans-list-entered {
+//     @include intersect('.intersect-inview--entered') {
+//         li {
+//             @include animation-delay(0.3s, 0s, 12, false, 'a');
+//         }
+//
+//         a {
+//             /* @keyframes Dauer | Timingfunktion | Verzögerung | Anzahl der Iterationen | Richtung | Füllmodus | Abspielstatus | Name */
+//             animation: $trans-time--s $trans-func--default show-link-color;
+//         }
+//     }
+// }
+
+.trans-list {
+    &.intersect-inview {
+        li > * {
+            will-change: transform, opacity;
+        }
+    }
+
+    li {
+        overflow: hidden;
+        --trans-x: 0px;
+        --trans-y: 2ex;
+
+        // fix cropped descenders
+        > * {
+            display: block;
+            margin-top: -0.2ex;
+            margin-bottom: 0.2ex;
+        }
+
+        @include state--initial() {
+            > * {
+                @include hide-before-animation();
+            }
+        }
+
+        @include state--animated() {
+            @include animation-delay(0.05s, 0, 20, false, '> *');
+
+            > * {
+                animation: trans-title $trans-time--m $trans-func--ease-out 1 backwards;
+            }
+
+        }
+    }
+}
+
+.trans-title-right,
+.trans-title {
+    --trans-x: 0.5rem;
+    --trans-y: 0.8rem;
+
+    &.intersect-inview {
+        > * {
+            will-change: transform, opacity;
+        }
+    }
+
+    > span,
+    > strong,
+    > a {
+        display: inline-block;
+
+        @include state--initial() {
+            @include hide-before-animation();
+        }
+
+        @include state--animated() {
+            @include animation-delay(0.035s, 0, 30);
+            animation: trans-title $trans-time--m $trans-func--default 1 backwards;
+        }
+    }
+}
+
+.trans-title-right {
+    --trans-x: -0.5rem;
+}
+
+// animate lists
+/*
+.animate-list {
+    @include state--initial() {
+        > * {
+            @include hide-before-animation();
+            position: relative;
+        }
+    }
+
+    @include state--animated() {
+        > * {
+            @include show-for-animation();
+            animation: animate-element-xs-mobile $trans-time--m $trans-func--default 1 backwards;
+            @include animation-delay(0.03s, 0.1s);
+
+            @include respond-to(decent) {
+                animation-name: animate-element-xs;
+            }
+        }
+    }
+}*/
+
+
+// transition a list
+//
+// animate children as list entered by 50%
+/*
+.trans-list-entered {
+    li {
+        transition: opacity $trans-time--s $trans-func--default,
+        transform $trans-time--m $trans-func--default;
+        @include transition-delay(0.15s);
+    }
+
+    @include intersect(':not(.intersect-inview--full)') {
+        li {
+            transform: translate3d(var(--trans-x), var(--trans-y), 0);
+            opacity: 0;
+        }
+    }
+}*/

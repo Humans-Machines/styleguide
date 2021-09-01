@@ -1,0 +1,89 @@
+/*------------------------------------*\
+  #MARGIN
+\*------------------------------------*/
+
+// Adding margin utility classes
+// Naming convention based on tailwind
+//
+// Basic classes
+// .p-100, .p-200, etc
+//
+// Optional Responsive classes
+// .md:p-100, .lg:p-100, etc
+
+// Extend $size-scale with custom sizes for margin
+$margin-sizes: map-merge((
+    '0': 0px,
+    'auto': auto,
+    1\/2: 50%,
+), $size-scale);
+
+// Add some custom negative margin
+// TODO: Make better by linking to tokens / beware of specificity issue
+$neg-size-scale: (
+     'margin-top': (
+        '-mt-50': -0.25rem,
+        '-mt-100': -0.5rem,
+        '-mt-200': -0.64rem,
+        '-mt-300': -0.8rem,
+        '-mt-400': -1rem,
+        '-mt-500': -1.333rem,
+        '-mt-600': -1.777rem,
+        '-mt-700': -2.4rem,
+        '-mt-800': -3.9rem,
+        '-mt-900': -5.6rem,
+        '-mt-1000': -7.8rem,
+        '-mt-1100': -11.2rem,
+
+         // -mt-1\/4-screen: -25vh,
+     )
+);
+
+@include utility-classes($neg-size-scale, false); // TODO: Responsive selector would not work here because of specificity issue
+
+// Adding bespoke utility classes
+//
+// @mixin token-utilities(
+//      $class-name,
+//      $properties,
+//      $prefixes: md lg,
+//      $token-set: $size-scale)
+@include token-utilities('m', margin, false, $margin-sizes);
+
+@include token-utilities('mx', margin-right margin-left, false, $margin-sizes);
+// @include token-utilities('my', margin-bottom margin-top, false, $margin-sizes);
+
+@include token-utilities('mt', margin-top, md, $margin-sizes);
+@include token-utilities('mr', margin-right, md, $margin-sizes);
+// @include token-utilities('mb', margin-bottom, false, $margin-sizes);
+@include token-utilities('ml', margin-left, md sm-only, $margin-sizes);
+
+
+// Push first media stack behind headline
+.mt-behind-hero {
+    @include responsive-selector-single(md) {
+        margin-top: calc(-50vh + 7rem);
+    }
+}
+
+.-mt-1000 {
+    @include responsive-selector-single(md) {
+        margin-top: calc(var(--size-1000) * -1);
+    }
+}
+
+// Add viewport ratio specific padding classes
+.m-body {
+    margin: var(--body-py) var(--body-px);
+}
+
+.mb-body {
+    @include responsive-selector-single(md) {
+        margin-bottom: var(--body-py);
+    }
+}
+
+// Align type ascenders with top line of box
+.mt-text-box {
+    margin-top: -0.37ex;
+}

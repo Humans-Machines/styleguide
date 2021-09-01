@@ -1,0 +1,24 @@
+/*------------------------------------*\
+  #ajax-container
+\*------------------------------------*/
+
+// Make footer stick to bottom
+.ajax-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    // Set, when a modal window is visible
+    /*
+    &.is-hidden {
+        .main-header:not(.main-header--tongue),
+        .main-content,
+        .main-footer {
+            visibility: hidden;
+
+            * {
+                visibility: inherit !important;
+            }
+        }
+    }*/
+}

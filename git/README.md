@@ -1,6 +1,6 @@
 # Guidelines for working with GIT
 
-These guidelines should help you and us to work together on cool projects.
+These guidelines should help you and us to work together on sweet projects.
 
 Some parts of these guidelines are inspired by two great articles: [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) and [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 

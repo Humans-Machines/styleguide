@@ -1,0 +1,192 @@
+/// Modals
+/// @author Stefan Rueschenberg <Stefan@Humans-Machines.com>
+/// @author Raffael Stueken <Raffael@Humans-Machines.com>
+/// @author Michael Ziem <Michael@Humans-Machines.com>
+////
+
+// .modal--level-1 -> targetGroups, members, services
+
+// Hide body overflow
+@include hide-body-overflow(has-modal);
+
+.modal {
+    position: relative;
+    z-index: map-get($z-index, modal);
+}
+
+.modal__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    transform: translate3d(0, 50vh, 0) scale(0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0s linear $trans-time--modal-out,
+                opacity $trans-time--modal-out $trans-func--modal,
+                visibility 0s linear $trans-time--modal-fade;
+    scroll-behavior: smooth;
+
+    // default modal
+    .modal--level-1 & {
+        transform-origin: 150vw 100vh;
+        display: grid;
+        grid-template-columns: 1fr var(--modal-w) var(--container-m);
+        grid-template-rows: var(--modal-offset) min-content var(--modal-offset);
+    }
+
+    // values modal
+    .modal--level-2 & {
+        transform-origin: -150vw 100vh;
+    }
+
+    // show modal
+    // default modals will show right away
+    // value modals will show after loaded
+    .modal--level-1[aria-hidden="false"] &,
+    .modal--level-2[aria-hidden="false"][aria-busy="false"] & {
+        transform: none;
+        visibility: visible;
+        opacity: 1;
+        transition: transform $trans-time--modal-in $trans-func--modal;
+    }
+
+    // make wrapper scrollable
+    .modal--fully-opened &,
+    .modal--fading & {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    // Hide overflow for content modals
+    // /* Don’t on Safari typeface and panel modals to fix render bug
+    // body.is-loading .modal--level-1 &,
+    // .no-safari.no-ios body.is-loading &, */
+    body.is-loading & {
+        overflow-y: hidden !important;
+        border-right: var(--scrollbar-width) solid var(--bg-default); // Prevent flicker by faking missing scrollbar
+    }
+}
+
+.modal__inner {
+    position: relative;
+    transform: translate3d(0, 50vh, 0) scale(0.5);
+    min-height: calc(100vh - var(--modal-offset));
+    transition: transform $trans-time--modal-out $trans-func--modal;
+
+    // default modal
+    .modal--level-1 & {
+        transform-origin: 150vw 100vh;
+        border-top-left-radius: var(--border-radius-s);
+        border-bottom-left-radius: var(--border-radius-s);
+    }
+
+    // values modal
+    .modal--level-2 & {
+        transform-origin: -150vw 100vh;
+    }
+
+    // show modal
+    .modal[aria-hidden="false"] & {
+        transform: none;
+        transition: none;
+    }
+}
+
+.modal__body {
+    position: relative; // place above modal__close
+
+    .modal--level-2 & {
+        pointer-events: none; // let modal-close be reachable
+    }
+}
+
+// closing background for none full width modal panels
+.modal__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity $trans-time--modal-fade $trans-func--ease-out,
+                visibility 0s $trans-func--modal $trans-time--modal-fade;
+
+    // default modal
+    .modal--level-1 & {
+        background: var(--theme-color);
+    }
+
+    // values modal
+    .modal--level-2 & {
+        background: var(--bg-beige);
+    }
+
+    // show modal
+    .modal[aria-hidden="false"] & {
+        transition: opacity $trans-time--s $trans-func--modal;
+        opacity: var(--backdrop-o);
+        visibility: visible;
+    }
+}
+
+// spacer and closing for default modals
+.modal__spacer {
+    cursor: pointer;
+}
+
+// closing for value modals
+.modal__close {
+    @include cover-box();
+    cursor: pointer;
+}
+
+.modal__header {
+    position: sticky;
+    top: 0;
+    height: var(--size-600);
+    margin-bottom: calc(var(--size-600) * -1);
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    pointer-events: none;
+
+    .btn {
+        @include hide-button();
+        transition: none;
+    }
+
+    // show header if modal active and not scrolling down
+    .modal[aria-hidden="false"][aria-busy="false"] & {
+        .btn {
+            @include show-button(true);
+            transition-delay: $trans-time--modal-in;
+        }
+    }
+}
+
+// modal sections dealing with new modal contents
+.modal--level-1 {
+    .modal__section {
+        opacity: 0;
+        transition: opacity $trans-time--l $trans-func--default;
+        transform: none;
+
+        &.is-dismissed {
+            opacity: 0.4;
+        }
+    }
+
+    &.modal--fading,
+    &.modal--fully-opened[aria-busy="false"]  {
+        .modal__section {
+            opacity: 1;
+        }
+    }
+}

@@ -1,0 +1,120 @@
+/// Range Slider
+/// @author Stefan Rueschenberg <Stefan@Humans-Machines.com>
+/// @author Raffael Stueken <Raffael@Humans-Machines.com>
+/// @author Michael Ziem <Michael@Humans-Machines.com>
+////
+
+.range-slider {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    > * {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+.range-slider__label {
+    @include text-style('300');
+    white-space: nowrap;
+    position: relative;
+    font-variant-numeric: tabular-nums;
+}
+
+.range-slider__slide {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: inherit;
+    position: relative;
+
+    &:focus {
+        outline: none;
+    }
+
+    // double declarations such as
+    // &::-moz-range-thumb,
+    // &::-webkit-slider-thumb {
+    //      stuff: stuff;
+    // }
+    // seem to not work
+    // therefore including mixin solution
+    @mixin slider-thumb {
+        -webkit-appearance: none;
+        height: $range-thumb;
+        width: $range-thumb;
+        border-radius: 50%;
+        border: none;
+        background: currentColor;
+        transform: translateY(calc(-50% + #{$range-track-height / 2}));
+        transition: transform $trans-time--s $trans-func--ease-in-out;
+        box-shadow: none;
+        cursor: pointer;
+
+        &:active,
+        &:focus {
+            transform: translateY(calc(-50% + #{$range-track-height / 2})) scale(1.4);
+
+            // fix nob position on firefox
+            .firefox & {
+                transform: scale(1.4);
+            }
+        }
+    }
+
+    @mixin slider-track {
+        width: 100%;
+        height: $range-track-height;
+        background: currentColor;
+        cursor: pointer;
+    }
+
+    // Webkit
+    &::-webkit-slider-thumb {
+        @include slider-thumb;
+    }
+
+
+    &::-webkit-slider-runnable-track {
+        @include slider-track;
+    }
+
+    // Firefox
+    &::-moz-range-thumb {
+        @include slider-thumb;
+        transform: none;
+        border: 0;
+    }
+
+    &::-moz-range-track {
+        @include slider-track;
+    }
+
+    // IE
+    &::-ms-track {
+        width: 100%;
+        cursor: pointer;
+        height: $range-track-height;
+
+        /* Hides the slider so custom styles can be added */
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+
+    &::-ms-thumb {
+        @include slider-thumb;
+    }
+
+    &::-ms-fill-lower {
+        background: currentColor;
+    }
+
+    &::-ms-fill-upper {
+        background: currentColor;
+    }
+}
+
+

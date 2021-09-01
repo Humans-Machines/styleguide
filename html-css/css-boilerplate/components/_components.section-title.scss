@@ -1,0 +1,79 @@
+/*------------------------------------*\
+  #SECTION TITLE
+\*------------------------------------*/
+
+.section-title {
+    position: sticky;
+    top: -1px; // make is-stuck class work with intersection observer
+    z-index: 1;
+    overflow: hidden; // prevent body overflow
+
+    // Extend size to not crop fading background
+    padding-bottom: 10rem !important; // Overwrite utilities
+    margin-bottom: -10rem;
+    visibility: hidden; // fix interactability
+
+    // Add fading cover background
+    &:before {
+        content: '';
+        height: 10rem;
+        transform: rotate(-15deg) translate3d(-20%, 0, 0);
+        transform-origin: left top;
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 120vw;
+        pointer-events: none;
+        transition: opacity $trans-time--m $trans-func--default;
+        visibility: visible; // fix interactability
+
+        $_default: map-get($bg-colors, default);
+
+        background-image: linear-gradient($_default,
+                rgba($_default, .7) 25%,
+                rgba($_default, .4) 50%,
+                rgba($_default, .1) 75%,
+                rgba($_default, 0));
+
+        .has-highlighted-section & {
+            opacity: 0;
+        }
+    }
+
+    h2 {
+        position: relative;
+        visibility: visible; // fix interactability
+    }
+
+    // hide before full inview
+    @include state--initial('is-stuck') {
+        &:before {
+            opacity: 0;
+        }
+    }
+
+    /* Add extened animation to breakpoint md
+    @include respond-to(md) {
+        h2 {
+            // position: fixed;
+            // top: 0;
+            // left: 0;
+            // transition: opacity $trans-time--s $trans-func--default;
+            --trans-x: 0.5rem;
+            --trans-y: 0.8rem;
+        }
+
+        // hide before full inview
+        @include state--initial() {
+            h2 {
+                opacity: 0;
+            }
+        }
+
+        @include state--animated() {
+            h2 {
+                animation: trans-title $trans-time--m $trans-func--default 1 backwards;
+            }
+        }
+    }*/
+}

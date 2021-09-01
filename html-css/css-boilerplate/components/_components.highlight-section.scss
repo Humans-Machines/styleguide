@@ -1,0 +1,33 @@
+/*------------------------------------*\
+  #HIGHLIGHT SECTION
+\*------------------------------------*/
+
+.highlight-section {
+    // Add highlight section background
+    // with pseudo element to use animatable opacity property
+    &:before {
+        content: '';
+        @include cover-box();
+        background: var(--highlight-color);
+        opacity: 0;
+        will-change: opacity;
+        transition: opacity $trans-time--l $trans-func--default;
+    }
+
+    .has-highlighted-section & {
+        .main-content,
+        .modal__body {
+            --theme-color: var(--text-default); // no theme colors for bubbles here
+        }
+
+        &:before {
+            opacity: 1;
+        }
+
+        .btn {
+            @include hover() {
+                background-color: var(--bg-beige);
+            }
+        }
+    }
+}

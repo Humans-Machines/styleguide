@@ -1,0 +1,181 @@
+///*----------------------------------*\
+//  #TOKENS
+//\*----------------------------------*/
+
+// Global design tokens
+
+
+// SIZE SCALE
+//
+// We use a modular scale that powers all the utilities that
+// it is relevant for (text styles/font-size, margin, padding).
+// All items are calculated off these tokens.
+//
+// OUR APPROACH
+// Instead of going into complicated SASS Mixins or Calc operations
+// we use this tool to get the values for a chosen type of scale:
+// https://type-scale.com/
+//
+// NAMING CONVENTION
+// Naming is taken from font weight where a weight of 400 is considered normal
+//
+// SPECIFIC PROJECT SETTINGS
+// Every project has a specific size scale
+//
+
+// This project uses a Perfect Fourth scale above 1rem
+// meaning the ratio between values is 1.333
+// Values below are handpicked
+$size-scale: (
+    '25': 0.1rem,
+    '50': 0.25rem,
+    '100': 0.5rem,
+    '200': 0.64rem,
+    '300': 0.8rem,
+    '400': 1rem,
+    '500': 1.333rem,
+    '600': 1.777rem,
+    '700': 2.4rem,
+    '800': 3.9rem,
+    '900': 5.6rem,
+    '1000': 7.8rem,
+    '1100': 11.2rem,
+);
+
+// COLORS
+// Set up a colour palette which allows us
+// to theme the entire project from one location.
+
+// Text colors
+$text-colors: (
+    'default': #000,
+    'orange': #ff854d,
+    'green': #48bf71,
+    'purple': #9939f9,
+);
+
+// Background colors
+$bg-colors: (
+    'default': #f8f7f2,
+    'grey': #edece7,
+    'yellow': #faf796,
+    'beige': #b7b4a2,
+    'orange': #ff854d,
+    'green': #48bf71,
+    'purple': #9939f9,
+);
+
+// Border colors
+$border-colors: (
+    'default': rgba(0, 0, 0, 0.15),
+);
+
+// Border colors
+$border-radius: (
+    's': 0.1rem,
+);
+
+// Box shadow
+$shadows: (
+    'modal': 0 0 6rem rgba(0, 0, 0, 0.15),
+    'box': 0 0 4rem rgba(0, 0, 0, 0.1),
+);
+
+// Default max line length
+$measure: (
+    'measure': 48ch,
+);
+
+// TEXT STYLES
+//
+// Get if item in $text-styles matches size from $size-scale
+// font-size is automatically set to this value
+//
+// .usage {
+//   @include text-style(100);
+// }
+//
+// 1. Forcing longest line length
+// 2. Provide fallback values for static font fallback
+//
+$text-styles: (
+    // Default Font Family
+    'default': (
+        font-weight: 400, // [2]
+        --font-weight: 340,
+        font-family: "'PXR Repro', system, -apple-system, '.SFNSText-Regular', 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;",
+    ),
+
+    'default-family': (
+        font-family: "'PXR Repro', system, -apple-system, '.SFNSText-Regular', 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;",
+    ),
+
+    // Small Text
+    // XD File: 17pt
+    '300': (
+        line-height: 1.235,
+        letter-spacing: 0.015em,
+        --measure: 48ch, // [1]
+    ),
+
+    // Body Text Size
+    // XD File: 24pt
+    '400': (
+        line-height: 1.2,
+        --measure: 48ch, // [1]
+    ),
+
+    // M
+    // XD File: 34pt
+    '500': (
+        font-weight: 300, // [2]
+        --font-weight: 330,
+        line-height: '1.147',
+        --measure: 28ch, // [1]
+    ),
+
+    // L
+    // XD File: 48pt
+    '600': (
+        font-weight: 300, // [2]
+        line-height: '1.104',
+        --font-weight: 300,
+        --measure: 24ch, // [1]
+    ),
+
+    // XL
+    // XD File: 67pt
+    '700': (
+        font-weight: 200, // [2]
+        line-height: '1.045',
+        --font-weight: 288,
+        --measure: 21ch, // [1]
+    ),
+
+    // XXL
+    // XD File: 96pt
+    '800': (
+        font-weight: 200, // [2]
+        line-height: '1.042',
+        --font-weight: 271,
+        --measure: 20ch, // [1]
+    ),
+
+    // Listing for 300
+    'listing': (
+        line-height: 1.3,
+    ),
+
+    'bubble': (
+        font-family: "'PXR Repro Bubble', 'PXR Repro', system, -apple-system, '.SFNSText-Regular', 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;",
+    ),
+
+    // Medium
+    'medium': (
+        font-weight: 500, // [2]
+        --font-weight: 420,
+    ),
+);
+
+
+

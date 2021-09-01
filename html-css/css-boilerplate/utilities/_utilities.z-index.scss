@@ -1,0 +1,22 @@
+
+/*------------------------------------*\
+  #Z-INDEX
+\*------------------------------------*/
+
+// Adding grid utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+
+.z-1 {
+    z-index: 1;
+}
+
+.z-999 {
+    z-index: 999;
+}

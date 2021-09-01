@@ -1,0 +1,163 @@
+///*----------------------------------*\
+//  #UI
+//\*----------------------------------*/
+
+// Project-level settings and setup for custom properties dealing with the ui
+//
+// The $ui-props map will automatically be output as custom properties in the :root styles
+// -> ./elements/_elements.root.scss
+
+$ui-props: (
+    // default values
+    'default': (
+
+        // Default font weight and italics
+        'font-weight': 340,
+
+        // Define a viewport ratio based on some breakpoints
+        //
+        // Calculating these with Javascript would be more precise
+        // but would also result into a layout-shift and repaint
+        // after JS is parsed and custom property is updated
+        'viewport-ratio': 1,
+
+        // Body padding/margin
+        'body-p-base': 0.707rem,
+
+        // calculating body paddings based on viewport ratio
+        'body-px': calc(var(--body-p-base) * var(--viewport-ratio)),
+        'body-py': calc(var(--body-p-base) / var(--viewport-ratio)),
+
+        // favor in rounded corners on iphone viewport
+        'body-py-sm': calc(var(--body-p-base) / var(--viewport-ratio) * 1.25),
+
+        // Page container definitions
+        // Need to be set directly in _elements.root.css because min() breaks in ie
+        // 'container-w': min(calc(80vw + 2rem), calc(100vw - 2 * var(--body-p-base) * var(--viewport-ratio))),
+
+        // Calculating the space (margin: auto) left and right of the page container
+        'container-m': calc((100vw - var(--container-w)) / 2),
+
+        // Default definition for .page-grid
+        'grid-rows': 16,
+        'column-gap': #{map-get($size-scale, '100')},
+
+        // Alternate grid rows for modals
+        'grid-rows-modal': 16,
+
+        // Default gap for width classes
+        // Will be set to --column-gap if inside .cluster
+        // Apparently needs to have a px value
+        'cluster-gap': 0px,
+
+        // Theme color
+        'theme-color': #{map-get($bg-colors, 'orange')},
+        'highlight-color': #{map-get($bg-colors, 'yellow')},
+
+        // Modal backdrop opacity
+        'backdrop-o': 0.9,
+
+        // Modal grid rows
+        'modal-grid-rows': 15,
+
+        // Modal width
+        'modal-w': var(--container-w),
+
+        // Modal container left padding
+        // Magic number for convenience
+        'modal-pl': calc(var(--container-w) * 0.06),
+
+        // Modal width
+        'modal-container-w': calc(var(--modal-w) - var(--modal-pl)),
+
+        // Modal offset
+        'modal-offset': 4rem,
+
+        // Value width
+        // Magic number for convenience
+        'value-w': calc(var(--container-w) * 0.9),
+
+        // Value container left padding
+        'value-pr': var(--column-gap),
+
+        // Value offset
+        'value-offset': 4rem,
+
+        // Value sticky top
+        // Needs a fallback and will be set with js to a definite value
+        'value-sticky-top': -999vh,
+
+        // Carousel Settings
+        'carousel-px': var(--container-m),
+        'carousel-gap': 8vw,
+        'carousel-item-w': 64vw,
+        'carousel-item-w-portrait': 44vw,
+        'carousel-item-w-cube': 51vw,
+
+        // Img scale on hover
+        'img-scale': 1.1,
+
+        // Img scale on hover
+        'lazy-scale': 0.92,
+
+        // Default settings for animations
+        'trans-x': 1rem,
+        'trans-y': 2rem,
+
+        // how long to wait befor js is loaded
+        // if js is not there by then we will show stuff anyways
+        'js-wait': 3s,
+    ),
+
+    // breakpoint md values
+    'md': (
+        // Default definition for .page-grid
+        'column-gap': 0.707rem,
+
+        // Modal settings
+        // 1. 0.85 is a magic number to get to a decent width
+        'modal-grid-rows': 13,
+        'modal-w': calc(var(--container-w) * 0.85),
+        'modal-pl': calc(var(--container-w) * 0.04),
+        'modal-offset': 6rem,
+
+        // Value setting
+        'value-w': calc(var(--container-w) * 0.66),
+        'value-pr': calc(var(--container-w) * 0.04),
+        'value-offset': 6rem,
+
+        // Carousel Settings
+        'carousel-gap': 6vw,
+        'carousel-item-w': 40vw,
+        'carousel-item-w-portrait': 28vw,
+        'carousel-item-w-cube': 32vw,
+    ),
+
+    // breakpoint portrait value
+    'portrait': (
+        // slight approximation to real ratio
+        // real ratio will look too harsh
+        'viewport-ratio': 0.85,
+    ),
+
+    // breakpoint tower value
+    'tower': (
+        // slight approximation to real ratio
+        // real ratio will look too harsh
+        'viewport-ratio': 0.75,
+    ),
+
+    // breakpoint landscape value
+    'landscape': (
+        // slight approximation to real ratio
+        // real ratio will look too harsh
+        'viewport-ratio': 1.15,
+    ),
+
+    // breakpoint wide value
+    'wide': (
+        // slight approximation to real ratio
+        // real ratio will look too harsh
+        'viewport-ratio': 1.25,
+    ),
+);

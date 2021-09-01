@@ -1,0 +1,19 @@
+/* Don’t Try This At Home KIDS!!! */
+
+// Animate main content parts while starting off
+html:not(.is-ie) {
+    // hide main elements and wait for js to load
+    // then animate in with a pullup effect
+    .main-content,
+    .footer {
+        animation: fade-in-main $trans-time--startoff $trans-func--default var(--js-wait) 1 backwards;
+    }
+
+    // Provide a fallback if something goes wrong
+    &.is-initiated--fallback {
+        .main-content,
+        .footer {
+            animation: none !important;
+        }
+    }
+}
