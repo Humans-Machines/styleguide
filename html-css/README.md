@@ -198,41 +198,43 @@ To do this we can:
 - insert a simple end-of-line comment
 
 **Do**
-    
-    /* Reverse footnote approach
-     *
-     * These types of comment allow us to keep all of our documentation in one place 
-     * whilst referring to the parts of the ruleset to which they belong.
-     */
-    
-    /**
-     * Helper-class to cut off a long line 
-     * 1. Prevents line-breaks
-     * 2. Adds an ellipses to the end of the line
-     */
-    .ellipsis {
-      white-space: nowrap; /* 1 */
-      text-overflow: ellipsis; /* 2 */
-      overflow: hidden;
-    }
-    
-    /* End-of-line approach
-     *
-     * The reverse footnote approach however seems like an overkill in some cases
-     * It might eventually be even harder to read if the ruleset is very long
-     * and there are lots of comments.
-     * Therefore an evil but simple end-of-line comment will do the trick as well
-     * even if they extend our set maximum line length.
-     */
 
-    /**
-     * Helper-class to cut off a long line
-     */
-    .ellipsis {
-        white-space: nowrap; // Prevents line-breaks
-        text-overflow: ellipsis; // Adds an ellipses to the end of the line
-        overflow: hidden;
-    }
+```SCSS
+/* Reverse footnote approach
+ *
+ * These types of comment allow us to keep all of our documentation in one place 
+ * whilst referring to the parts of the ruleset to which they belong.
+ */
+
+/**
+ * Helper-class to cut off a long line 
+ * 1. Prevents line-breaks
+ * 2. Adds an ellipses to the end of the line
+ */
+.ellipsis {
+  white-space: nowrap; /* 1 */
+  text-overflow: ellipsis; /* 2 */
+  overflow: hidden;
+}
+
+/* End-of-line approach
+ *
+ * The reverse footnote approach however seems like an overkill in some cases
+ * It might eventually be even harder to read if the ruleset is very long
+ * and there are lots of comments.
+ * Therefore an evil but simple end-of-line comment will do the trick as well
+ * even if they extend our set maximum line length.
+ */
+
+/**
+ * Helper-class to cut off a long line
+ */
+.ellipsis {
+    white-space: nowrap; // Prevents line-breaks
+    text-overflow: ellipsis; // Adds an ellipses to the end of the line
+    overflow: hidden;
+}
+```
 
 Whatever syntax you prefer, try to stay consistent at least within the file you are editing.
 
