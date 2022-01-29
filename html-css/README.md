@@ -121,19 +121,23 @@ paragraphs, `a` elements for anchors, etc.
 - Don’t use tabs – unless your editor replaces them with whitespace – or mix tabs and spaces for indentation.
 
 **Don’t**
-    
-    /* Never use uppercase, especially for copy text
-     * If it needs to be uppercase use CSS, stupid!
-     */
-    <A HREF="/">HOME</A>
 
-    color: #E5E5E5;
+```
+/* Never use uppercase, especially for copy text
+* If it needs to be uppercase use CSS, stupid!
+*/
+<A HREF="/">HOME</A>
+
+color: #E5E5E5;
+```
 
 **Do**
 
-    <a href="/">Home</a>
-    
-    color: #e5e5e5;
+```
+<a href="/">Home</a>
+
+color: #e5e5e5;
+```
 
 All code has to be lowercase: This applies to HTML element names, attributes, attribute values (unless `text/CDATA`), 
 CSS selectors, properties, and property values (with the exception of strings).
@@ -161,33 +165,35 @@ overflow – this is probably something worth documenting.
 
 **Do**
 
-    /**
-     * The site’s main page-head can have two different states:
-     *
-     * 1) Regular page-head with no backgrounds or extra treatments; it just
-     *    contains the logo and nav.
-     * 2) A masthead that has a fluid-height (becoming fixed after a certain point)
-     *    which has a large background image, and some supporting text.
-     *
-     * The regular page-head is incredibly simple, but the masthead version has some
-     * slightly intermingled dependency with the wrapper that lives inside it.
-     */
- 
+```
+/**
+ * The site’s main page-head can have two different states:
+ *
+ * 1) Regular page-head with no backgrounds or extra treatments; it just
+ *    contains the logo and nav.
+ * 2) A masthead that has a fluid-height (becoming fixed after a certain point)
+ *    which has a large background image, and some supporting text.
+ *
+ * The regular page-head is incredibly simple, but the masthead version has some
+ * slightly intermingled dependency with the wrapper that lives inside it.
+ */
+ ```
 ### Section Comments
 
 - Group sections by a section comment (optional if the class names speak for themselves)
 
 **Do**
 
-    /* Header */
-    .article__header {}
+```scss
+/* Header */
+.article__header {}
 
-    /* Footer */
-    .article__footer {}
+/* Footer */
+.article__footer {}
 
-    /* Gallery */
-    .article__gallery {}
-    
+/* Gallery */
+.article__gallery {}
+```
 
 ### Declaration Comments
 
@@ -251,19 +257,20 @@ try to stay consistent within a codebase.
 
 **Do**
 
-    {# TODO @jonny: revisit centering #}
-    <center>Test</center>
-    
-    <!-- TODO: remove optional tags -->
-    <ul>
-      <li>Apples</li>
-      <li>Oranges</li>
-    </ul>
-    
-    .box--flex {
-        display: flex // TODO: implement fallback for older brwosers
-    }
+```html
+{# TODO @jonny: revisit centering #}
+<center>Test</center>
 
+<!-- TODO: remove optional tags -->
+<ul>
+  <li>Apples</li>
+  <li>Oranges</li>
+</ul>
+
+.box--flex {
+    display: flex // TODO: implement fallback for older brwosers
+}
+```
 
 ## HTML
 
@@ -283,30 +290,34 @@ try to stay consistent within a codebase.
 - Break long lines if it significantly improves readability (optional)
 
 **Don’t**
-    
-    <blockquote><p><em>Space</em>, the final frontier.</p></blockquote>
-    <ul class='list'>
-    <li>Moe</li>
-    <li>Larry</li>
-    <li>Curly</li></ul>
+
+```html 
+<blockquote><p><em>Space</em>, the final frontier.</p></blockquote>
+<ul class='list'>
+<li>Moe</li>
+<li>Larry</li>
+<li>Curly</li></ul>
+```
 
 **Do**
 
-    <blockquote>
-      <p><em>Space</em>, the final frontier.</p>
-    </blockquote>
+```html 
+<blockquote>
+  <p><em>Space</em>, the final frontier.</p>
+</blockquote>
 
-    <ul class="list">
-      <li>Moe</li>
-      <li>Larry</li>
-      <li>Curly</li>
-    </ul>
+<ul class="list">
+  <li>Moe</li>
+  <li>Larry</li>
+  <li>Curly</li>
+</ul>
 
-    <md-progress-circular md-mode="indeterminate"
-                          class="md-accent"
-                          ng-show="ctrl.loading"
-                          md-diameter="35">
-    </md-progress-circular>
+<md-progress-circular md-mode="indeterminate"
+                      class="md-accent"
+                      ng-show="ctrl.loading"
+                      md-diameter="35">
+</md-progress-circular>
+```
 
 ### Reducing Markup
 
@@ -314,13 +325,17 @@ try to stay consistent within a codebase.
 
 **Don’t**
 
-    <span class="avatar">
-      <img src="...">
-    </span>
+```html 
+<span class="avatar">
+  <img src="...">
+</span>
+```
 
 **Do**
 
-    <img class="avatar" src="...">
+```html 
+<img class="avatar" src="...">
+```
 
 ### JavaScript Generated Markup
 
@@ -415,84 +430,85 @@ from generic styles to explicit ones, from low-specificity selectors to more spe
 
 ### CSS Structure
 
-    .
-    ├── SETTINGS
-    │   │ Define the ground: Design tokens, sizes, other vars
-    │   │ No CSS output here
-    │   │  
-    │   ├── Config...............Configuration and environment settings
-    │   ├── Tokens...............Global design tokens such as colors, size scale settings and text styles
-    │   ├── Breakpoints..........Breakpoint definitions
-    │   ├── UI...................UI Specific settings for custom properties
-    │   ├── Z-Index..............Handle z-index throughout relevant ui-elements
-    │   └── Vars.................Static SASS vars for use in components, objects and utilities
-    │ 
-    │ 
-    ├── TOOLS
-    │   │ Globally used mixins and functions
-    │   │ No CSS output here
-    │   │
-    │   ├── Functions............Some simple helper functions
-    │   ├── Mixins...............Globally available mixins
-    │   └── Animations...........Define animations
-    │ 
-    │ 
-    ├── GENERIC
-    │   │ Global resets and normalize styles, box-sizing definition, etc
-    │   │ First layer of the triangle that generates CSS
-    │   │
-    │   ├── Box-sizing...........Better default `box-sizing`
-    │   ├── Normalize.css........Default normalize styles
-    │   ├── Reset................Modern reset
-    │   └── Measure..............Prevent extensive line-length with a style axiom
-    │
-    │ 
-    ├── VENDOR
-    │   Includes of vendor styles for third party components
-    │   Try to include only low specificity styles
-    │ 
-    │ 
-    ├── ELEMENTS
-    │   │ Styling for bare HTML elements (like H1, A, header, footer, …)
-    │   │ Redefine browser presets to the projects needs and pursued design system
-    │   │
-    │   ├── Fontface.............@font-face declarations
-    │   ├── Root.................Custom Properties
-    │   ├── Page.................Page-level styles (HTML element).
-    │   ├── Headings.............Heading styles.
-    │   ├── Links................Hyperlink styles.
-    │   └── Quotes...............Styling for blockquotes, etc.
-    │ 
-    │ 
-    ├── OBJECTS
-    │   Class-based selectors which define composition and undecorated design patterns.
-    │   An object (CUBE CSS Methodology: Utility) does one job and does that job well.
-    │ 
-    │ 
-    ├── COMPONENTS
-    │   Specific UI components which are to complex to be defined by atomic CSS utilities
-    │   Uses BEM for naming
-    │ 
-    │ 
-    ├── SCOPES
-    │   Styling for bare HTML elements in a scoped context
-    │   Eg. for Markdown output from CMS
-    │ 
-    │ 
-    ├── UTILITIES
-    │   Atomic CSS utilities
-    │   Included last to also be able to serve as component modifiers
-    │ 
-    │ 
-    ├── HELPERS
-    │   Helper classes for JavaScript calculation
-    │   Eg. for determining the scrollbar width
-    │ 
-    │ 
-    └── DEVELOPMENT
-        Debugging and Development components and styles
-        Eg. for showing a layout grid
-
+```scss
+.
+├── SETTINGS
+│   │ Define the ground: Design tokens, sizes, other vars
+│   │ No CSS output here
+│   │  
+│   ├── Config...............Configuration and environment settings
+│   ├── Tokens...............Global design tokens such as colors, size scale settings and text styles
+│   ├── Breakpoints..........Breakpoint definitions
+│   ├── UI...................UI Specific settings for custom properties
+│   ├── Z-Index..............Handle z-index throughout relevant ui-elements
+│   └── Vars.................Static SASS vars for use in components, objects and utilities
+│ 
+│ 
+├── TOOLS
+│   │ Globally used mixins and functions
+│   │ No CSS output here
+│   │
+│   ├── Functions............Some simple helper functions
+│   ├── Mixins...............Globally available mixins
+│   └── Animations...........Define animations
+│ 
+│ 
+├── GENERIC
+│   │ Global resets and normalize styles, box-sizing definition, etc
+│   │ First layer of the triangle that generates CSS
+│   │
+│   ├── Box-sizing...........Better default `box-sizing`
+│   ├── Normalize.css........Default normalize styles
+│   ├── Reset................Modern reset
+│   └── Measure..............Prevent extensive line-length with a style axiom
+│
+│ 
+├── VENDOR
+│   Includes of vendor styles for third party components
+│   Try to include only low specificity styles
+│ 
+│ 
+├── ELEMENTS
+│   │ Styling for bare HTML elements (like H1, A, header, footer, …)
+│   │ Redefine browser presets to the projects needs and pursued design system
+│   │
+│   ├── Fontface.............@font-face declarations
+│   ├── Root.................Custom Properties
+│   ├── Page.................Page-level styles (HTML element).
+│   ├── Headings.............Heading styles.
+│   ├── Links................Hyperlink styles.
+│   └── Quotes...............Styling for blockquotes, etc.
+│ 
+│ 
+├── OBJECTS
+│   Class-based selectors which define composition and undecorated design patterns.
+│   An object (CUBE CSS Methodology: Utility) does one job and does that job well.
+│ 
+│ 
+├── COMPONENTS
+│   Specific UI components which are to complex to be defined by atomic CSS utilities
+│   Uses BEM for naming
+│ 
+│ 
+├── SCOPES
+│   Styling for bare HTML elements in a scoped context
+│   Eg. for Markdown output from CMS
+│ 
+│ 
+├── UTILITIES
+│   Atomic CSS utilities
+│   Included last to also be able to serve as component modifiers
+│ 
+│ 
+├── HELPERS
+│   Helper classes for JavaScript calculation
+│   Eg. for determining the scrollbar width
+│ 
+│ 
+└── DEVELOPMENT
+    Debugging and Development components and styles
+    Eg. for showing a layout grid
+```
 
 ### Utility Classes
 
@@ -529,34 +545,36 @@ will only have a few CSS properties defined, while a `Component` deals with more
 However the borders between a `Component` and an `Object` are blurred. So stop overthinking, whether the piece of code 
 you are about to create is a `Component` or an `Object`.
 
-    // _objects.cluster.scss
+```scss
+// _objects.cluster.scss
 
-    /**
-    * Provide a flex container in order to display items side by side
-    *
-    * Can be used for elements with varying width
-    * or adjusted widths via the .width utility class
-    *
-    * 1. Use --column-gap as default for cluster
-    * 2. Settles the outer gap margin of inner elements
-    * 3. Lets the cluster be multiline
-    * 4. Centers each row. Change alignment with flex utility class
-    * 5. Defines a gap for children
-    */
-    
-    .cluster {
-      --cluster-gap: var(--column-gap, 1rem); // [1]
-      margin-left: calc(var(--cluster-gap) * 0.5 * -1); // [2]
-      margin-right: calc(var(--cluster-gap) * 0.5 * -1); // [2]
-      display: flex;
-      flex-wrap: wrap; // [3]
-      align-items: center; // [4]
-    }
-    
-    .cluster > * {
-      margin-left: calc(var(--cluster-gap) * 0.5); // [5]
-      margin-right: calc(var(--cluster-gap) * 0.5); // [5]
-    }
+/**
+* Provide a flex container in order to display items side by side
+*
+* Can be used for elements with varying width
+* or adjusted widths via the .width utility class
+*
+* 1. Use --column-gap as default for cluster
+* 2. Settles the outer gap margin of inner elements
+* 3. Lets the cluster be multiline
+* 4. Centers each row. Change alignment with flex utility class
+* 5. Defines a gap for children
+*/
+
+.cluster {
+  --cluster-gap: var(--column-gap, 1rem); // [1]
+  margin-left: calc(var(--cluster-gap) * 0.5 * -1); // [2]
+  margin-right: calc(var(--cluster-gap) * 0.5 * -1); // [2]
+  display: flex;
+  flex-wrap: wrap; // [3]
+  align-items: center; // [4]
+}
+
+.cluster > * {
+  margin-left: calc(var(--cluster-gap) * 0.5); // [5]
+  margin-right: calc(var(--cluster-gap) * 0.5); // [5]
+}
+```
 
 ### Components and BEM
 
@@ -574,57 +592,61 @@ you are about to create is a `Component` or an `Object`.
 
 **Don’t**
 
-    <!--    
-     * No one but the person who wrote the following code knows what it does
-     *
-     * How are the classes box and profile related to each other?
-     * How are the classes profile and avatar related to each other?
-     * Are they related at all? Should you be using pro-user alongside bio?
-     * Will the classes image and profile live in the same part of the CSS?
-     * Can you use avatar anywhere else? 
-     -->     
-    <div class="box profile pro-user">
-        <img class="avatar image" />
-        <p class="bio">...</p>
-    </div>
-    
-    /* Don’t: Use not-reusable class names */
-    .header--desktop {        
-        @media screen and (max-width: 599px) {
-            display: none;
-        }
+```html 
+<!--    
+ * No one but the person who wrote the following code knows what it does
+ *
+ * How are the classes box and profile related to each other?
+ * How are the classes profile and avatar related to each other?
+ * Are they related at all? Should you be using pro-user alongside bio?
+ * Will the classes image and profile live in the same part of the CSS?
+ * Can you use avatar anywhere else? 
+ -->     
+<div class="box profile pro-user">
+    <img class="avatar image" />
+    <p class="bio">...</p>
+</div>
+
+/* Don’t: Use not-reusable class names */
+.header--desktop {        
+    @media screen and (max-width: 599px) {
+        display: none;
     }
-    
-    /* Don’t: Be unspecific with state classes */
-    .activated {
-        display: block;
-    }
+}
+
+/* Don’t: Be unspecific with state classes */
+.activated {
+    display: block;
+}
+```
 
 **Do**
 
-    <!--    
-     * Going for a object-oriented BEM approach makes the following code self-documenting 
-     *
-     * We can see which classes are and are not related to each other, and how
-     * We know what classes we can’t use outside of the scope of this component.
-     * Also, we know which classes we are free to reuse elsewhere.
-     -->     
-    <div class="box profile profile--pro-user">
-        <img class="avatar profile__image" />
-        <p class="profile__bio">...</p>
-    </div>
-    
-    /* Do: Use utility classes for common micro patterns */
-    .lg:hidden {
-        @media screen and (min-width: 599px) {
-            display: none;
-        }
+```html 
+<!--    
+ * Going for a object-oriented BEM approach makes the following code self-documenting 
+ *
+ * We can see which classes are and are not related to each other, and how
+ * We know what classes we can’t use outside of the scope of this component.
+ * Also, we know which classes we are free to reuse elsewhere.
+ -->     
+<div class="box profile profile--pro-user">
+    <img class="avatar profile__image" />
+    <p class="profile__bio">...</p>
+</div>
+
+/* Do: Use utility classes for common micro patterns */
+.lg:hidden {
+    @media screen and (min-width: 599px) {
+        display: none;
     }
-    
-    /* Do: Prefix state classes to tell what is going on */
-    .is-activated {
-        display: block;
-    }
+}
+
+/* Do: Prefix state classes to tell what is going on */
+.is-activated {
+    display: block;
+}
+```
 
 `Components` respectively `Blocks` are logically and functionally independent components of a web page. 
 They are nestable and should be capable of being contained inside another block without breaking anything. 
@@ -656,181 +678,187 @@ In order to build up a solid and scalable design system we implement a single so
 values such as colors, spacing values and typographic text styles. These values could either be defined outside 
 of our context (in a database or even a JSON file) or with simple CSS maps in our CSS settings layer.
 
-    // _settings.tokens.scss
-    // Global design tokens
+```scss
+// _settings.tokens.scss
+// Global design tokens
 
-    // SIZE SCALE
-    //
-    // We use a modular scale that powers all the utilities that
-    // it is relevant for (text styles/font-size, margin, padding).
-    // All items are calculated off these tokens.
-    //
-    // OUR APPROACH
-    // Instead of going into complicated SASS Mixins or Calc operations
-    // we use this tool to get the values for a chosen type of scale:
-    // https://type-scale.com/
-    //
-    // NAMING CONVENTION
-    // Naming is taken from font weight where a weight of 400 is considered normal
-    //
-    // SPECIFIC PROJECT SETTINGS
-    // Every project has a specific size scale
-    
-    $size-scale: (
-      '25': 0.1rem,
-      '50': 0.25rem,
-      '100': 0.5rem,
-      '200': 0.64rem,
-      '300': 0.8rem,
-      '400': 1rem,
-      '500': 1.333rem,
-      '600': 1.777rem,
-      '700': 2.4rem,
-      '800': 3.9rem,
-      '900': 5.6rem,
-      '1000': 7.8rem,
-      '1100': 11.2rem,
-    );
-    
-    // COLORS
-    // Set up a colour palette which allows us
-    // to theme the entire project from one location.
+// SIZE SCALE
+//
+// We use a modular scale that powers all the utilities that
+// it is relevant for (text styles/font-size, margin, padding).
+// All items are calculated off these tokens.
+//
+// OUR APPROACH
+// Instead of going into complicated SASS Mixins or Calc operations
+// we use this tool to get the values for a chosen type of scale:
+// https://type-scale.com/
+//
+// NAMING CONVENTION
+// Naming is taken from font weight where a weight of 400 is considered normal
+//
+// SPECIFIC PROJECT SETTINGS
+// Every project has a specific size scale
 
-    // Text colors
-    $text-colors: (
-      'default': #000,
-      'highlight': #ff854d,
-    );
-    
-    // Background colors
-    $bg-colors: (
-      'default': #f8f7f2,
-      'grey': #edece7,
-    );
+$size-scale: (
+  '25': 0.1rem,
+  '50': 0.25rem,
+  '100': 0.5rem,
+  '200': 0.64rem,
+  '300': 0.8rem,
+  '400': 1rem,
+  '500': 1.333rem,
+  '600': 1.777rem,
+  '700': 2.4rem,
+  '800': 3.9rem,
+  '900': 5.6rem,
+  '1000': 7.8rem,
+  '1100': 11.2rem,
+);
 
-    // Border colors
-    $border-colors: (
-      'default': rgba(0, 0, 0, 0.15),
-    );
-    
-    // Border colors
-    $border-radius: (
-      's': 0.1rem,
-      'm': 0.2rem,
-      'l': 0.5rem,
-    );
+// COLORS
+// Set up a colour palette which allows us
+// to theme the entire project from one location.
 
-    // Box shadow
-    $shadows: (
-      'modal': 0 0 6rem rgba(0, 0, 0, 0.15),
-      'box': 0 0 4rem rgba(0, 0, 0, 0.1),
-    );
+// Text colors
+$text-colors: (
+  'default': #000,
+  'highlight': #ff854d,
+);
 
-    // TEXT STYLES
-    //
-    // Text styles will be created as utility classes with the 
-    // text-style CSS mixin
-    //
-    // .usage {
-    //   @include text-style(100);
-    // }
-    //
-    // If key in $text-styles map matches size from $size-scale
-    // font-size is automatically set to this value
-    
-    $text-styles: (
-      // Default Text Style
-      'default': (
-          font-weight: 400,
-          line-height: 1.2;
-          font-family: "'PXR Repro', Arial, 'Helvetica Neue', sans-serif;",
-          letter-spacing: 0;
-      ),
-  
-      // Small Text
-      '300': (
-        line-height: 1.235,
-        letter-spacing: 0.015em,
-      ),
-  
-      // Body Text Size
-      '400': (
-        line-height: 1.2,
-      ),
-  
-      // Text M
-      '500': (
-        font-weight: 300,
-        line-height: '1.147',
-      ),
-  
-      // Text L
-      '600': (
-        font-weight: 300,
-        line-height: '1.104',
-      ),
-  
-      // Medium
-      'medium': (
-        font-weight: 500,
-      ),
-    );
+// Background colors
+$bg-colors: (
+  'default': #f8f7f2,
+  'grey': #edece7,
+);
+
+// Border colors
+$border-colors: (
+  'default': rgba(0, 0, 0, 0.15),
+);
+
+// Border colors
+$border-radius: (
+  's': 0.1rem,
+  'm': 0.2rem,
+  'l': 0.5rem,
+);
+
+// Box shadow
+$shadows: (
+  'modal': 0 0 6rem rgba(0, 0, 0, 0.15),
+  'box': 0 0 4rem rgba(0, 0, 0, 0.1),
+);
+
+// TEXT STYLES
+//
+// Text styles will be created as utility classes with the 
+// text-style CSS mixin
+//
+// .usage {
+//   @include text-style(100);
+// }
+//
+// If key in $text-styles map matches size from $size-scale
+// font-size is automatically set to this value
+
+$text-styles: (
+  // Default Text Style
+  'default': (
+      font-weight: 400,
+      line-height: 1.2;
+      font-family: "'PXR Repro', Arial, 'Helvetica Neue', sans-serif;",
+      letter-spacing: 0;
+  ),
+
+  // Small Text
+  '300': (
+    line-height: 1.235,
+    letter-spacing: 0.015em,
+  ),
+
+  // Body Text Size
+  '400': (
+    line-height: 1.2,
+  ),
+
+  // Text M
+  '500': (
+    font-weight: 300,
+    line-height: '1.147',
+  ),
+
+  // Text L
+  '600': (
+    font-weight: 300,
+    line-height: '1.104',
+  ),
+
+  // Medium
+  'medium': (
+    font-weight: 500,
+  ),
+);
+```
 
 One dimensional token values such as colors and sizes should be made available to the frontend 
 by adding them as `Custom Properties` to the `root`. These values can then be used within `Components`, 
 `Objects` and `Utilities`. They have a very low specificity and therefore can easily be 
 overwritten for (responsive) modifications.  
-    
-    // _settings.tokens.scss
-    $size-scale: (
-      '25': 0.1rem,
-      '50': 0.25rem,
-      '100': 0.5rem,
-      '200': 0.64rem,
-      '300': 0.8rem,
-      '400': 1rem,
-      '500': 1.333rem,
-      '600': 1.777rem,
-      '700': 2.4rem,
-      '800': 3.9rem,
-      '900': 5.6rem,
-      '1000': 7.8rem,
-      '1100': 11.2rem,
-    );
 
-    // _tool.mixins.scss
-    @mixin create-custom-properties($map, $prefix: '') {
-      @each $prop, $value in $map {
-        --#{$prefix}#{$prop}: #{$value};
-      }
-    }
-  
-    // _elements.root.scss
-    :root {
-      // Add custom properties for colors
-      @include create-custom-properties($size-scale, 'size-');
+```scss
+// _settings.tokens.scss
+$size-scale: (
+  '25': 0.1rem,
+  '50': 0.25rem,
+  '100': 0.5rem,
+  '200': 0.64rem,
+  '300': 0.8rem,
+  '400': 1rem,
+  '500': 1.333rem,
+  '600': 1.777rem,
+  '700': 2.4rem,
+  '800': 3.9rem,
+  '900': 5.6rem,
+  '1000': 7.8rem,
+  '1100': 11.2rem,
+);
 
-      // Creates these properties from design tokens setting
-      --size-25: 0.1rem;
-      --size-50: 0.25rem;
-      --size-100: 0.5rem;
-      ...
-    }
+// _tool.mixins.scss
+@mixin create-custom-properties($map, $prefix: '') {
+  @each $prop, $value in $map {
+    --#{$prefix}#{$prop}: #{$value};
+  }
+}
+
+// _elements.root.scss
+:root {
+  // Add custom properties for colors
+  @include create-custom-properties($size-scale, 'size-');
+
+  // Creates these properties from design tokens setting
+  --size-25: 0.1rem;
+  --size-50: 0.25rem;
+  --size-100: 0.5rem;
+  ...
+}
+```
 
 If our project uses TailwindCSS we can use these global values for our Tailwind classes as well. 
 Simply specify them in the Tailwind configuration file:
 
-    // tailwind.config.js
-    module.exports = {
-      theme: {
-        spacing: {
-          '25': 'var(--size-25)',
-          '50': 'var(--size-50)',
-          '100': 'var(--size-100)',
-          ...
-        }
-      }
+```scss
+// tailwind.config.js
+module.exports = {
+  theme: {
+    spacing: {
+      '25': 'var(--size-25)',
+      '50': 'var(--size-50)',
+      '100': 'var(--size-100)',
+      ...
     }
+  }
+}
+```
 
 ### Global Values
 
@@ -838,72 +866,74 @@ There also is a need to define project-level values other than `Design Tokens`. 
 (responsive) modifications (eg. layout settings) should be available as `Custom Properties`. They are stored inside
 the settings layer as `CSS maps` and added to the `:root` via a `SASS mixin`:
 
+```scss
+// _settings.ui.scss
 
-    // _settings.ui.scss
-    
-    // Project-level settings for ui
-    $ui-props: (
-      // default values
-      'default': (
-          // Default definition for .page-grid
-          'grid-rows': 16,
-          'column-gap': 0.5rem,
-  
-          ... 
-      ),
-  
-      // breakpoint md values
-      'md': (
-          // Default definition for .page-grid
-          'column-gap': 0.707rem,
-  
-          ...
-      ),
-    );
-  
-    // _elements.root.scss      
-    :root {
-      // Add custom properties for ui definitions
-      @include create-custom-properties($ui-props, true);
-    }
+// Project-level settings for ui
+$ui-props: (
+  // default values
+  'default': (
+      // Default definition for .page-grid
+      'grid-rows': 16,
+      'column-gap': 0.5rem,
+
+      ... 
+  ),
+
+  // breakpoint md values
+  'md': (
+      // Default definition for .page-grid
+      'column-gap': 0.707rem,
+
+      ...
+  ),
+);
+
+// _elements.root.scss      
+:root {
+  // Add custom properties for ui definitions
+  @include create-custom-properties($ui-props, true);
+}
+```
 
 Some values such as transitions timings and easings or default box ratios only need to be available 
 within the preprocess. They may be stored as static [`SASS variables`](#variables):
 
+```scss
+// _settings.vars.sass
 
-    // _settings.vars.sass
-    
-    // TRANSITIONS
-    // Transition timing
-    $trans-time--xs: 0.125s;
-    $trans-time--s: 0.25s;
-    $trans-time--m: 0.5s;
-    $trans-time--l: 1s;
-    
-    // Transition easing
-    $trans-func--default: cubic-bezier(.1,.6,.4,1);
-    $trans-func--ease-in-out: cubic-bezier(.55,.08,0,1);
-    $trans-func--ease-out: cubic-bezier(0,.23,.07,1)
-    
-    // ASPECT RATIO    
-    $landscape-ratio: (3 / 4 * 100%); // 4:3
-    $wide-ratio: (1 / 2 * 100%); // 2:1
-    $portrait-ratio: (3 / 2 * 100%); // 2:3
-    $cube-ratio: 100%;
+// TRANSITIONS
+// Transition timing
+$trans-time--xs: 0.125s;
+$trans-time--s: 0.25s;
+$trans-time--m: 0.5s;
+$trans-time--l: 1s;
 
+// Transition easing
+$trans-func--default: cubic-bezier(.1,.6,.4,1);
+$trans-func--ease-in-out: cubic-bezier(.55,.08,0,1);
+$trans-func--ease-out: cubic-bezier(0,.23,.07,1)
 
+// ASPECT RATIO    
+$landscape-ratio: (3 / 4 * 100%); // 4:3
+$wide-ratio: (1 / 2 * 100%); // 2:1
+$portrait-ratio: (3 / 2 * 100%); // 2:3
+$cube-ratio: 100%;
+```
 
 ### Class Grouping
 
 By the use of `Utilitìes`, `Objects` and `Components` side by side there might be a lot of classes 
 defined for a single element. Therefore we recomment grouping things with pipes, like so:
 
-    <article class="card | flow | bg-base color-secondary">
-      <h2 class="text-500 | sticky top-0 | js-is-sticky">
-        Card Headline
-      <h2>
-      ...
-    </article>
+```html 
+<article class="card | flow | bg-base color-secondary">
+  <h2 class="text-500 | sticky top-0 | js-is-sticky">
+    Card Headline
+  <h2>
+  ...
+</article>
+```
 
 - Do not add pipes for empty groups
 - Use the following order:
@@ -918,9 +948,11 @@ There will be simple modules which can be layed out with `Utilities` and `Object
 within the codebase by inspecting the frontend inside the browser is painful – but adding a component class with 
 no styles attached to overcome this issue seems like bad practise. We recommend adding a `data` attribute, like so:
 
-    <div class="flow | flex flex-col" data-ui-name="text-box">
-      ...
-    </div>
+```html 
+<div class="flow | flex flex-col" data-ui-name="text-box">
+  ...
+</div>
+```
 
 In order to stay consistent we add these `data` attributes to `Components` with dedicated classes as well. 
 The naming attributes may be stripped for production.
@@ -941,90 +973,93 @@ The naming attributes may be stripped for production.
 - Always put a blank line between rules
 
 **Don’t**
-    
-    /* Don’t: missing ; */
-    .test {
-        display: block;
-        height: 100px
-    }
-    
-    /* Don’t: missing spaces */    
-    h3{
-        font-weight:bold;
-    }
-    
-    /* Don’t: unnecessary line break */
-    #video
-    {
-        margin-top: 1em;
-    }
-    
-    /* Don’t: selectors and declarations on same line */
-    h1, h2, h3 {
-        font-weight: normal; line-height: 1.2;
-    }
-    
-    /* Don’t: no blank line between rules
-     * Don’t: no use of lowercase and shorthand hex values */
-    html {
-          background: #FFFFFF;
-    }
-    body {
-          margin: auto;
-          width: 50%;
-    }   
+
+```html 
+/* Don’t: missing ; */
+.test {
+    display: block;
+    height: 100px
+}
+
+/* Don’t: missing spaces */    
+h3{
+    font-weight:bold;
+}
+
+/* Don’t: unnecessary line break */
+#video
+{
+    margin-top: 1em;
+}
+
+/* Don’t: selectors and declarations on same line */
+h1, h2, h3 {
+    font-weight: normal; line-height: 1.2;
+}
+
+/* Don’t: no blank line between rules
+ * Don’t: no use of lowercase and shorthand hex values */
+html {
+      background: #FFFFFF;
+}
+body {
+      margin: auto;
+      width: 50%;
+}   
+```
 
 **Do**
-    
-    html {
-        background: #fff;
-    }
-    
-    .menu {
-        background: green;
-    }
-    
-    .test {
-        display: block;
-        height: 100px;
-    }
-    
-    h3 {
-        font-weight: bold;
-    }
-    
-    #video {
-        margin-top: 1em;
-    }
-    
-    h1,
-    h2,
-    h3 {
-        font-weight: normal;
-        line-height: 1.2;
-    }
-    
-    
-    /* Large blocks of single declarations 
-     * can use a slightly different, single-line format. 
-     * In this case, a space should be included after the opening brace 
-     * and before the closing brace.
-     */
-    .selector-1 { width: 10%; }
-    .selector-2 { width: 20%; }
-    .selector-3 { width: 30%; }
-    
-    /* Long, comma-separated property values
-     * such as collections of gradients, shadows or transitions
-     * can be arranged across multiple lines to improve readability
-     */
-    .selector {
-        box-shadow: 1px 1px 1px #000,
-                    2px 2px 1px 1px #ccc inset;
-        transition: opacity 0.3s linear,
-                    transform 0.9s linear;
-    }
 
+```scss
+html {
+    background: #fff;
+}
+
+.menu {
+    background: green;
+}
+
+.test {
+    display: block;
+    height: 100px;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+#video {
+    margin-top: 1em;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+
+/* Large blocks of single declarations 
+ * can use a slightly different, single-line format. 
+ * In this case, a space should be included after the opening brace 
+ * and before the closing brace.
+ */
+.selector-1 { width: 10%; }
+.selector-2 { width: 20%; }
+.selector-3 { width: 30%; }
+
+/* Long, comma-separated property values
+ * such as collections of gradients, shadows or transitions
+ * can be arranged across multiple lines to improve readability
+ */
+.selector {
+    box-shadow: 1px 1px 1px #000,
+                2px 2px 1px 1px #ccc inset;
+    transition: opacity 0.3s linear,
+                transform 0.9s linear;
+}
+```
 
 ### CSS Quotation Marks
 
@@ -1035,22 +1070,23 @@ The naming attributes may be stripped for production.
 
 **Don’t**
 
-    @import url("https://www.google.com/css/maia.css");
+```scss
+@import url("https://www.google.com/css/maia.css");
 
-    html {
-      font-family: "open sans", arial, sans-serif;
-    }
-
-**Do**
-
-    @import url(https://www.google.com/css/maia.css);
-
-    html {
-      font-family: 'open sans', arial, sans-serif;
-    }
-
+html {
+  font-family: "open sans", arial, sans-serif;
+}
+```
 
 **Do**
+
+```scss
+@import url(https://www.google.com/css/maia.css);
+
+html {
+  font-family: 'open sans', arial, sans-serif;
+}
+```
 
 ### Selector Order and Nesting
 
@@ -1065,88 +1101,92 @@ The naming attributes may be stripped for production.
 
 **Don’t**
 
-    /* Don’t: Nest selectors unnecessarily 
-     *
-     * If a selector will work without being nested then do not nest it.
-     * The only exception is styling elements based on the state of a block or its modifier
-     */
-    .header__nav {        
-        .header__nav-link {
-            // styles for links inside header navi
-            
-            .header__nav-link--last {
-                // styles for last link inside header navi
-            }
-        }
-        
-        /* Don’t: Ignore order */
-        width: 100%
-        
-        &:hover {
-            // hover styles
-        }
-    }
-    
-    /* Don’t: Group responsive styles into seperate blocks */
-    @include respond-to(lg) {
-        .header__nav {
-            // styles for desktop header navi
-            
-            .header__nav-link {
-                // styles for desktop links inside header navi
-            }
-        }
-    }
-    
-    /* Don’t: Generate new selectors from the current selector reference 
-     *
-     * This approach makes those selectors unsearchable in the codebase 
-     * and it ultimately makes code more difficult to read
-     */
-    .header__nav {        
-        &-link {
-            // styles for links inside header navi 
-            // -> .header__nav-link
-        }
-    }
-    
-**Do**
-
-    .header__nav {
-        width: 100%
-        
-        &:hover {
-            // hover styles 
-        }
-        
-        &:before {
-            // pseudo styles
-        }      
-        
-        /* Do: Nest states for better readability */
-        .has-nav-shown &,
-        &.is-active {
-            // state related styles
-        }
-        
-        /* Do: Add responsive styles for every selector */
-        @include respond-to(lg)  {
-            // styles for desktop header navi
-        }
-    }
-        
-    /* Do: Prevent modifier nesting for low specificity */
-    &.header__nav--small {
-        // styles for modified header
-    }  
-        
+```scss
+/* Don’t: Nest selectors unnecessarily 
+ *
+ * If a selector will work without being nested then do not nest it.
+ * The only exception is styling elements based on the state of a block or its modifier
+ */
+.header__nav {        
     .header__nav-link {
         // styles for links inside header navi
         
-        @include respond-to(lg)  {
+        .header__nav-link--last {
+            // styles for last link inside header navi
+        }
+    }
+    
+    /* Don’t: Ignore order */
+    width: 100%
+    
+    &:hover {
+        // hover styles
+    }
+}
+
+/* Don’t: Group responsive styles into seperate blocks */
+@include respond-to(lg) {
+    .header__nav {
+        // styles for desktop header navi
+        
+        .header__nav-link {
             // styles for desktop links inside header navi
         }
     }
+}
+
+/* Don’t: Generate new selectors from the current selector reference 
+ *
+ * This approach makes those selectors unsearchable in the codebase 
+ * and it ultimately makes code more difficult to read
+ */
+.header__nav {        
+    &-link {
+        // styles for links inside header navi 
+        // -> .header__nav-link
+    }
+}
+```
+    
+**Do**
+
+```scss
+.header__nav {
+    width: 100%
+    
+    &:hover {
+        // hover styles 
+    }
+    
+    &:before {
+        // pseudo styles
+    }      
+    
+    /* Do: Nest states for better readability */
+    .has-nav-shown &,
+    &.is-active {
+        // state related styles
+    }
+    
+    /* Do: Add responsive styles for every selector */
+    @include respond-to(lg)  {
+        // styles for desktop header navi
+    }
+}
+    
+/* Do: Prevent modifier nesting for low specificity */
+&.header__nav--small {
+    // styles for modified header
+}  
+    
+.header__nav-link {
+    // styles for links inside header navi
+    
+    @include respond-to(lg)  {
+        // styles for desktop links inside header navi
+    }
+}
+```
     
 As it comes to responsiveness we usually are dealing with a main `mobile` and a `decent` breakpoint. The `decent` breakpoint covers every viewport larger than 599 pixel. While the default styles will define the mobile view, the decent styles will be applied with the first media query block. To distinguish between different `decent` viewports such as hudge phones, tablets and very big screen or portrait viewports as well, more precise sets of media queries will be added afterwards.
 
@@ -1157,21 +1197,23 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 
 **Do**
 
-    /* .foo */    
-    .foo { }
-    
-    .foo__bar { }
-    
-    .foo--baz { }
-     
-    
-    
-    /* .bar */    
-    .bar { }
-    
-    .bar__baz { }
-    
-    .bar__foo { }
+```scss
+/* .foo */    
+.foo { }
+
+.foo__bar { }
+
+.foo--baz { }
+ 
+
+
+/* .bar */    
+.bar { }
+
+.bar__baz { }
+
+.bar__foo { }
+```
 
 ### Selectors
 
@@ -1186,69 +1228,73 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 
 **Don’t**
 
-    /* Don’t: Use of IDs for styling */
-    #header-nav {}
-    
-    /* Don’t: qualifying ID and class names with type selectors */
-    div.error {}
-    
-    /* Don’t: Use type selectors for specific styles: poor Selector Intent
-     *
-     * This selector’s intent is to style any ul inside any header element,
-     * whereas our intent was to style the site’s main navigation.
-     * This is poor Selector Intent: you can have any number of header elements on a page,
-     * and they in turn can house any number of uls, so a selector like this runs the risk of 
-     * applying very specific styling to a very wide number of elements. 
-     * This will result in having to write more CSS to undo the greedy nature of such a selector.
-     */
-    header ul { 
-        // styles for header navi
-    }
-    
-    /* Don’t: Use type selectors for specific styles: poor Selector Intent 
-     *
-     * Not only does this have poor Selector Intent
-     * it will greedily style any and every link inside of a .promo to look like a button
-     * it is also pretty wasteful as a result of being so locationally dependent: 
-     * we can’t reuse that button with its correct styling outside of .promo 
-     * because it is explicitly tied to that location.   
-     */
-    .promo a { 
-        // styles for promo button
-    } 
-    
-    /* Don’t: Overcomplicate your code 
-     * 
-     * If your code looks like this you might want to think about adding a class to your HTML 
-     */
-    div:nth-of-type(3) ul:last-child li:nth-of-type(odd) * { 
-        // style some magic list-item
-    }   
+```scss
+/* Don’t: Use of IDs for styling */
+#header-nav {}
+
+/* Don’t: qualifying ID and class names with type selectors */
+div.error {}
+
+/* Don’t: Use type selectors for specific styles: poor Selector Intent
+ *
+ * This selector’s intent is to style any ul inside any header element,
+ * whereas our intent was to style the site’s main navigation.
+ * This is poor Selector Intent: you can have any number of header elements on a page,
+ * and they in turn can house any number of uls, so a selector like this runs the risk of 
+ * applying very specific styling to a very wide number of elements. 
+ * This will result in having to write more CSS to undo the greedy nature of such a selector.
+ */
+header ul { 
+    // styles for header navi
+}
+
+/* Don’t: Use type selectors for specific styles: poor Selector Intent 
+ *
+ * Not only does this have poor Selector Intent
+ * it will greedily style any and every link inside of a .promo to look like a button
+ * it is also pretty wasteful as a result of being so locationally dependent: 
+ * we can’t reuse that button with its correct styling outside of .promo 
+ * because it is explicitly tied to that location.   
+ */
+.promo a { 
+    // styles for promo button
+} 
+
+/* Don’t: Overcomplicate your code 
+ * 
+ * If your code looks like this you might want to think about adding a class to your HTML 
+ */
+div:nth-of-type(3) ul:last-child li:nth-of-type(odd) * { 
+    // style some magic list-item
+}   
+```
 
 **Do**
-    
-    /* Do: Use classes instead of IDs or type selectors 
-     * Do: Be specific about what you are styling */
-    .header__nav {
-        // styles for header navi
-    }
-    
-    /* Do: Use specific, reusable classes. Put the class name at the lowest possible level */
-    .btn--promo { 
-        // styles for promo button
-    }
-    
-    /* Do: Use type selectors for resets */
-    h1,
-    h2,
-    h3,
-    h4 {
-        font-weight: 100;
-    }
-    
-    a {
-        color: inherit;
-    }
+
+```scss
+/* Do: Use classes instead of IDs or type selectors 
+ * Do: Be specific about what you are styling */
+.header__nav {
+    // styles for header navi
+}
+
+/* Do: Use specific, reusable classes. Put the class name at the lowest possible level */
+.btn--promo { 
+    // styles for promo button
+}
+
+/* Do: Use type selectors for resets */
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 100;
+}
+
+a {
+    color: inherit;
+}
+```
 
 ### ID and Class Naming
 
@@ -1259,32 +1305,36 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 
 **Don’t**
 
-    /* Don’t: meaningless */
-    #yee-1901 {}
+```scss
+/* Don’t: meaningless */
+#yee-1901 {}
 
-    /* Don’t: presentational */
-    .button-green {}
-    .clear {}
-    
-    /* Don’t: too long, not readable */    
-    #navigation {}
-    .atr {}
+/* Don’t: presentational */
+.button-green {}
+.clear {}
+
+/* Don’t: too long, not readable */    
+#navigation {}
+.atr {}
+```
 
 
 **Do**
 
-    /* Do: specific */
-    #gallery {}
-    #login {}
-    .video {}
+```scss
+/* Do: specific */
+#gallery {}
+#login {}
+.video {}
 
-    /* Do: generic */
-    .aux {}
-    .alt {}
-    
-    /* Do: short, readable */
-    #nav {}
-    .author {}
+/* Do: generic */
+.aux {}
+.alt {}
+
+/* Do: short, readable */
+#nav {}
+.author {}
+```
 
 ### Relative Units
 
@@ -1293,23 +1343,26 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
 - Use `rem` for font and layout sizes to be resized via the `Html` root font-size  
 
 **Don’t**
-    
-    /* Don’t: Use pixel values */
-    .headline {
-        font-size: 18px;
-        width: 300px;
-    }
+
+```scss
+/* Don’t: Use pixel values */
+.headline {
+    font-size: 18px;
+    width: 300px;
+}   
+```
 
 **Do**
-    
-    /* Do: Use relative units */
-    .headline {
-        font-size: 1.8rem;
-        max-width: 48ch;
-        width: 80%;
-        margin-top: 1rem;
-    }
 
+```scss
+/* Do: Use relative units */
+.headline {
+    font-size: 1.8rem;
+    max-width: 48ch;
+    width: 80%;
+    margin-top: 1rem;
+}
+```
 
 ### Breakpoints
 
@@ -1322,62 +1375,63 @@ As it comes to responsiveness we usually are dealing with a main `mobile` and a 
   
 **Do**
 
-    // _settings.breakpoints.scss
-    
-    // breakpoint definitions
-    $breakpoints: (
-      // default breakpoints are treated as min width screen media queries
-      default: (
-        'md': 37.5em, // 16px * 37.5em: 600px
-        'lg': 64em, // 16px * 64em: 1024px
-      ),
-      
-      // custom breakpoints output the raw definition
-      custom: (
-        'portrait': 'screen and (orientation: portrait)',
-        'landscape': 'screen and (orientation: landscape)',
-        'wide': 'screen and (min-aspect-ratio: 16/9)',
-        'tower': 'screen and (max-aspect-ratio: 2/3)',
-        'print': 'print',
-      ),
-    );
-    
-    // respond-to mixin
-    @mixin respond-to($breakpoint) {
-      @each $type in map-keys($breakpoints) {
-        $breakpoint-group: map-get($breakpoints, $type);
-      
-        @if map-has-key($breakpoint-group, $breakpoint) {
-          $value: map-get($breakpoint-group, $breakpoint);
-    
-          @if $type == default {
-            // default breakpoints are treated as min width screen media queries
-            @media screen and (min-width: $value) {
-                @content;
-            }
-          } @else {
-            // custom breakpoints output the raw definition
-            @media #{$value} {
-                @content;
-            }
-          }
+```scss
+// _settings.breakpoints.scss
+
+// breakpoint definitions
+$breakpoints: (
+  // default breakpoints are treated as min width screen media queries
+  default: (
+    'md': 37.5em, // 16px * 37.5em: 600px
+    'lg': 64em, // 16px * 64em: 1024px
+  ),
+  
+  // custom breakpoints output the raw definition
+  custom: (
+    'portrait': 'screen and (orientation: portrait)',
+    'landscape': 'screen and (orientation: landscape)',
+    'wide': 'screen and (min-aspect-ratio: 16/9)',
+    'tower': 'screen and (max-aspect-ratio: 2/3)',
+    'print': 'print',
+  ),
+);
+
+// respond-to mixin
+@mixin respond-to($breakpoint) {
+  @each $type in map-keys($breakpoints) {
+    $breakpoint-group: map-get($breakpoints, $type);
+  
+    @if map-has-key($breakpoint-group, $breakpoint) {
+      $value: map-get($breakpoint-group, $breakpoint);
+
+      @if $type == default {
+        // default breakpoints are treated as min width screen media queries
+        @media screen and (min-width: $value) {
+            @content;
+        }
+      } @else {
+        // custom breakpoints output the raw definition
+        @media #{$value} {
+            @content;
         }
       }
     }
-    
-    // usage
-    .box {
-      width: 100%;
-      
-      respond-to(md) {
-        width: 50%;
-      }
-      
-      respond-to(lg) {
-        width: 33%;
-      }
-    }
-    
+  }
+}
+
+// usage
+.box {
+  width: 100%;
+  
+  respond-to(md) {
+    width: 50%;
+  }
+  
+  respond-to(lg) {
+    width: 33%;
+  }
+}
+```
 
     
 ### JavaScript Hooks
@@ -1391,7 +1445,9 @@ to bind your JS onto specific classes.
 
 **Do**
 
-    <button class="btn btn-primary | js-request-to-book">Request to Book</button>
+```html 
+<button class="btn btn-primary | js-request-to-book">Request to Book</button>
+```
     
 A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, 
 are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to 
@@ -1417,63 +1473,67 @@ store data, not be bound to.
 
 **Don’t**
 
-    /* Don’t: Fail to use quotes
-     *
-     * Color names are treated as colors when unquoted,
-     * which can lead to serious issues
-     * Most syntax highlighters will choke on unquoted strings 
-     */
-    $direction: left;
-    
-    /* Don’t: Use quotes on some specific values
-     *
-     * Specific CSS values (identifiers) such as initial or sans-serif
-     * require not to be quoted. Indeed, the declaration font-family: 'sans-serif' 
-     * will silently fail because CSS is expecting an identifier, not a quoted string. 
-     * Because of this, we do not quote those values. 
-     */
-    $font-type: 'sans-serif';
-    
-    /* Don’t: Add unit to 0 value */
-    $length: 0em;
-    
-    /* Don’t: Fail to wrap numeric calculations in parentheses
-     * Not only does this requirement dramatically improve readability, 
-     * it also prevents some edge cases by forcing Sass to evaluate 
-     * the contents of the parentheses.
-     */
-    .foo {
-        width: 100% / 3;
-    }
-    
-    /* Don’t: Use magic numbers
-     *
-     * “Magic number” is an old school programming term for unnamed numerical constant.
-     * Basically, it’s just a random number that happens to just work 
-     * yet is not tied to any logical explanation.
-     * Needless to say magic numbers are a plague and should be avoided at all costs.
-     * When you cannot manage to find a reasonable explanation for why a number works, 
-     * add an extensive comment explaining how you got there and why you think it works. 
-     */
-    .foo {
-        top: 0.327em; // This value is the lowest to align the top of `.foo` with its parent
-    }
+```scss
+/* Don’t: Fail to use quotes
+ *
+ * Color names are treated as colors when unquoted,
+ * which can lead to serious issues
+ * Most syntax highlighters will choke on unquoted strings 
+ */
+$direction: left;
+
+/* Don’t: Use quotes on some specific values
+ *
+ * Specific CSS values (identifiers) such as initial or sans-serif
+ * require not to be quoted. Indeed, the declaration font-family: 'sans-serif' 
+ * will silently fail because CSS is expecting an identifier, not a quoted string. 
+ * Because of this, we do not quote those values. 
+ */
+$font-type: 'sans-serif';
+
+/* Don’t: Add unit to 0 value */
+$length: 0em;
+
+/* Don’t: Fail to wrap numeric calculations in parentheses
+ * Not only does this requirement dramatically improve readability, 
+ * it also prevents some edge cases by forcing Sass to evaluate 
+ * the contents of the parentheses.
+ */
+.foo {
+    width: 100% / 3;
+}
+
+/* Don’t: Use magic numbers
+ *
+ * “Magic number” is an old school programming term for unnamed numerical constant.
+ * Basically, it’s just a random number that happens to just work 
+ * yet is not tied to any logical explanation.
+ * Needless to say magic numbers are a plague and should be avoided at all costs.
+ * When you cannot manage to find a reasonable explanation for why a number works, 
+ * add an extensive comment explaining how you got there and why you think it works. 
+ */
+.foo {
+    top: 0.327em; // This value is the lowest to align the top of `.foo` with its parent
+}
+```
 
 **Do**
-    
-    /* Do: Wrap strings with single quotes
-    $direction: 'left';
-    
-    /* Do: Skip quoting on some specific values
-    $font-type: sans-serif;
-    
-    /* Do: Use 0 values without units */
-    $length: 0;
-    
-    /* Do: Wrap numeric calculations in parentheses */
-    .foo {
-        width: (100% / 3);
-    }
+
+```scss
+/* Do: Wrap strings with single quotes
+$direction: 'left';
+
+/* Do: Skip quoting on some specific values
+$font-type: sans-serif;
+
+/* Do: Use 0 values without units */
+$length: 0;
+
+/* Do: Wrap numeric calculations in parentheses */
+.foo {
+    width: (100% / 3);
+}
+```
 
 ### File Naming
 
@@ -1539,5 +1599,6 @@ preserve those classes.
 - [The Cost of Javascript Frameworks](https://timkadlec.com/remembers/2020-04-21-the-cost-of-javascript-frameworks/)
 
 ### Best Practices
+
 - [It’s time we say goodbye to pixel units](https://uxdesign.cc/say-goodbye-to-pixels-cb720fbaf250)
 - [PX, EM or REM Media Queries?](https://zellwk.com/blog/media-query-units/)
