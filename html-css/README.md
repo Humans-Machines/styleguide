@@ -48,10 +48,10 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Selectors](#selectors)
   * [ID and Class Naming](#id-and-class-naming)
   * [JavaScript Hooks](#javascript-hooks)
+  * [Breakpoints](#breakpoints)
   * [Hacks](#hacks)
 - [Best Practises](#best-practises)
   * [Relative Units](#relative-units)
-  * [Breakpoints](#breakpoints)
 - [Preprocessors/SASS](#preprocessors-sass)
   * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
   * [File Naming](#file-naming)
@@ -1331,7 +1331,6 @@ a {
 .atr {}
 ```
 
-
 **Do**
 
 ```scss
@@ -1347,60 +1346,6 @@ a {
 /* Do: short, readable */
 #nav {}
 .author {}
-```
-
-### JavaScript Hooks
-
-Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
-(or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
-to bind your JS onto specific classes.
-
-- Create JavaScript-specific classes to bind to, prefixed with `.js-`
-- Don’t use data-Attributes for this purpose
-
-**Do**
-
-```html 
-<button class="btn btn-primary | js-request-to-book">Request to Book</button>
-```
-    
-A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, 
-are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to 
-store data, not be bound to.
- 
-### Hacks
-
-- Avoid user agent detection as well as CSS “hacks”—try a different approach first
-- If you need to use hacks anyways, make sure to [comment](#comments) extensively
-
-## Best Practises
-
-### Relative Units
-
-- Avoid pixels, they are ignorant
-- Use relative units like `rem` and `em` instead
-- Use `rem` for font and layout sizes to be resized via the `Html` root font-size
-
-**Don’t**
-
-```scss
-/* Don’t: Use pixel values */
-.headline {
-    font-size: 18px;
-    width: 300px;
-}   
-```
-
-**Do**
-
-```scss
-/* Do: Use relative units */
-.headline {
-    font-size: 1.8rem;
-    max-width: 48ch;
-    width: 80%;
-    margin-top: 1rem;
-}
 ```
 
 ### Breakpoints
@@ -1462,16 +1407,138 @@ $breakpoints: (
 .box {
   width: 100%;
   
-  respond-to(md) {
+  @include respond-to(md) {
     width: 50%;
   }
   
-  respond-to(lg) {
+  @include respond-to(lg) {
     width: 33%;
   }
 }
 ```
 
+Breakpoint specific styles should be nested in the root of the specific class. Every breakpoint has its own single
+block of code. They are coming after the default mobile declarations and are ordered from small to large.
+Custom breakpoints (eg. orientation queries) come last.
+
+**Don’t**
+
+```scss
+/* Don’t: State media queries outside a parent class */
+.box {
+  width: 100%;
+}
+
+@include respond-to(md) {
+  .box {
+    width: 50%;
+  }
+}
+
+/* Don’t: Create more than one block per breakpoint / Nest media queries too deep */
+.box {
+  width: 100%;
+  
+  .modal & {
+    @include respond-to(md) {
+        width: 80%;
+    }
+  }
+
+  .form & {
+    @include respond-to(md) {
+      width: 50%;
+    }
+  }
+}
+```
+
+**Do**
+
+```scss
+/* Don’t: Create more than one block per breakpoint */
+.box {
+  width: 100%;
+
+  @include respond-to(md) {
+    .modal & {
+        width: 80%;
+    }
+    
+    .form & {
+      width: 50%;
+    }
+  }
+
+  @include respond-to(lg) {
+    width: 25%;
+    
+    .form & {
+      width: 33%;
+    }
+  }
+  
+  @include respond-to(port) {
+     width: 80%;
+   }
+}
+```
+
+### JavaScript Hooks
+
+Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
+(or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
+to bind your JS onto specific classes.
+
+- Create JavaScript-specific classes to bind to, prefixed with `.js-`
+- Don’t use data-Attributes for this purpose
+
+**Do**
+
+```html 
+<button class="btn btn-primary | js-request-to-book">Request to Book</button>
+```
+    
+A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, 
+are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to 
+store data, not be bound to.
+ 
+### Hacks
+
+- Avoid user agent detection as well as CSS “hacks”—try a different approach first
+- If you need to use hacks anyways, make sure to [comment](#comments) extensively
+
+## Best Practises
+
+### Relative Units
+
+- Avoid pixels, they are ignorant
+- Use relative units like `rem` and `em` instead
+- Use `rem` for font and layout sizes to be resized via the `Html` root font-size
+
+**Don’t**
+
+```scss
+/* Don’t: Use pixel values */
+.headline {
+    font-size: 18px;
+    width: 300px;
+}   
+```
+
+**Do**
+
+```scss
+/* Do: Use relative units */
+.headline {
+    font-size: 1.8rem;
+    max-width: 48ch;
+    width: 80%;
+    margin-top: 1rem;
+}
+```
+
+There are some few exceptions for the use of pixel values such as 1px borders.
 
 ## Preprocessors/SASS
 
