@@ -199,7 +199,7 @@ To do this we can:
 
 **Do**
 
-```SCSS
+```scss
 /* Reverse footnote approach
  *
  * These types of comment allow us to keep all of our documentation in one place 
