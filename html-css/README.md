@@ -1049,62 +1049,9 @@ The naming attributes may be stripped for production.
       font-family: 'open sans', arial, sans-serif;
     }
 
-### Declaration Order
-
-- Group declarations by type
-- Use empty line to group
-- Don’t think about the order within a group so much
-- Add `@includes` where they make sense within this order
 
 **Do**
 
-    .selector {
-        /* Layout/Positioning
-         * The position of the element in space
-         */
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        transform: translate3d(2rem, 0, 0);
-        
-        /* Display & Box Model
-         * The element itself
-         */
-        display: inline-block;
-        overflow: hidden;
-        box-sizing: border-box;
-        width: 10em;
-        height: 10em;
-        padding: 1em;
-        border: 1px solid #333;
-        margin: 1em;
-        
-        /* Visual
-         * Design of the element
-         */
-        background: #000;
-        color: #fff;
-        opacity: 0.9;
-        
-        /* Type
-         * Typesetting of the element
-         */
-        font-family: sans-serif;
-        font-size: 16px;
-        line-height: 1.4;
-        text-align: right;
-        
-        /* Behaviour 
-         * Transitions and activity of the element */
-        cursor: pointer;
-        transition: opacity 0.3s linear;
-    }  
-    
-Sticking to this proposal of declaration sorting is not mandatory and might feel to be overkill. 
-Have a look at the specific codebase. If nobody does it, feel free to order randomly as well. 
-Or have a linter to the rescue.   
-    
 ### Selector Order and Nesting
 
 - **Do not nest selectors unnecessarily**
