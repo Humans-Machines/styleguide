@@ -520,24 +520,38 @@ and limiting the amount of custom CSS you have to write.
 Depending on the project utility classes might be created by hand, with SASS mixins or by the use of frameworks
 such as TailwindCSS. As you create your own classes make sure to stick to the naming convention of TailwindCSS.
 
-Utility classes should always be used for:
-
+*Utility classes are especially nice for:*
 - font and typographic styles
+- text-alignment
 - font and background colors
 - box-shadows
 - element spacing
 - screen-reader visibility
+- responsive display (eg .lg:hidden)
 
-Utility classes could also be used for:
-
+*Utility classes could also be used for:*
 - paddings and margins
 - display and position
 - width and height
 - simple flex-box and grid declarations
-- simple transitions and animations 
-- simple hover, active, and focus styles
+- simple transitions and animations
 - and much more …
 
+*Utility classes should be avoided for:*
+- focus/hover effects
+- advanced animations/effects
+- styling variants of a component
+
+Utility classes speed-up the implementation process and make it easier to customize things. But there are some downsides 
+to a utility first approach, which are the reasons, why we are not going all in on them:
+
+- utilities mostly ignore the power of the cascade
+- extensive utility class groups are hard to read and maintain
+- design systems can often better be handled with components and CSS Custom Properties
+- pseudo-elements are a powerful tool, which are hard to implement with utilities only 
+- unique motion effects are hard to archive
+- utility class groups might be fragile if multiple styles work together and rely on each other
+- semantic and meaningful class names might sometimes be a better choice (eg. in a BEM modifier)
 
 ### Objects
   
@@ -586,8 +600,6 @@ you are about to create is a `Component` or an `Object`.
 - Delimit elements by double underscores `__`
 - Delimit modifiers by double hyphens `--`
 - Use the same naming convention for grandchildren. So no `.block-name__child__grand-child`-craziness
-- Rather use utility classes as simple component modifications
-  than to introduce a BEM-modifier
 - Use `has-` or `is-` prefix for the state
 - Do not use Tailwind’s `@apply` to create components
 
@@ -1584,6 +1596,7 @@ preserve those classes.
 - [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)
 - [CUBE CSS](https://piccalil.li/blog/cube-css)
 - [Modular CSS](https://spaceninja.com/2018/09/17/what-is-modular-css/)
+- [Building a Scalable CSS Architecture With BEM and Utility Classes](https://css-tricks.com/building-a-scalable-css-architecture-with-bem-and-utility-classes/)
 
 ### Accessibility
 
@@ -1591,7 +1604,7 @@ preserve those classes.
 - [The A11Y Project Checklist](https://a11yproject.com/checklist)
 - [Mobile, Small, Portrait, Slow, Interlace, Monochrome, Coarse, Non-Hover, First](https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/)
 
-### Utility first
+### Utility first vs. BEM
 
 - [Building a Scalable CSS Architecture](https://www.algolia.com/blog/engineering/redesigning-our-docs-part-4-building-a-scalable-css-architecture/)
 - [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
