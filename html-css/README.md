@@ -47,10 +47,11 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Meaningful Whitespace](#meaningful-whitespace)
   * [Selectors](#selectors)
   * [ID and Class Naming](#id-and-class-naming)
-  * [Relative Units](#relative-units)
-  * [Breakpoints](#breakpoints)
   * [JavaScript Hooks](#javascript-hooks)
   * [Hacks](#hacks)
+- [Best Practises](#best-practises)
+  * [Relative Units](#relative-units)
+  * [Breakpoints](#breakpoints)
 - [Preprocessors/SASS](#preprocessors-sass)
   * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
   * [File Naming](#file-naming)
@@ -987,7 +988,7 @@ h3{
 }
 
 /* Don’t: unnecessary line break */
-#video
+.video
 {
     margin-top: 1em;
 }
@@ -1028,7 +1029,7 @@ h3 {
     font-weight: bold;
 }
 
-#video {
+.video {
     margin-top: 1em;
 }
 
@@ -1336,11 +1337,37 @@ a {
 .author {}
 ```
 
+### JavaScript Hooks
+
+Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
+(or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
+to bind your JS onto specific classes.
+
+- Create JavaScript-specific classes to bind to, prefixed with `.js-`
+- Don’t use data-Attributes for this purpose
+
+**Do**
+
+```html 
+<button class="btn btn-primary | js-request-to-book">Request to Book</button>
+```
+    
+A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, 
+are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to 
+store data, not be bound to.
+ 
+### Hacks
+
+- Avoid user agent detection as well as CSS “hacks”—try a different approach first
+- If you need to use hacks anyways, make sure to [comment](#comments) extensively
+
+## Best Practises
+
 ### Relative Units
 
 - Avoid pixels, they are ignorant
 - Use relative units like `rem` and `em` instead
-- Use `rem` for font and layout sizes to be resized via the `Html` root font-size  
+- Use `rem` for font and layout sizes to be resized via the `Html` root font-size
 
 **Don’t**
 
@@ -1366,13 +1393,13 @@ a {
 
 ### Breakpoints
 
-- Think about clever responsive solutions before reaching out for media queries 
+- Think about clever responsive solutions before reaching out for media queries
   (look into [math functions](https://caniuse.com/css-math-functions), grid and flex-box)
 - Style components for the smallest viewport first ([mobile first](#responsiveness-mobile-first))
 - Use min width media queries to progressive enhance your layout for bigger screens
-- Use [`em` values](https://zellwk.com/blog/media-query-units/) to define media queries. `em` based media queriess 
+- Use [`em` values](https://zellwk.com/blog/media-query-units/) to define media queries. `em` based media queriess
   favor in default font size set by user
-  
+
 **Do**
 
 ```scss
@@ -1433,30 +1460,6 @@ $breakpoints: (
 }
 ```
 
-    
-### JavaScript Hooks
-
-Avoid binding to the same class in both your CSS and JavaScript. This is because doing so means you can’t have 
-(or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable 
-to bind your JS onto specific classes.
-
-- Create JavaScript-specific classes to bind to, prefixed with `.js-`
-- Don’t use data-Attributes for this purpose
-
-**Do**
-
-```html 
-<button class="btn btn-primary | js-request-to-book">Request to Book</button>
-```
-    
-A common practice is to use data-* attributes as JS hooks, but this is incorrect. data-* attributes, as per the spec, 
-are used to store custom data private to the page or application (emphasis mine). data-* attributes are designed to 
-store data, not be bound to.
- 
-### Hacks
-
-- Avoid user agent detection as well as CSS “hacks”—try a different approach first
-- If you need to use hacks anyways, make sure to [comment](#comments) extensively
 
 ## Preprocessors/SASS
 
