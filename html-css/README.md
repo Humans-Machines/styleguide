@@ -52,6 +52,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Hacks](#hacks)
 - [Best Practises](#best-practises)
   * [Relative Units](#relative-units)
+  * [Custom Properties](#custom-properties)
 - [Preprocessors/SASS](#preprocessors-sass)
   * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
   * [File Naming](#file-naming)
@@ -1515,6 +1516,7 @@ store data, not be bound to.
 - Avoid pixels, they are ignorant
 - Use relative units like `rem` and `em` instead
 - Use `rem` for font and layout sizes to be resized via the `Html` root font-size
+- Do not forget about less common units such as 'ch' or 'ex'
 
 **Don’t**
 
@@ -1539,6 +1541,85 @@ store data, not be bound to.
 ```
 
 There are some few exceptions for the use of pixel values such as 1px borders.
+
+### Custom Properties
+
+Custom properties (often referred to as CSS Variables) are exceptionally useful and 
+much more powerful that SASS variables. Here are some great benefits:
+
+- can be contextually overridden (eg. by style scoping or media queries)
+- can be set dynamically with JavaScript
+- have a very low specificity
+- leverage the cascade
+- create a bridge between HTML and CSS (making it easy to import settings from a CMS into the CSS layer)
+- can have a fallback
+- are the No. 1 choice for design tokens and design system implementations
+- makes it super easy to implement custom style and color themes
+- are widely supported (excluding IE)
+
+With Custom Properties we can eliminate redundant styling and the need to write the same code over and over again.
+
+**Before**
+
+```scss
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: black;
+}
+
+.button--primary {
+  background: red;
+  box-shadow: inset 0 0 2px red;
+}
+
+.button--secondary {
+  background: blue;
+  box-shadow: inset 0 0 2px blue;
+}
+```
+
+**After**
+
+```scss
+:root {
+  // Define global default colors as a design system
+  // to be used anywhere in the codebase
+  --text-default: black;
+  --text-primary: red;
+  --text-secondary: blue;
+  --bg-default: white;
+  
+  // Create a darkmode version of the design system
+  @media (prefers-color-scheme: dark) {
+    --text-default: white;
+    --bg-default: black;
+  }
+}
+
+body {
+  color: var(--text-default); // Will be black by default - and white on devices with darkmode switched on
+  background: var(--text-default); // Will be white by default - and black on devices with darkmode switched on
+}
+
+.button {
+  display: inline-block;
+  padding: .5em 1em;
+  color: var(--text-btn, inherit); // Using the inherited default color as fallback 
+}
+
+.button--primary {
+  --text-btn: var(--text-primary); // Conditionally override default with global primary color
+}
+
+.button--secondary {
+  --text-btn: var(--text-secondary); // Conditionally override default with global secondary color
+}
+```
+
+There are much more advanced solutions and possibilities than this simple button component and darkmode implementation.
+For a deeper understanding, lots of compelling examples and further readings make sure to visit the 
+[Complete Guide to Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/)
 
 ## Preprocessors/SASS
 
@@ -1685,3 +1766,5 @@ preserve those classes.
 
 - [It’s time we say goodbye to pixel units](https://uxdesign.cc/say-goodbye-to-pixels-cb720fbaf250)
 - [PX, EM or REM Media Queries?](https://zellwk.com/blog/media-query-units/)
+- [A Complete Guide to Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/)
+- [The Power (and Fun) of Scope with CSS Custom Properties](https://css-tricks.com/the-power-and-fun-of-scope-with-css-custom-properties7)
