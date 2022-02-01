@@ -73,7 +73,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
 - Choose server-side rendering above client-side rendering unless your a building a real webapp
 
 Make sure documents and templates contain only HTML and HTML that is solely serving structural purposes. Move everything 
-presentational into style sheets, and everything behavioral into scripts. There might be execptions from this rule 
+presentational into style sheets, and everything behavioral into scripts. There might be exceptions from this rule 
 (eg. think Atomic CSS).
 
 Whenever possible, we prefer to write HTML and CSS over JavaScript. In general, HTML and CSS are more prolific and 
@@ -104,9 +104,9 @@ paragraphs, `a` elements for anchors, etc.
 - Make content readable and provide predictable functionality
 - Ensure links have `:focus` or `:focus-visible` states and are recognizable (eg. underlined)
 - Use appropriate alt text for images
-- Let screen reader user and keybooard user skip to main content 
+- Let screen reader users and keyboard users skip to main content 
 - To prevent redundancy and for images whose purpose is purely decorative, use no alt text, as in `alt=""`
-- Use unobtrusive JavaScript and beware of in line scripting
+- Use unobtrusive JavaScript and beware of inline scripting
 - Provide No-JS alternatives, at least in a lo-fi manner
 - Ensure that content will be displayed even if JavaScript fails or takes a while to be parsed
 - Ensure that tab order for the site and especially forms follow a logical pattern
@@ -1666,6 +1666,10 @@ $size-scale: (
 ```
 
 ### Fluid Typography
+
+tbd
+
+### Preferres Reducced Motion
 
 tbd
 
