@@ -603,6 +603,7 @@ you are about to create is a `Component` or an `Object`.
 - Use the same naming convention for grandchildren. So no `.block-name__child__grand-child`-craziness
 - Use `has-` or `is-` prefix for the state
 - Do not use Tailwind’s `@apply` to create components
+- Create a single SASS file for every component
 
 **Don’t**
 
@@ -1630,7 +1631,7 @@ For a deeper understanding, lots of compelling examples and further readings mak
 - Wrap strings with single quotes `'`
 - Don’t wrap CSS values, which require not to be quoted
 - Add leading zeros before a decimal value
-— Don’t add units to 0 values when dealing with lengths
+- Don’t add units to 0 values when dealing with lengths
 - Wrap top-level numeric calculations in parentheses
 - Avoid the use of magic numbers
 
