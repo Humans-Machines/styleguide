@@ -54,6 +54,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Relative Units](#relative-units)
   * [Custom Properties](#custom-properties)
   * [Spacing](#spacing)
+  * [Modular Scale](#modular-scale)
   * [Fluid Typography](#fluid-typography)
 - [Preprocessors/SASS](#preprocessors-sass)
   * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
