@@ -53,6 +53,8 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
 - [Best Practises](#best-practises)
   * [Relative Units](#relative-units)
   * [Custom Properties](#custom-properties)
+  * [Spacing](#spacing)
+  * [Fluid Typography](#fluid-typography)
 - [Preprocessors/SASS](#preprocessors-sass)
   * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
   * [File Naming](#file-naming)
@@ -406,7 +408,7 @@ good old `CSS Components` *(CUBE CSS terminology: Block)* should still be the wa
 - Think progressive enhancement
 - Go [mobile first](#responsiveness--mobile-first)
 - DYI: Don’t repeat yourself (and keep the codebase tight)
-- Unleash the power of `Custom Properties` at all times
+- Unleash the power of [Custom Properties](#custom-properties) at all times
 
 In the spirit of the `Inversed Triangle` we group all selectors into layers:
 from generic styles to explicit ones, from low-specificity selectors to more specific ones.
@@ -1620,7 +1622,51 @@ body {
 
 There are much more advanced solutions and possibilities than this simple button component and darkmode implementation.
 For a deeper understanding, lots of compelling examples and further readings make sure to visit the 
-[Complete Guide to Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/)
+[Complete Guide to Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/).
+
+### Spacing
+
+tbd
+
+### Modular Scale
+
+We are aiming for harmony in our visual layouts. Therefore we tend to create design systems where each text size and 
+spacing value is based on a modal scale. 
+
+A modular scale is a sequence of numbers related to each other through a specific ratio. It can be created by multiplying 
+each subsequent number by the same predefined ratio. The base value is usually our default text size of 1rem. 
+This base size paired with a chosen ratio (such as the golden ratio or any musical proportion) will create a scale of 
+values which all share this proportion.
+
+In order to create a size scale based on a specific ratio you can use tool such as [Modular Scale](https://www.modularscale.com/)
+or [Type Scale](https://type-scale.com/).
+
+Our naming convention is taken from font weights where a weight of 400 is considered normal. This is easy to relate to 
+and offers great flexibility for later on created bigger, smaller or in-between values.
+
+```SCSS
+// This project uses a Perfect Fourth scale above 1rem
+// meaning the ratio between values is 1.333
+// Values below are handpicked
+$size-scale: (
+    '25': 0.1rem,
+    '50': 0.25rem,
+    '100': 0.5rem,
+    '200': 0.64rem,
+    '300': 0.8rem,
+    '400': 1rem,
+    '500': 1.333rem,
+    '600': 1.777rem,
+    '700': 2.4rem,
+    '800': 3.9rem,
+    '900': 5.6rem,
+    '1000': 7.8rem,
+);
+```
+
+### Fluid Typography
+
+tbd
 
 ## Preprocessors/SASS
 
@@ -1769,3 +1815,11 @@ preserve those classes.
 - [PX, EM or REM Media Queries?](https://zellwk.com/blog/media-query-units/)
 - [A Complete Guide to Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/)
 - [The Power (and Fun) of Scope with CSS Custom Properties](https://css-tricks.com/the-power-and-fun-of-scope-with-css-custom-properties7)
+
+
+### Modular Scale and Fluid Typography
+
+- [Type Scale](https://type-scale.com/)
+- [Every Layout: Modular Scale](https://every-layout.dev/rudiments/modular-scale/)
+- [Everything I know about Responsive Web Typography](https://zellwk.com/blog/responsive-typography/)
+- [Viewport Unit Based Typography](https://zellwk.com/blog/viewport-based-typography/)
