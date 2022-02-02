@@ -1627,7 +1627,103 @@ For a deeper understanding, lots of compelling examples and further readings mak
 
 ### Spacing
 
-tbd
+In order to visually and conceptually separate flow elements we make use of the margin property. Since there currently
+is no way in CSS to style elements based on their proceeding elements its is good practise to only use top margin for 
+this purpose. This approach gives us the possibility to make the size of the space depenend on the prior element by
+using adjacent sibling selector.
+
+```SCSS
+<main>
+  <article></article>
+  <article></article>
+  <div class="ad"></div>
+  <article></article>
+  <article></article>
+</main>
+  
+article {
+  margin-top: 1rem;
+}
+  
+.ad {
+  margin-top: 2rem;
+} 
+
+.ad + article {
+  margin-top: 2em;
+}
+```
+
+Instead of creating specific classes to handle the spacing we would rather use a utility class  for individual top 
+spacing rules.
+
+```html
+<main class="mt-400">
+    <article></article>
+    <article class="mt-100"></article>
+</main>
+```
+
+Most of the times the spacing of an element should not be handled by element itself but by the context it is living in.
+For one it is a lot of work to define individual spacing for every element – be it with utility classes or within a
+BEM component. But also does not make a lot of sense from a conceptual point of view either. Think of a component, which
+might be displayed in various parts of a side or an app. The needed space around it might differ greatly and it will
+be quite hard to make and define these decisions on a component level.
+
+Therefore we highly recommend the use of a flow object (also referred to as [The Stack](https://every-layout.dev/layouts/stack/)).
+With this layout primitive margins are injected via their common parent. You can easily create per-element exceptions 
+within a single flow context without running into specificity issues.
+
+```scss
+// Basic Flow Object
+.flow > * + * {
+  margin-block-start: var(--flow-space, 1.5em);
+}
+
+.flow-exception,
+.flow-exception + * {
+  --flow-space: 3rem;
+}
+
+// Advanced Flow Object
+// with predefined spacing sizes via CSS Map $size-scale
+//
+// 1. Class for parents with spaced children
+// 2. Flex declaration lets us group elements to the top and bottom
+//    of the vertical space with a margin-bottom: auto on a child.
+// 3. Define specific margins via custom properties
+// 4. Spaced children: All but the first get a top margin
+.flow-50,
+.flow-100,
+.flow-200,
+.flow-300,
+.flow-400,
+.flow-500,
+.flow-600 {
+  display: flex; // [2]
+  flex-direction: column; // [2]
+  justify-content: flex-start;
+}
+
+.flow-50 > * + *, // [4]
+.flow-100 > * + *,
+.flow-200 > * + *,
+.flow-300 > * + *,
+.flow-400 > * + *,
+.flow-500 > * + *,
+.flow-600 > * + * {
+  margin-top: var(--flow-space);
+}
+
+.flow-50 > * + *  { --flow-space: #{map-get($size-scale, "50")};} // [3]
+.flow-100 > * + *  { --flow-space: #{map-get($size-scale, "100")};} // [3]
+.flow-200 > * + *  { --flow-space: #{map-get($size-scale, "200")};} // [3]
+.flow-300 > * + *  { --flow-space: #{map-get($size-scale, "300")};} // [3]
+.flow-400 > * + *  { --flow-space: #{map-get($size-scale, "400")};} // [3]
+.flow-500 > * + *  { --flow-space: #{map-get($size-scale, "500")};} // [3]
+.flow-600 > * + *  { --flow-space: #{map-get($size-scale, "600")};} // [3]
+
+```
 
 ### Modular Scale
 
@@ -1820,7 +1916,8 @@ preserve those classes.
 - [PX, EM or REM Media Queries?](https://zellwk.com/blog/media-query-units/)
 - [A Complete Guide to Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/)
 - [The Power (and Fun) of Scope with CSS Custom Properties](https://css-tricks.com/the-power-and-fun-of-scope-with-css-custom-properties7)
-
+- [The Stack](https://every-layout.dev/layouts/stack/)
+- [Managing Flow and Rhythm with CSS Custom Properties](https://24ways.org/2018/managing-flow-and-rhythm-with-css-custom-properties/)
 
 ### Modular Scale and Fluid Typography
 
