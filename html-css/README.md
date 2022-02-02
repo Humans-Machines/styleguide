@@ -56,6 +56,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Spacing](#spacing)
   * [Modular Scale](#modular-scale)
   * [Fluid Typography](#fluid-typography)
+  * [Preferes Reduced Motion](#preferes-reduced-motion)
 - [Preprocessors/SASS](#preprocessors-sass)
   * [SASS Syntax and Formatting](#sass-syntax-and-formatting)
   * [File Naming](#file-naming)
@@ -1765,9 +1766,35 @@ $size-scale: (
 
 tbd
 
-### Preferres Reducced Motion
+### Preferes Reduced Motion
 
-tbd
+Respecting user preferences is key for modern websites – especially if they are set for accessibility reasons. 
+Therefore we prevent animations and animated scroll behaviour right in our default `reset.scss` if the user has 
+expressed their preference for reduced motion.
+
+```scss
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  // [1] We do not prevent the transitions or animations entirely
+  //     but make them hyper short for animationend events to still
+  //     work in JavaScript
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important; // [1]
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; // [1]
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+Please also keep these things in mind as you are coding up some nice transitions in Vanilla JS or GSAP.
 
 ## Preprocessors/SASS
 
@@ -1899,6 +1926,7 @@ preserve those classes.
 - [The Web Accessibility Introduction I Wish I Had](https://dev.to/maxwell_dev/the-web-accessibility-introduction-i-wish-i-had-4ope)
 - [The A11Y Project Checklist](https://a11yproject.com/checklist)
 - [Mobile, Small, Portrait, Slow, Interlace, Monochrome, Coarse, Non-Hover, First](https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/)
+- [prefers-reduced-motion: Sometimes less movement is more](https://web.dev/prefers-reduced-motion/)
 
 ### Utility first vs. BEM
 
