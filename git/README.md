@@ -42,7 +42,7 @@ Projects should have a `README.md` at the root of the project. The readme file s
 ## Git Workflow
 
 ### General
-We use gitflow to manage branches in our projects repository. Every project repo must at least have a `master` and a `develop` branch. `develop` must be set as default branch in Gitlab (*Settings > General > General project*).
+We use gitflow to manage branches in our projects repository. Every project repo must at least have a `main` (Former: master) and a `develop` branch. `develop` must be set as default branch in Gitlab (*Settings > General > General project*).
 
 ### Feature
 Single commits could be made directly to `develop` branch. Anything else, including new features or bigger changes, must be developed inside a `feature` branch. Feature branches are prefixed with `feature/` and must be named using kebap-case. A valid feature name is for example `feature/some-api-changes`.
@@ -53,20 +53,20 @@ Before creating a release branch, make an anouncement on Skype, Slack or Whatsap
 Example: Develop is: `1.24.3`. Release should be: `1.25.0`
 
 The new release branch, created through gitflow, must be named `release/x.y.z`. Therefore the first commit inside the branch must be the version bump. In most projects, the version is stored inside `package.json` and should be changed here. Further commits in the `release` branch should contain only comsetic changes. Merging features is therefore not allowed in the `release` branch.
-Before finishing the release the current `release` branch should be compared with the `master`, in order to check and verify all the changes in the release. If the release contains changes of another contributors, talk to the persons to make sure the changes won't cause any regressions.
+Before finishing the release the current `release` branch should be compared with the `main`, in order to check and verify all the changes in the release. If the release contains changes of another contributors, talk to the persons to make sure the changes won't cause any regressions.
 
 Dependant of the project, the release branch, in specific the tag, might be auto-deployed to a live environment. If this is not the case, checkout the fresh `tag` that was created with this release.
 
 If something is not working as intended, rollback the release to the prior tag or create a hotfix.
 
 ### Hotfix
-By default, we dont write bugs. But there might be some cases where a hotfix might be necessary. In this cases, start a new hotfix with gitflow from `master` branch and only from `master` branch. Like for releases, use Semver to bump the patch verison number by one.
+By default, we dont write bugs. But there might be some cases where a hotfix might be necessary. In this cases, start a new hotfix with gitflow from `main` branch and only from `main` branch. Like for releases, use Semver to bump the patch verison number by one.
 
-Example: Master is: `1.25.0`. Hotfix should be: `1.25.1`
+Example: Main is: `1.25.0`. Hotfix should be: `1.25.1`
 
 The hotfix branch must be named `hotfix/x.y.z`. Everything else mentioned in the [Release](#release) section also applies for a `hotfix` branch.
 
-**CAUTION:** If there is an active `release` branch, make sure that the `hotfix` branch gets merged into the active `release` branch. This could be done by merging the `master` into the `hotfix` branch. There will be a conflict for the file, that contains the version number. Make sure to use the version number of the `release` branch.
+**CAUTION:** If there is an active `release` branch, make sure that the `hotfix` branch gets merged into the active `release` branch. This could be done by merging the `main` into the `hotfix` branch. There will be a conflict for the file, that contains the version number. Make sure to use the version number of the `release` branch.
 
 ### Further reading
 
