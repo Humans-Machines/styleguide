@@ -34,6 +34,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Utility Classes](#utility-classes)
   * [Objects](#objects)
   * [Components and BEM](#components-and-bem)
+  * [Scoped Components](#scoped-components)
   * [Responsiveness / Mobile first](#responsiveness--mobile-first)
   * [Design Tokens](#design-tokens)
   * [Global Values](#global-values)
@@ -671,6 +672,15 @@ you are about to create is a `Component` or an `Object`.
 They are nestable and should be capable of being contained inside another block without breaking anything. 
 `Elements` are the constituent parts of a block that can’t be used outside of it. 
 `Modifiers` define the appearance and behavior of a block.
+
+### Scoped Components
+
+If you are working with a JS framework you might be styling your components directly inside the main component file. This
+is a valid way of defining scoped styles for a specific component. In this case the components layer should be removed
+from the global SASS setup and all component styles should be handled like this.
+
+Nevertheless always take good care while deciding which styles should be defined inside the component itself and when
+to reach out for global objects or utility classes.
 
 ### Responsiveness / Mobile first
 
@@ -1659,7 +1669,7 @@ Instead of creating specific classes to handle the spacing we would rather use a
 spacing rules.
 
 ```html
-<main class="mt-400">
+<main>
     <article></article>
     <article class="mt-100"></article>
 </main>
@@ -1669,7 +1679,8 @@ Most of the times the spacing of an element should not be handled by element its
 For one it is a lot of work to define individual spacing for every element – be it with utility classes or within a
 BEM component. But also does not make a lot of sense from a conceptual point of view either. Think of a component, which
 might be displayed in various parts of a side or an app. The needed space around it might differ greatly and it will
-be quite hard to make and define these decisions on a component level.
+be quite hard to make and define these decisions on a component level. So we should always avoid margin on component 
+wrapper.
 
 Therefore we highly recommend the use of a flow object (also referred to as [The Stack](https://every-layout.dev/layouts/stack/)).
 With this layout primitive margins are injected via their common parent. You can easily create per-element exceptions 
@@ -1933,6 +1944,8 @@ preserve those classes.
 - [Building a Scalable CSS Architecture](https://www.algolia.com/blog/engineering/redesigning-our-docs-part-4-building-a-scalable-css-architecture/)
 - [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
 - [Why Tailwind Isn't for Me](https://dev.to/jaredcwhite/why-tailwind-isn-t-for-me-5c90)
+- [Let There Be Peace on CSS](https://didoo.medium.com/let-there-be-peace-on-css-8b26829f1be0)
+- [In Defense of Utility-First CSS](https://frontstuff.io/in-defense-of-utility-first-css)
 
 ### Slow Web
 
