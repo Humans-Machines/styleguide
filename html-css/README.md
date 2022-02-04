@@ -56,6 +56,7 @@ Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](htt
   * [Custom Properties](#custom-properties)
   * [Spacing](#spacing)
   * [Modular Scale](#modular-scale)
+  * [Type Styles](#type-styles)
   * [Fluid Typography](#fluid-typography)
   * [Preferes Reduced Motion](#preferes-reduced-motion)
 - [Preprocessors/SASS](#preprocessors-sass)
@@ -1530,6 +1531,7 @@ store data, not be bound to.
 
 - Avoid pixels, they are ignorant
 - Use relative units like `rem` and `em` instead
+- Use unitless values for `line-height`
 - Use `rem` for font and layout sizes to be resized via the `Html` root font-size
 - Do not forget about less common units such as 'ch' or 'ex'
 
@@ -1538,8 +1540,9 @@ store data, not be bound to.
 ```scss
 /* Don’t: Use pixel values */
 .headline {
-    font-size: 18px;
-    width: 300px;
+  font-size: 18px;
+  line-height: 27px;
+  width: 300px;
 }   
 ```
 
@@ -1548,10 +1551,11 @@ store data, not be bound to.
 ```scss
 /* Do: Use relative units */
 .headline {
-    font-size: 1.8rem;
-    max-width: 48ch;
-    width: 80%;
-    margin-top: 1rem;
+  font-size: 1.8rem;
+  line-height: 1.5;    
+  max-width: 48ch;
+  width: 80%;
+  margin-top: 1rem;
 }
 ```
 
@@ -1773,9 +1777,79 @@ $size-scale: (
 );
 ```
 
+### Type Styles
+
+In a design system every type size should be accompanied with a matching line-height. While line-heights should be
+determined in a relative manner anyways (eg. `line-height: 1.2`) they still need some treatment to feel visually aligned.
+Smaller text are in need of bigger line-heights while bigger text should be set more tight to create the same feeling
+of light. This is also true for letter-spacing: Smaller text need more room to breath, letters from bigger texts should
+come closer together.
+
+Therefore a typographic treatment is always a predefined combination of size, line-height and letter-spacing. To
+reflect this part of our design system we create text style utility classes. These text styles then work just
+like pharagraph styles known from text editors or design software. The naming convention and the predefined type sizes
+make use of the modular scale, which is also defined via our Design Tokens library.
+
+```scss
+// SCSS Map combining custom settings 
+// with predefined sizes from modular scale
+$text-styles: (
+    '300': (
+        line-height: 1.235,
+        letter-spacing: 0.015em,
+    ),
+    '400': (
+        line-height: 1.2,
+        letter-spacing: 0.015em,
+    ),
+    '500': (
+        line-height: '1.147',
+        letter-spacing: 0.013em,
+    ),
+    '600': (
+        line-height: '1.104',
+        letter-spacing: 0.01em,
+    ),
+    '700': (
+        line-height: '1.045',
+        letter-spacing: 0,
+    ),
+    '800': (
+        line-height: '1.042',
+        letter-spacing: -0.015em,
+    ),
+);
+
+// Mixins to generate text styles
+@mixin text-style($name) {
+  @if map-has-key($text-styles, $name) {
+
+    // Get size from $size-scale if $name matches a size here
+    @if map-has-key($size-scale, $name) {
+      font-size: map-get($size-scale, $name);
+    }
+
+    // Get defined properties
+    $style: map-get($text-styles, $name);
+
+    // Add defined properties
+    @each $property, $value in $style {
+      #{$property}: #{$value};
+    }
+  }
+}
+
+// Create utilities for text layout formats
+@each $name in map-keys($text-styles) {
+  .text-style-#{$name} {
+    @include text-style($name);
+  }
+}
+```
+
 ### Fluid Typography
 
-tbd
+TODO
 
 ### Preferes Reduced Motion
 
@@ -1869,10 +1943,10 @@ $length: 0em;
 **Do**
 
 ```scss
-/* Do: Wrap strings with single quotes
+/* Do: Wrap strings with single quotes */
 $direction: 'left';
 
-/* Do: Skip quoting on some specific values
+/* Do: Skip quoting on some specific values */
 $font-type: sans-serif;
 
 /* Do: Use 0 values without units */
@@ -1902,7 +1976,7 @@ while handling files (there also might be a `_utilities.z-index.scss`).
 - Avoid `@extend`
 
 Extending is invisible. Extending doesn’t necessarily help file weight, contrary to the saying. 
-Extending doesn’t work across media queries. Extending is not flexible. Mixins have absolutely no drawback.
+Extending does not work across media queries. Extending is not flexible. Mixins have absolutely no drawback.
 
 ## PurgeCSS
 
