@@ -1849,7 +1849,59 @@ $text-styles: (
 
 ### Fluid Typography
 
-TODO
+For implementing responsive typography it used to be common practise to define explicit type sizes and change these 
+values on specific predefined breakpoints. But – as we know – there are a lot of different devices and screen sizes 
+around and it seems like a bad idea to only optimize for a very limited and random selection of assumed common devices.
+
+Viewport units give us the power to adapt our type scaling to the size of the client’s browser window. The idea
+of changing font sizes based on the screen size is often referred to as *Fluid Typography*. This technique not only
+enables us to optimize our typographic system for all screen sizes with a single line of code (at best) and without the 
+use of hard breakpoints (if any at all) – it also helps us to very gradually fine-tune the type scaling in real 
+device scenarios later on.
+
+Fluid Typography scales smoothly between a minimum and (optionally) a maximum value. This dynamic value is calculated 
+by combining a specific fraction of the view width (`vw`) with a static `rem` value. We do this because viewport units 
+are much too responsive to the screen’s width to be used as the only relation and we would also face some significant 
+accessibility issues with the sole use of viewport units: Since these values exclusively depend on the screen size, user 
+preferences would not be taken into account and zooming of the page would be preventet.
+
+```scss
+// Simple and (mostly) accessible fluid typography
+html {
+  // 1. em or rem does not matter here
+  // 2. rem-size should not go much below 1rem to keep browser default in sync
+  // 3. Increase or decrease zoom factor to define zoom distinction
+  // 4. The min() function gives the smallest value from two passed parameters
+  // 5. clamp() isn't necessary, since the first part already makes --baseFontSize the min
+  // 6. calc() isn’t necessary in min()
+  --baseFontSize: 0.9rem; // [1][2]
+  --zoomFactor: 0.7vw; // [3]
+  --maxFontSize: 3rem; // [1]
+  
+  // font-size: min(0.9rem + 0.7vw, 3rem);
+  font-size: min(var(--baseFontSize) + var(--zoomFactor), var(--maxFontSize)); // [4][5][6]
+
+  // Fine-tune scaling for other breakpoints
+  // by redefining custom properties
+  @include respond-to(md) {
+    --baseFontSize: 0.7rem;
+    --zoomFactor: 0.5vw;
+  }
+}
+```
+
+Since we implement this dynamic value as the font size for the html element, all other font-size settings can relate to 
+the base value via relative `rem` values and the concepts of [Type Styles](#type-styles) and 
+[Modular Scale](#modular-scale). Although initially invented to gain more typographic excellence, this fluid sizing 
+approach also works for margin, padding, gaps and everything else we define via `rem`.
+
+There are more complex solutions around, which will not only align the base font size with the viewport but also make
+the modular scale fluid as well ([eg. Utopia.fyi](https://utopia.fyi/)). By adding fluidity to the modular scale we can 
+adjust the contrast in hirarchic type size setups for different screen sizes: Smaller distinctions for mobile 
+devices, greater accentuations for desktop screens. 
+
+How complex you would like to go while implementing fluid typography always depends on the project and the 
+proposed design system.
 
 ### Preferes Reduced Motion
 
