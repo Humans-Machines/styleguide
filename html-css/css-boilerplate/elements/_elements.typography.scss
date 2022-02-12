@@ -1,0 +1,74 @@
+
+/*------------------------------------*\
+  #HEADINGS
+\*------------------------------------*/
+
+// Resetting margin for p
+// We will handle this differently
+p {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+}
+
+h1 {
+    a {
+        @include color-link();
+    }
+}
+
+h2,
+h3 {
+    a {
+        @include color-link();
+    }
+}
+
+h1 {
+    @include text-style('700');
+
+    @include respond-to(md) {
+        @include text-style('800');
+    }
+}
+
+h2 {
+    @include text-style('600');
+
+    @include respond-to(md) {
+        @include text-style('700');
+    }
+}
+
+h3 {
+    @include text-style('500');
+}
+
+h4,
+h5,
+h6 {
+    @include text-style('400');
+}
+
+em {
+    font-style: normal;
+}
+
+strong {
+    font-weight: inherit;
+    @include bubble();
+}
+
+dt {
+    span { // wrapping in span to fix bubbles for firefox
+        @include bubble();
+        text-transform: uppercase;
+    }
+}

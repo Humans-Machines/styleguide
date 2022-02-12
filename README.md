@@ -1,12 +1,10 @@
-# Humans & Machines Styleguides
+# Humans & Machines Styleguide
 
-![Maintainable Code?](https://pbs.twimg.com/media/DbxXCjYUQAMZGzi.jpg)
+`Version 1.0`
 
-but if you need to maintain your code from time to time please note:
+![You don’t have to write maintainable code if you never maintain your code](https://pbs.twimg.com/media/DbxXCjYUQAMZGzi.jpg)
 
-> »All code in any code-base should look like a single person typed it, 
-> no matter how many people contributed.«
+but if you need to maintain your code from time to time get startet with these docs:
 
-## Table of content
-
-- HTML, CSS, SASS
+- [HTML/CSS](https://github.com/Humans-Machines/styleguide/tree/develop/html-css)
+- [Git](https://github.com/Humans-Machines/styleguide/tree/develop/git)

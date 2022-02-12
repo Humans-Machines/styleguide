@@ -1,0 +1,120 @@
+/*------------------------------------*\
+  #FONTFACE
+\*------------------------------------*/
+
+// Adding Variable Fonts here
+//
+//
+// 1. You'll notice we're supplying two values for font-weight and font-stretch.
+// Instead of telling the browser which specific weight this font provides
+// (for example font-weight: 500;), we now give it the range of weights supported by the font.
+// For Roboto Flex, the Weight axis ranges from 100 to 1000, and CSS directly maps the axis
+// range to the font-weight style property. By specifying the range in @font-face,
+// any value outside this range will be "capped" to the nearest valid value.
+// The Width axis range is mapped in the same way to the font-stretch property.
+//
+// Further reading: https://web.dev/variable-fonts/
+// Use https://dinamodarkroom.com/gauntlet/ to look into the Variable Fonts axis
+//
+// 2. Prevent FOIT - https://web.dev/font-display/
+// font-display: fallback; -> Acts as a compromise between the auto and swap values.
+// The browser will hide the text for about 100ms and, if the font has not yet been downloaded,
+// will use the fallback text. It will swap to the new font after it is downloaded,
+// but only during a short swap period (probably 3 seconds).
+
+// 2. swap
+// swap gives the font face a zero second block period and an infinite swap period.
+// This means the browser draws text immediately with a fallback if the font face
+// isn’t loaded, but swaps the font face in as soon as it loads. Similar to block,
+// this value should only be used when rendering text in a particular font is
+// important for the page, but rendering in any font will still get a correct
+// message across. Logo text is a good candidate for swap since displaying a
+// company’s name using a reasonable fallback will get the message across but
+// you’d eventually use the official typeface.
+
+// 2. block
+// block gives the font face a short block period (3s is recommended in most cases)
+// and an infinite swap period. In other words, the browser draws "invisible" text
+// at first if the font is not loaded, but swaps the font face in as soon as it loads.
+// To do this the browser creates an anonymous font face with metrics similar to the
+// selected font but with all glyphs containing no "ink." This value should only be
+// used if rendering text in a particular typeface is required for the page to be useable.
+
+// 3. https://web.dev/variable-fonts/#fallbacks
+// TODO: Provide fallback
+
+// Fallback static fonts
+@font-face {
+    font-family: 'PXR Repro';
+    src: url('../../fonts/ReproLAB223-288.woff2') format('woff2'),
+    url('../../fonts/ReproLAB223-288.woff') format('woff');
+    font-weight: 200;
+    font-display: block; // [2]
+}
+
+@font-face {
+    font-family: 'PXR Repro';
+    src: url('../../fonts/ReproLAB223-300.woff2') format('woff2'),
+    url('../../fonts/ReproLAB223-300.woff') format('woff');
+    font-weight: 300;
+    font-display: block; // [2]
+}
+
+@font-face {
+    font-family: 'PXR Repro';
+    src: url('../../fonts/ReproLAB223-340.woff2') format('woff2'),
+    url('../../fonts/ReproLAB223-340.woff') format('woff');
+    font-weight: 400;
+    font-display: block; // [2]
+}
+
+@font-face {
+    font-family: 'PXR Repro';
+    src: url('../../fonts/ReproLAB223-420.woff2') format('woff2'),
+         url('../../fonts/ReproLAB223-420.woff') format('woff');
+    font-weight: 500;
+    font-display: block; // [2]
+}
+
+// Fallback static fonts for bubble style
+@font-face {
+    font-family: 'PXR Repro Bubble';
+    src: url('../../fonts/ReproLAB223Bubble-288.woff2') format('woff2'),
+    url('../../fonts/ReproLAB223Bubble-288.woff') format('woff');
+    font-weight: 200;
+    font-display: block; // [2]
+}
+
+@font-face {
+    font-family: 'PXR Repro Bubble';
+    src: url('../../fonts/ReproLAB223Bubble-288.woff2') format('woff2'),
+    url('../../fonts/ReproLAB223Bubble-288.woff') format('woff');
+    font-weight: 300;
+    font-display: block; // [2]
+}
+
+@font-face {
+    font-family: 'PXR Repro Bubble';
+    src: url('../../fonts/ReproLAB223Bubble-340.woff2') format('woff2'),
+    url('../../fonts/ReproLAB223Bubble-340.woff') format('woff');
+    font-weight: 400;
+    font-display: block; // [2]
+}
+
+@supports (font-variation-settings: normal) { // [3]
+    @font-face {
+        font-family: 'PXR Repro';
+        src: url('../../fonts/ReproLAB223GX.woff2') format('woff2'),
+        url('../../fonts/ReproLAB223GX.woff') format('woff');
+        font-weight: 100 1000; // [1]
+        font-display: block; // [2]
+    }
+
+    @font-face {
+        font-family: 'PXR Repro Bubble';
+        src: url('../../fonts/ReproLAB223BubbleGX.woff2') format('woff2'),
+        url('../../fonts/ReproLAB223BubbleGX.woff') format('woff');
+        font-weight: 100 1000; // [1]
+        font-display: block; // [2]
+    }
+}

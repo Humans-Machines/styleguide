@@ -1,0 +1,23 @@
+///*----------------------------------*\
+//  #Z-INDEX
+//\*----------------------------------*/
+
+// Setting up a gobal CSS Map to handle z-index throughout relevant ui-elements
+
+// Usage:
+// z-index: map-get($z-index, some-z);
+
+// z-indexing
+$z-index: (
+    // 'some-z': 1,
+    'hero': 1,
+    'logo': 160,
+    'breadcrumb': 165,
+    'footer': 170,
+    'menu': 180,
+    'navicon': 200,
+    'modal': 300,
+    'grid-overlay': 998,
+    'grid-toggle': 999,
+    // 'main-content': 100,
+);

@@ -1,0 +1,157 @@
+// Video Container
+.video {
+    // hide autoplay videos before starting
+    &.is-autoplay:not(.has-played-before):not(.is-playing) {
+        opacity: 0;
+    }
+
+    // fade in autoplay videos after init
+    // give a little delay to hide initial stutter
+    &.is-playing {
+        transition: opacity $trans-time--m $trans-func--default $trans-time--s;
+    }
+}
+
+// Video Player
+.video__player {
+    // See _media-box.scss
+}
+
+// Video Poster
+.video__poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transition: opacity $trans-time--m $trans-func--default;
+    opacity: 1;
+    pointer-events: none;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .is-autoplay & {
+        transition: opacity $trans-time--s $trans-func--default $trans-time--m;
+    }
+
+    .is-playing &,
+    .has-played-before & {
+        opacity: 0;
+    }
+}
+
+// Video controls container
+.video__controls {
+    @include cover-box();
+    z-index: 3;
+    opacity: 0;
+    transition: opacity $trans-time--s $trans-func--default $trans-time--xs;
+    pointer-events: none;
+
+    .video.has-visible-controls &,
+    .video:not(.is-playing) & {
+        opacity: 1;
+        transition: opacity $trans-time--m $trans-func--default ;
+    }
+}
+
+.video__controls-main {
+    @include cover-box();
+    @include hide-button();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .video.has-visible-controls &,
+    .video:not(.is-playing) & {
+        @include show-button();
+    }
+}
+
+// Play / Pause
+.video__controls-main-play {
+    > span:last-child {
+        display: none;
+    }
+
+    .is-playing & {
+        > span:first-child {
+            display: none;
+        }
+
+        > span:last-child {
+            display: flex;
+        }
+    }
+}
+
+// Mute / Unmute
+.video__controls-main-mute {
+    > span:last-child {
+        display: none;
+    }
+
+    .is-muted & {
+        > span:first-child {
+            display: none;
+        }
+
+        > span:last-child {
+            display: flex;
+        }
+    }
+
+    .has-minimal-controls & {
+        display: none;
+    }
+}
+
+// Rewind
+.video__controls-main-rewind {
+    .has-minimal-controls & {
+        display: none;
+    }
+}
+
+.video__controls-progress {
+    @include cover-box();
+    top: auto;
+    opacity: 0;
+    transition: opacity $trans-time--m $trans-func--default;
+    pointer-events: all;
+    margin-bottom: 0.5rem;
+
+    .is-playing &,
+    .is-seeking & {
+        &.has-time {
+            opacity: 1;
+        }
+    }
+
+    .has-minimal-controls & {
+        display: none;
+    }
+}
+
+.video__controls-progress-value {
+    text-align: right;
+
+    span {
+        &:last-child:before {
+            content: ' / ';
+        }
+    }
+}
+
+.video-loader {
+    visibility: hidden;
+}
+
+
+
+

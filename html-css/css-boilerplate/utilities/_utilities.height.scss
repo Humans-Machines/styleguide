@@ -1,0 +1,35 @@
+/*------------------------------------*\
+  #HEIGHT
+\*------------------------------------*/
+
+// Adding grid utility classes
+// Naming convention based on tailwind
+
+// SCSS Map Structure
+// $map-name: (
+//      'property': (
+//          'class-name': value,
+//      ),
+// );
+
+
+// Grid Column Start / End
+// https://tailwindcss.com/docs/height
+//
+$height-props: (
+    'height': (
+        // h-1\/2vh: 50vh,
+    ),
+    'min-height': (
+        min-h-1\/3-screen: 33vh,
+        min-h-2\/5-screen: 40vh,
+        min-h-1\/2-screen: 50vh,
+        min-h-3\/5-screen: 60vh,
+        min-h-4\/5-screen: 80vh,
+        min-h-screen: 100vh,
+    ),
+) !default;
+
+// Creating classes
+@include utility-classes($height-props, false);
+

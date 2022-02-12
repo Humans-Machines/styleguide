@@ -1,0 +1,23 @@
+/*------------------------------------*\
+  #NAVICON
+\*------------------------------------*/
+
+.navicon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: map-get($z-index, navicon);
+
+    // extend btn transforms
+    transition: background $trans-time--s $trans-func--default,
+                font-variation-settings $trans-time--s $trans-func--ease-out,
+                transform $trans-time--s $trans-func--ease-out;
+
+    .has-menu & {
+        transform: rotate(45deg);
+
+        &:active {
+            transform: scale($active-scale) rotate(45deg);
+        }
+    }
+}

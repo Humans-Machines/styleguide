@@ -1,0 +1,96 @@
+/*------------------------------------*\
+  #CAROUSEL
+\*------------------------------------*/
+
+// Carousel is a horizontal scroll for images
+//
+// 1. Do not overflow body
+// 2. Cover scrollbar
+// 3. Align first items to the grid lines
+// 4. Default setup before flickity is enabled
+// 5. Fix for padding on the last element
+// 6. Enable flickity for non-touch devices
+// 7. Center item content vertically while dealing with flickity quirks
+// 8. Custom width settings for various img ratios
+.carousel {
+    position: relative;
+    max-width: 100%; // [1]
+    overflow: hidden; // [2]
+}
+
+.carousel__inner {
+    width: 100%;
+    height: 100%;
+    padding-left: var(--carousel-px); // [3]
+    padding-right: var(--carousel-px); // [3]
+    margin-bottom: -4rem; // [2]
+    padding-bottom: 4rem; // [2]
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &:not(.flickity-enabled) { // [4]
+        display: flex;
+        align-items: center;
+    }
+
+    .no-touch & {
+        &:after {
+            content: 'flickity'; // [6]
+            display: none; // [6]
+        }
+    }
+
+    &.flickity-enabled {
+        .is-firefox & {
+            overflow-x: hidden;
+        }
+    }
+}
+
+.carousel__item {
+    width: var(--carousel-item-w);
+    margin-right: var(--carousel-gap);
+    display: block;
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
+    transition: opacity $trans-time--m $trans-func--default,
+                transform $trans-time--l $trans-func--default;
+
+    .flickity-enabled & { // [7]
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    // Initially move elements a little to the left
+    .intersection-observer .carousel:not(.intersect-inview--entered) & {
+        &:nth-child(1) {
+            transform: translateX(10vw);
+        }
+
+        &:nth-child(2) {
+            transform: translateX(12vw);
+        }
+
+        &:nth-child(n+3) {
+            transform: translateX(20vw);
+        }
+    }
+}
+
+.carousel__item--portrait {
+    --carousel-item-w: var(--carousel-item-w-portrait); // [8]
+}
+
+.carousel__item--cube {
+    --carousel-item-w: var(--carousel-item-w-cube); // [8]
+}
+
+// Add spacing to the right side
+.carousel__item--spacer {
+    height: 1rem;
+    width: 1px;
+    margin-right: 0;
+}

@@ -1,0 +1,58 @@
+/*------------------------------------*\
+  #PADDING
+\*------------------------------------*/
+
+// Add viewport ratio specific padding classes
+.p-body {
+    padding: var(--body-py) var(--body-px);
+
+    @include respond-to(sm-only) {
+        padding-bottom: var(--body-py-sm);
+    }
+}
+
+.px-body {
+    padding-right: var(--body-px);
+    padding-left: var(--body-px);
+}
+
+.py-body {
+    padding-top: var(--body-py);
+    padding-bottom: var(--body-py);
+
+    @include respond-to(sm-only) {
+        padding-bottom: var(--body-py-sm);
+    }
+}
+
+// Adding padding utility classes
+// Naming convention based on tailwind
+//
+// Basic classes
+// .p-100, .p-200, etc
+//
+// Optional Responsive classes
+// .md:p-100, .lg:p-100, etc
+
+// Extend $size-scale with custom sizes for padding
+$padding-sizes: map-merge((
+    // 'body': var(--body-p),
+    'navicon': 2.8rem, // make room for navicon
+), $size-scale);
+
+// Adding bespoke utility classes
+//
+// @mixin token-utilities(
+//      $class-name,
+//      $properties,
+//      $prefixes: md lg,
+//      $token-set: $size-scale);
+@include token-utilities('p', padding, md, $padding-sizes);
+
+@include token-utilities('px', padding-right padding-left, false, $padding-sizes);
+@include token-utilities('py', padding-bottom padding-top, false, $padding-sizes);
+
+// @include token-utilities('pt', padding-top, false, $padding-sizes);
+@include token-utilities('pr', padding-right, md, $padding-sizes);
+@include token-utilities('pb', padding-bottom, false, $padding-sizes);
+// @include token-utilities('pl', padding-left, md, $padding-sizes);

@@ -1,0 +1,31 @@
+/*------------------------------------*\
+  #MEASURE
+\*------------------------------------*/
+
+// Defining a global max width for text lines
+//
+// https://every-layout.dev/rudiments/axioms/
+// Paywall entry: (https://every-layout.dev/login/?email=info@humans.am)
+//
+// The width of a line of text, in characters, is known as its measure.
+// Choosing a reasonable measure is critical for the comfortable scanning
+// of successive lines. The Elements Of Typographic Style considers any
+// value between 45 and 75 reasonable.
+//
+// We use a Custom Property to define the max width. With this we can easily
+// reset or overwrite it in some use cases – eg for bigger headlines
+//
+// 1. The value of 1ch is based on the width of the font’s 0 character.
+// Importantly, this means changing the font-size changes the value of 1ch,
+// thereby adapting the measure.
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figcaption {
+    max-width: var(--measure);
+}

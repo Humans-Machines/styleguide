@@ -1,0 +1,33 @@
+/*------------------------------------*\
+  #TEXT STACK
+\*------------------------------------*/
+
+/**
+ * Using the twig filter hmStackText all word inside a text-string
+ * will be wrapped into spans
+ *
+ * We need this for animating purposes
+ * and to fix line-breaks of link-indications with pseudo-classes
+ */
+
+.text-stack {
+    span {
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    // fix stupid misalignment of last element in iOS
+    .is-ios & {
+        &.text-right {
+            > *:last-child {
+                margin-right: 0.37ch;
+            }
+        }
+    }
+
+    .is-ios .text-right & {
+        > *:last-child {
+            margin-right: 0.37ch;
+        }
+    }
+}

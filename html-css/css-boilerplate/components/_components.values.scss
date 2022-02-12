@@ -1,0 +1,157 @@
+/// Values
+////
+
+
+.values__panel {
+    width: calc(var(--container-m) + var(--value-w));
+    margin-top: var(--value-offset);
+    border-top-right-radius: var(--border-radius-s);
+    border-bottom-right-radius: var(--border-radius-s);
+
+    position: sticky;
+    top: calc(var(--value-sticky-top) - 30vh); // only show back to top link
+
+    .modal & {
+        pointer-events: all; // let panels be interactable
+    }
+
+    @include respond-to(md) {
+        top: var(--value-sticky-top);
+    }
+}
+
+.values__panel-content {
+    margin-left: var(--container-m);
+    margin-right: var(--value-pr);
+    --cluster-gap: var(--column-gap);
+    transition: opacity $trans-time--s $trans-func--default,
+                transform $trans-time--m $trans-func--default;
+
+    .has-values-section & {
+        opacity: 0;
+        transform: translate3d(0, -4rem, 0);
+    }
+}
+
+.values__nav {
+    transition: opacity $trans-time--s $trans-func--default,
+                transform $trans-time--m $trans-func--default;
+    opacity: 0;
+    transform: translate3d(0, 2rem, 0);
+
+    .has-values-section & {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+
+    @include respond-to(md) {
+        position: sticky;
+        bottom: 0;
+        opacity: 1;
+        transform: none;
+
+        // Hide nav in modal before load because of sticky jump
+        .modal:not(.modal--fully-opened) & {
+            transition: none;
+            opacity: 0;
+        }
+    }
+}
+
+.values__link {
+    display: block;
+    position: relative;
+}
+
+.values__link-no {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    @include show-button();
+    transform-origin: left center;
+
+    @include hover('a') {
+        @include hide-button();
+    }
+}
+
+.values__link-title {
+    display: inline-block;
+    @include hide-button();
+    transform-origin: left center;
+
+    @include hover('a') {
+        @include show-button();
+    }
+}
+
+// trigger states based on scroll pos
+@for $i from 1 through 10 {
+    .has-values-box-#{$i} .values__link--#{$i} {
+        opacity: 1;
+
+        @include respond-to(md) {
+            .values__link-no {
+                @include hide-button();
+            }
+
+            .values__link-title {
+                @include show-button();
+            }
+        }
+    }
+}
+
+.values__link--back-to-top {
+    @include hide-button();
+    transform-origin: left center;
+
+    .has-values-section & {
+        @include show-button();
+    }
+}
+
+.values__values-list {
+    margin-top: calc(var(--value-offset) * -1);
+    position: relative;
+    visibility: hidden; // let objects behind be clickable
+
+    .modal & {
+        margin-bottom: 25vh;
+    }
+}
+
+.values__values-list-helper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: -50vh;
+    right: 0;
+    pointer-events: none;
+    visibility: hidden;
+
+    .modal & {
+        bottom: 0;
+    }
+}
+
+.values__box {
+    border-radius: var(--border-radius-s);
+    min-height: 16rem;
+    position: relative;
+    transition: transform $trans-time--l $trans-func--default;
+    visibility: visible; // reshow because .values__values-list is hidden
+
+    @include intersect(':not(.intersect-inview)') {
+        transform: translate3d(0, 50vh, 0);
+    }
+
+    @include intersect('.intersect-outofview--top.intersect-inview--before') {
+        transform: translate3d(0, -3rem, 0);
+    }
+
+    @include respond-to(md) {
+        min-height: 24rem;
+    }
+}

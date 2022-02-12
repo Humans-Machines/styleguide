@@ -1,0 +1,32 @@
+/*------------------------------------*\
+  #Teaser
+\*------------------------------------*/
+
+.teaser__title,
+.teaser__sub-title {
+    @include color-link('a');
+    --measure: 24ch !important; // Overrule utilities
+}
+
+.teaser__hint {
+    color: var(--theme-color);
+    @include bubble();
+    transition: color $trans-time--xs $trans-func--default,
+                transform $trans-time--xs $trans-func--ease-out;
+
+    // Add arrow and hover effect
+    @include arrow-link(true, 'a', true);
+
+    // Tweak arrow to current setup
+    .no-touch & {
+        &:after {
+            margin-right: -1.7ch;
+            transform: translateX(-1.25ch) scale(0.8);
+        }
+    }
+
+    // Add more group hover styles
+    @include hover('a') {
+        transform: translateX(-1.7ch);
+    }
+}

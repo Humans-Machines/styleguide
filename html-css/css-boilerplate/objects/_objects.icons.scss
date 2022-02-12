@@ -1,0 +1,53 @@
+/*------------------------------------*\
+  #ICONS
+\*------------------------------------*/
+
+/// Icon Definitions
+/// @group Icons
+/// @author Stefan Rueschenberg <Stefan@Humans-Machines.com>
+/// @author Raffael Stueken <Raffael@Humans-Machines.com>
+////
+
+.svg-ico {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+
+    > svg {
+        @include cover-box();
+    }
+}
+
+// default fill icons
+.svg-ico--pxr-logo {
+    svg {
+        fill: currentColor;
+        stroke: transparent;
+    }
+}
+
+// custom sizes
+.svg-ico--pxr-logo {
+    // 369/146 = 2.52739726
+    width: 7.5rem;
+    height: 2.8rem;
+}
+
+// default stroke icons
+// .svg-ico--pxr-etc {
+//     svg {
+//         fill: transparent;
+//         stroke: currentColor;
+//         stroke-width: $stroke-width;
+//     }
+// }
+
+// Inline Icons
+// See: https://github.com/TrySound/postcss-inline-svg
+// Definition: @svg-load icon--din-[name] url(../icons/din-[name].svg)
+// Usage: background-image: svg-inline(icon--din-[name]);
+// ---------------------------------------------------
+// @svg-load icon--din-select url(../icons/din-select.svg) {
+//     fill: $font--default;
+// }

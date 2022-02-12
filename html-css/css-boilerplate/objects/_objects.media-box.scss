@@ -1,0 +1,155 @@
+/*------------------------------------*\
+  #MEDIA-BOX
+\*------------------------------------*/
+
+/**
+ * Provide a media container in order to display media (usually images)
+ * cropped to certain ratios and provide a placeholder box while images
+ * are still loading
+ *
+ * 1. Set up a positioning context in which the image can sit.
+ * 2. This is the crucial part: where the cropping happens.
+ * 3. Show a background style before lazy images are shown
+ */
+
+// media box containing images or videos
+// by default aspect ratio is defined by content
+.media-box {
+    position: relative; // [1]
+    overflow: hidden; // [2]
+    @include border-radius();
+    transition: background 0s $trans-func--ease-out $trans-time--m,
+                transform $trans-time--m $trans-func--ease-out;
+
+    img,
+    video {
+        width: 100%;
+        transition: opacity $trans-time--xs $trans-func--default,
+                    transform $trans-time--m $trans-func--ease-out;
+
+        // Add hover style on a group hover
+        @include hover('a') {
+            transform: scale(var(--img-scale));
+        }
+    }
+}
+
+
+// media boxes with aspect ratios have a specific ratio
+.media-box--portrait,
+.media-box--landscape,
+.media-box--wide,
+.media-box--cube {
+    img,
+    video {
+        width: calc(100% + 2px);
+        height: calc(100% + 2px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+}
+
+// media-box ratios
+.media-box--portrait {
+    @include aspect-ratio($portrait-ratio);
+}
+
+.media-box--landscape {
+    @include aspect-ratio($landscape-ratio);
+}
+
+.media-box--cube {
+    @include aspect-ratio($cube-ratio);
+}
+
+// Add background as placeholder
+.media-box--bg {
+    @include bg-color('grey'); // [3]
+
+    // hide background to fix blitzer
+    &.lazy-child--loaded {
+        background: transparent;
+    }
+}
+
+// Hide Lazy images at first
+.lazy {
+    transform: scale(var(--img-scale));
+    opacity: 0;
+}
+
+// then animate in
+.lazy--loaded {
+    transform: none;
+    opacity: 1;
+}
+
+// specific animations
+
+// Animate image if 50% entered
+//
+// Animate not before
+// 1. lazy is loaded
+// 2. inview--entered class is triggered
+.media-box--trans-entered {
+    &.lazy-child:not(.lazy-child--loaded),
+    .intersection-observer .js-intersect:not(.intersect-inview--entered) & {
+        transform: scale(var(--lazy-scale));
+
+        .lazy {
+            transform: scale(var(--img-scale));
+            opacity: 0;
+        }
+    }
+}
+
+// Animate hero video on scroll
+.media-box--trans-scale {
+    transition: transform $trans-time--m $trans-func--ease-out;
+
+    video {
+        transform: scale(1.1);
+        transition: transform $trans-time--m $trans-func--ease-out;
+    }
+
+    .is-scrolled-some & {
+        transform: scale(1.15);
+
+        video {
+            transform: none;
+        }
+    }
+}
+
+
+.lazy-child {
+    // transform: scale(var(--img-scale));
+    // transform: scale(0.9);
+}
+
+// hide background for transparent pngs
+.lazy-child--loaded {
+    // transform: none;
+}
+
+/*
+.media-box--wide {
+  //  @include responsive-selector(true, s-m l) {
+    @include aspect-ratio($wide-ratio);
+  //  }
+
+  @include respond-to(grid-s) {
+    .boxes__box & {
+      @include aspect-ratio();
+    }
+  }
+}
+
+.media-box--cube {
+  //  @include responsive-selector(true, s-m l) {
+    @include aspect-ratio($cube-ratio);
+  //  }
+}*/
