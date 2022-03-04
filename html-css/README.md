@@ -9,7 +9,7 @@ Most parts of these guidelines are heavily inspired by the work of [Harry Robert
 [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)), 
 the [Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html), as well as the mindset of
 Andy Bell ([CUBE CSS](https://piccalil.li/blog/cube-css)) and [Tailwind’s](https://tailwindcss.com/) creator 
-[Adam Watham](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)!
+[Adam Watham](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/).
 
 ## Table of contents
 
